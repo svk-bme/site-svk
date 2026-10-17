@@ -1,0 +1,9 @@
+---
+import { getEntry } from 'astro:content'
+import ActionPage from '~/views/ActionPage.astro'
+
+const action = await getEntry('actions', 'delete')
+if (!action) throw new Error('Missing src/content/actions/delete.yaml')
+---
+
+<ActionPage locale="hu" action={action} />

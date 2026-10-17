@@ -1,0 +1,96 @@
+---
+import { t, type Locale } from '~/i18n'
+import { acceptAttribute, type Field } from '~/lib/forms'
+
+interface Props {
+  locale: Locale
+  formId: string
+  field: Field
+}
+
+const { locale, formId, field } = Astro.props
+const id = `${formId}-${field.id}`
+const helpId = field.help ? `${id}-help` : undefined
+const errorId = `${id}-error`
+const describedBy = [helpId, errorId].filter(Boolean).join(' ')
+const label = field.label[locale]
+const hint = field.required ? undefined : t(locale, 'forms.optional')
+const showIf = field.required_if ? `${field.required_if.field}=${field.required_if.equals}` : undefined
+const isGroup = field.type === 'single_choice' || field.type === 'multiple_choice'
+const accept = field.accept ? acceptAttribute(field.accept) : undefined
+const common = {
+  id,
+  name: field.id,
+  required: field.required,
+  'aria-describedby': describedBy,
+  'data-required-unless': field.required_unless,
+}
+---
+
+{
+  isGroup ? (
+    <fieldset
+      class="field"
+      data-field={field.id}
+      data-controls-other={field.options?.some((o) => o.value === 'other') ? '' : undefined}
+      data-required={field.type === 'multiple_choice' && field.required ? '' : undefined}
+      aria-describedby={describedBy}
+    >
+      <legend class="field__label">
+        {label}
+        {hint && <span class="field__hint">({hint})</span>}
+      </legend>
+      {field.options?.map((option) => (
+        <label class="choice">
+          <input
+            type={field.type === 'single_choice' ? 'radio' : 'checkbox'}
+            name={field.id}
+            value={option.value}
+            required={field.type === 'single_choice' && field.required}
+          />
+          <span>{option.label[locale]}</span>
+        </label>
+      ))}
+      {helpId && <p class="field__help" id={helpId}>{field.help![locale]}</p>}
+      <p class="field__error" id={errorId} aria-live="polite" />
+    </fieldset>
+  ) : field.type === 'checkbox' || field.type === 'consent' ? (
+    <div class="field" data-field={field.id}>
+      <label class="choice">
+        <input type="checkbox" value="true" {...common} />
+        <span>
+          {label}
+          {hint && <span class="field__hint"> ({hint})</span>}
+        </span>
+      </label>
+      {helpId && <p class="field__help" id={helpId}>{field.help![locale]}</p>}
+      <p class="field__error" id={errorId} aria-live="polite" />
+    </div>
+  ) : (
+    <div class="field" data-field={field.id} data-show-if={showIf}>
+      <label class="field__label" for={id}>
+        {label}
+        {hint && !showIf && <span class="field__hint"> ({hint})</span>}
+      </label>
+      {field.type === 'textarea' ? (
+        <textarea class="input" maxlength={field.max_length} rows="6" {...common} />
+      ) : (
+        <input
+          class="input"
+          type={field.type as 'text' | 'email' | 'tel' | 'number' | 'file'}
+          maxlength={field.max_length}
+          min={field.min}
+          max={field.max}
+          step={field.integer ? 1 : undefined}
+          inputmode={field.type === 'number' ? 'numeric' : undefined}
+          autocomplete={field.autocomplete}
+          accept={accept}
+          data-max-size-mb={field.max_mb}
+          {...common}
+        />
+      )}
+      {helpId && <p class="field__help" id={helpId}>{field.help![locale]}</p>}
+      <p class="field__error" id={errorId} aria-live="polite" />
+    </div>
+  )
+}

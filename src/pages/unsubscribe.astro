@@ -1,0 +1,9 @@
+---
+import { getEntry } from 'astro:content'
+import ActionPage from '~/views/ActionPage.astro'
+
+const action = await getEntry('actions', 'unsubscribe')
+if (!action) throw new Error('Missing src/content/actions/unsubscribe.yaml')
+---
+
+<ActionPage locale="hu" action={action} />

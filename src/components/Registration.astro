@@ -1,0 +1,87 @@
+---
+import Form from '~/components/Form.astro'
+import { formatDate, t, type Locale } from '~/i18n'
+import { registrationCloses, registrationState, type Event } from '~/lib/events'
+import { eventFormId, eventRegistrationForm } from '~/lib/forms'
+import { formsApiUrl, settings } from '~/lib/site'
+
+// Registration block of an event page. The state is computed at build time and checked
+// again in the browser: dates against the clock, capacity ("full") with service-forms.
+
+interface Props {
+  locale: Locale
+  event: Event
+}
+
+const { locale, event } = Astro.props
+const form = await eventRegistrationForm(event)
+const state = registrationState(event)
+const { opens } = event.data.registration
+const closes = registrationCloses(event)
+const date = (d: Date) => formatDate(locale, d, settings.timezone)
+const messages = {
+  upcoming: opens ? t(locale, 'events.state.upcoming', { date: date(opens) }) : '',
+  open: event.data.registration.closes
+    ? t(locale, 'events.state.openUntil', { date: date(closes) })
+    : t(locale, 'events.state.open'),
+  full: t(locale, 'events.state.full'),
+  closed: t(locale, 'events.state.closed'),
+  past: t(locale, 'events.state.past'),
+}
+---
+
+{
+  form && state && (
+    <section
+      class="section"
+      aria-labelledby="registration"
+      data-registration
+      data-state={state}
+      data-opens={opens?.toISOString()}
+      data-closes={closes.toISOString()}
+      data-start={event.data.start.toISOString()}
+      data-status-url={formsApiUrl ? `${formsApiUrl}/${eventFormId(event)}/status` : undefined}
+      data-messages={JSON.stringify(messages)}
+    >
+      <h2 id="registration">{t(locale, 'events.registration')}</h2>
+      <p class="notice" data-registration-state>
+        {messages[state]}
+      </p>
+      {state !== 'past' && state !== 'closed' && <Form locale={locale} form={form} hidden={state !== 'open'} />}
+    </section>
+  )
+}
+
+<script>
+  type State = 'upcoming' | 'open' | 'full' | 'closed' | 'past'
+
+  document.querySelectorAll<HTMLElement>('[data-registration]').forEach(async (section) => {
+    const { opens, closes, start, statusUrl } = section.dataset
+    const messages = JSON.parse(section.dataset.messages!) as Record<State, string>
+    const form = section.querySelector<HTMLFormElement>('form[data-form]')
+    const wrapper = section.querySelector<HTMLElement>('[data-form-wrapper]')
+    const show = (state: State) => {
+      section.dataset.state = state
+      section.querySelector('[data-registration-state]')!.textContent = messages[state]
+      if (form) form.hidden = state !== 'open'
+      if (wrapper) wrapper.hidden = state === 'past' || state === 'closed' || state === 'full'
+    }
+
+    const now = Date.now()
+    let state: State = 'open'
+    if (start && now >= Date.parse(start)) state = 'past'
+    else if (opens && now < Date.parse(opens)) state = 'upcoming'
+    else if (closes && now >= Date.parse(closes)) state = 'closed'
+    show(state)
+
+    if (!statusUrl || state === 'past') return
+    try {
+      const response = await fetch(statusUrl, { headers: { Accept: 'application/json' } })
+      if (!response.ok) return
+      const status = (await response.json()) as { state?: State }
+      if (status.state && status.state in messages) show(status.state)
+    } catch {
+      // Keep the date-based state; the service checks again on submit.
+    }
+  })
+</script>

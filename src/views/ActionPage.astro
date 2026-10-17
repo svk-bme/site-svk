@@ -1,0 +1,89 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import { localePath, md, t, tr, type Locale } from '~/i18n'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import { formsApiUrl, settings } from '~/lib/site'
+
+// Pages that email links open: /confirm, /unsubscribe, /delete with ?token=…
+// Opening the link changes nothing; the button POSTs the token to the form service
+// (so mail scanners that follow links cannot act for anyone), then the result page is shown.
+
+interface Props {
+  locale: Locale
+  action: CollectionEntry<'actions'>
+}
+
+const { locale, action } = Astro.props
+const title = tr(locale, action.data.title)
+const email = settings.contact.email
+const emailLink = `<a href="mailto:${email}">${email}</a>`
+---
+
+<BaseLayout locale={locale} title={title} noindex>
+  <div class="section container">
+    <h1>{title}</h1>
+    <div class="prose" set:html={md(locale, action.data.body)} />
+    {
+      formsApiUrl ? (
+        <form
+          class="form"
+          method="post"
+          action={`${formsApiUrl}/${action.id}`}
+          data-action-form
+          data-lang={locale}
+          data-endpoint={`${formsApiUrl}/${action.id}`}
+          data-result-url={localePath(locale, `/status/${action.data.result}`)}
+          data-invalid-url={localePath(locale, '/status/link-invalid')}
+          data-msg-sending={t(locale, 'forms.sending')}
+          data-msg-error={t(locale, 'forms.errorGeneric', { email: emailLink })}
+          data-msg-network={t(locale, 'forms.errorNetwork')}
+        >
+          <noscript>
+            <p class="notice notice--error">{t(locale, 'actions.needsJs')}</p>
+          </noscript>
+          <p class="form__status notice notice--error" role="status" aria-live="polite" data-form-status />
+          <div>
+            <button class="button" type="submit">
+              {tr(locale, action.data.button)}
+            </button>
+          </div>
+        </form>
+      ) : (
+        <p class="notice" set:html={t(locale, 'forms.comingSoon', { email: emailLink })} />
+      )
+    }
+  </div>
+</BaseLayout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('form[data-action-form]')
+  if (form) {
+    const token = new URLSearchParams(location.search).get('token')
+    if (!token) location.replace(form.dataset.invalidUrl!)
+    const status = form.querySelector<HTMLElement>('[data-form-status]')!
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault()
+      const label = button.textContent
+      button.disabled = true
+      button.textContent = form.dataset.msgSending!
+      status.innerHTML = ''
+      try {
+        const response = await fetch(form.dataset.endpoint!, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ _token: token, _lang: form.dataset.lang }),
+        })
+        const result = (await response.json().catch(() => ({}))) as { result?: string; message?: string }
+        if (response.ok) return location.assign(form.dataset.resultUrl!)
+        if (result.result === 'link_invalid') return location.assign(form.dataset.invalidUrl!)
+        status.innerHTML = result.message ? '' : form.dataset.msgError!
+        if (result.message) status.textContent = result.message
+      } catch {
+        status.textContent = form.dataset.msgNetwork!
+      }
+      button.disabled = false
+      button.textContent = label
+    })
+  }
+</script>

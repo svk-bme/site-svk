@@ -1,0 +1,82 @@
+---
+import Field from '~/components/Field.astro'
+import { localePath, md, mdInline, t, type Locale } from '~/i18n'
+import type { FormDefinition } from '~/lib/forms'
+import { formsApiUrl, getFormTexts, settings } from '~/lib/site'
+
+// Renders any form definition from ~/lib/forms. Every form states its purpose and retention
+// and links to the privacy page. Without a forms API URL in the settings it shows "coming soon".
+
+interface Props {
+  locale: Locale
+  form: FormDefinition
+  /** Hide the form at first (event registration that is not open at build time) */
+  hidden?: boolean
+}
+
+const { locale, form, hidden = false } = Astro.props
+const content = await getFormTexts(form.kind)
+const email = settings.contact.email
+const emailLink = `<a href="mailto:${email}">${email}</a>`
+const endpoint = formsApiUrl ? `${formsApiUrl}/${form.id}` : undefined
+const html = (key: string) => t(locale, key, { email: emailLink })
+---
+
+<div class="stack" data-form-wrapper={form.id}>
+  <div class="form__about">
+    <Fragment set:html={md(locale, content.purpose)} />
+    <p>
+      <strong>{t(locale, 'forms.retention')}</strong>{' '}
+      <Fragment set:html={mdInline(locale, content.retention)} />{' '}
+      <a href={localePath(locale, '/privacy')}>{t(locale, 'forms.privacyLink')}</a>
+    </p>
+  </div>
+  {
+    endpoint ? (
+      <form
+        class="form"
+        method="post"
+        action={endpoint}
+        novalidate
+        hidden={hidden}
+        data-form={form.id}
+        data-endpoint={endpoint}
+        data-prefill={form.prefill && formsApiUrl ? `${formsApiUrl}/prefill` : undefined}
+        data-lang={locale}
+        data-msg-sending={t(locale, 'forms.sending')}
+        data-msg-success={form.success[locale]}
+        data-msg-error={html('forms.errorGeneric')}
+        data-msg-network={t(locale, 'forms.errorNetwork')}
+        data-msg-fields={t(locale, 'forms.errorFields')}
+        data-msg-choose-one={t(locale, 'forms.chooseOne')}
+        data-msg-prefill={t(locale, 'forms.prefillFailed')}
+      >
+        <div class="form__trap" aria-hidden="true">
+          <label>
+            {t(locale, 'forms.honeypot')}
+            <input type="text" name="_hp" tabindex="-1" autocomplete="off" />
+          </label>
+        </div>
+        {Object.entries(form.hidden ?? {}).map(([name, value]) => (
+          <input type="hidden" name={name} value={value} />
+        ))}
+        {form.fields.map((field) => (
+          <Field locale={locale} formId={form.id} field={field} />
+        ))}
+        <p class="form__status notice" role="status" aria-live="polite" data-form-status />
+        <div>
+          <button class="button" type="submit">
+            {t(locale, 'forms.submit')}
+          </button>
+        </div>
+      </form>
+    ) : (
+      <p class="notice" set:html={html('forms.comingSoon')} />
+    )
+  }
+</div>
+
+<script>
+  import { setupForm } from '~/scripts/forms'
+  document.querySelectorAll<HTMLFormElement>('form[data-form]').forEach(setupForm)
+</script>
