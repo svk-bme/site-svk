@@ -134,10 +134,16 @@ collections:
         label: External link (tiles link here instead of the event page)
         widget: string
         required: false
+        pattern:
+          - ^https?://[^ ]+$
+          - Enter a full address starting with https://
       - name: album_link
         label: Photo album link
         widget: string
         required: false
+        pattern:
+          - ^https?://[^ ]+$
+          - Enter a full address starting with https://
       - name: registration
         label: Registration
         widget: object
@@ -427,6 +433,9 @@ collections:
         label: LinkedIn link
         widget: string
         required: false
+        pattern:
+          - ^https?://[^ ]+$
+          - Enter a full address starting with https://
   - name: partners
     label: Partners
     label_singular: Partner
@@ -456,6 +465,9 @@ collections:
         label: Website
         widget: string
         required: false
+        pattern:
+          - ^https?://[^ ]+$
+          - Enter a full address starting with https://
       - name: order
         label: Order (lower comes first)
         widget: number
@@ -963,6 +975,9 @@ collections:
               - name: url
                 label: Link
                 widget: string
+                pattern:
+                  - ^https?://[^ ]+$
+                  - Enter a full address starting with https://
               - name: icon
                 label: Icon
                 widget: select
@@ -1002,6 +1017,9 @@ collections:
                 widget: string
                 required: false
                 hint: 'Set by the infra lead: the address of the form service, ending in /api/forms. Empty: forms show "coming soon".'
+                pattern:
+                  - ^https?://[^ ]+$
+                  - Enter a full address starting with https://
           - name: analytics
             label: Analytics
             widget: object
@@ -1012,6 +1030,9 @@ collections:
                 label: GoatCounter address
                 widget: string
                 required: false
+                pattern:
+                  - ^https?://[^ ]+$
+                  - Enter a full address starting with https://
           - name: name
             label: Site name
             widget: object

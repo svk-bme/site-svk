@@ -24,10 +24,19 @@ const date = z.union([z.date(), z.string()]).transform((value, ctx) => {
     return z.NEVER
   }
 })
-const optionalDate = date.nullish()
+
+/**
+ * An optional value. The CMS saves a field left empty as '' (or null), so both mean "not set".
+ * Use this for every optional URL, date, image and address.
+ */
+const optional = <T extends z.ZodType>(schema: T) =>
+  z.preprocess((value) => (value === '' || value === null ? undefined : value), schema.optional())
+
+const optionalDate = optional(date)
+const optionalUrl = optional(z.url({ protocol: /^https?$/, error: 'Expected a full address starting with https://' }))
 
 /** Who receives a test copy of an email whenever its text changes (empty: nobody). */
-const testTo = z.email().nullish().or(z.literal(''))
+const testTo = optional(z.email())
 
 /** Required text in both languages (English optional, falls back to Hungarian). */
 const text = z.object({
@@ -100,12 +109,12 @@ const events = defineCollection({
         speaker: optionalText,
         // Markdown
         description: optionalText,
-        image: image().nullish(),
+        image: optional(image()),
         image_alt: optionalText,
         // If set, event tiles link here instead of the event page (e.g. the MeetUp site).
-        external_link: z.url().nullish(),
+        external_link: optionalUrl,
         // Photo album after the event
-        album_link: z.url().nullish(),
+        album_link: optionalUrl,
         // Drafts are only built on the preview site (SHOW_DRAFTS=true).
         draft: z.boolean().default(false),
         registration: z
@@ -143,9 +152,9 @@ const members = defineCollection({
       role: optionalText,
       // Lower number comes first
       order: z.number().default(100),
-      photo: image().nullish(),
+      photo: optional(image()),
       description: optionalText,
-      linkedin: z.url().nullish(),
+      linkedin: optionalUrl,
       active: z.boolean().default(true),
     }),
 })
@@ -156,7 +165,7 @@ const partners = defineCollection({
     z.object({
       name: z.string(),
       logo: image(),
-      link: z.url().nullish(),
+      link: optionalUrl,
       order: z.number().default(100),
       active: z.boolean().default(true),
     }),
@@ -173,7 +182,7 @@ const pages = defineCollection({
       // Markdown
       intro: optionalText,
       body: optionalText,
-      image: image().nullish(),
+      image: optional(image()),
       image_alt: optionalText,
       // Call-to-action boxes (home page)
       ctas: z
@@ -321,7 +330,7 @@ const settings = defineCollection({
     }),
     forms: z.object({
       // Base URL of service-forms, ending in /api/forms. Empty: forms show "coming soon".
-      api_url: z.url().nullish().or(z.literal('')),
+      api_url: optionalUrl,
       // Name of this site in the form service's configuration ([[sources]] name)
       source: key,
     }),
@@ -334,7 +343,7 @@ const settings = defineCollection({
     analytics: z
       .object({
         // GoatCounter endpoint (…/count). Empty: no analytics.
-        goatcounter: z.url().nullish().or(z.literal('')),
+        goatcounter: optionalUrl,
       })
       .nullish(),
   }),
