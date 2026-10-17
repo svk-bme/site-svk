@@ -1,0 +1,2331 @@
+# Sveltia CMS configuration (https://sveltiacms.app). Mirrors src/content.config.ts; change both together.
+# Bilingual fields are objects with hu and en. Dates are Budapest wall-clock times (2027-04-15T18:00);
+# the build adds the offset valid on that date.
+# backend.app_id: Client ID of the OAuth application on git.sch.bme.hu (see README).
+
+backend:
+  name: gitlab
+  repo: svk/site-svk
+  branch: main
+  base_url: https://git.sch.bme.hu
+  api_root: https://git.sch.bme.hu/api/v4
+  auth_type: pkce
+  app_id: SET_GITLAB_OAUTH_APP_ID
+site_url: https://svk.bme.hu
+display_url: https://svk.bme.hu
+media_folder: public/uploads
+public_folder: /uploads
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: "-"
+collections:
+  - name: events
+    label: Events
+    label_singular: Event
+    folder: src/content/events
+    extension: yaml
+    format: yaml
+    create: true
+    slug: "{{fields.title.hu}}"
+    identifier_field: title.hu
+    summary: "{{title.hu}} ({{start | date('YYYY-MM-DD')}})"
+    sortable_fields:
+      - start
+      - title.hu
+    media_folder: /src/content/events
+    public_folder: ""
+    fields:
+      - name: draft
+        label: Draft (only on the preview site)
+        widget: boolean
+        default: true
+      - name: title
+        label: Title
+        widget: object
+        collapsed: false
+        required: true
+        fields:
+          - name: hu
+            label: Magyar
+            widget: string
+            required: true
+          - name: en
+            label: English
+            widget: string
+            required: false
+            hint: "Empty: the Hungarian text is shown."
+      - name: start
+        label: Start
+        widget: datetime
+        format: YYYY-MM-DDTHH:mm
+        hint: Budapest time
+      - name: end
+        label: End
+        widget: datetime
+        format: YYYY-MM-DDTHH:mm
+        hint: Budapest time
+        required: false
+      - name: place
+        label: Place
+        widget: object
+        collapsed: false
+        required: false
+        fields:
+          - name: hu
+            label: Magyar
+            widget: string
+            required: false
+          - name: en
+            label: English
+            widget: string
+            required: false
+            hint: "Empty: the Hungarian text is shown."
+      - name: speaker
+        label: Speaker
+        widget: object
+        collapsed: false
+        required: false
+        fields:
+          - name: hu
+            label: Magyar
+            widget: string
+            required: false
+          - name: en
+            label: English
+            widget: string
+            required: false
+            hint: "Empty: the Hungarian text is shown."
+      - name: description
+        label: Description
+        widget: object
+        collapsed: false
+        required: false
+        fields:
+          - name: hu
+            label: Magyar
+            widget: markdown
+            required: false
+          - name: en
+            label: English
+            widget: markdown
+            required: false
+            hint: "Empty: the Hungarian text is shown."
+      - name: image
+        label: Image
+        widget: image
+        required: false
+      - name: image_alt
+        label: Image description (for screen readers)
+        widget: object
+        collapsed: false
+        required: false
+        fields:
+          - name: hu
+            label: Magyar
+            widget: string
+            required: false
+          - name: en
+            label: English
+            widget: string
+            required: false
+            hint: "Empty: the Hungarian text is shown."
+      - name: external_link
+        label: External link (tiles link here instead of the event page)
+        widget: string
+        required: false
+      - name: album_link
+        label: Photo album link
+        widget: string
+        required: false
+      - name: registration
+        label: Registration
+        widget: object
+        collapsed: true
+        fields:
+          - name: enabled
+            label: Registration on this site
+            widget: boolean
+            default: false
+          - name: capacity
+            label: Capacity
+            widget: number
+            value_type: int
+            min: 1
+            required: false
+            hint: "Empty: no limit"
+          - name: opens
+            label: Opens
+            widget: datetime
+            format: YYYY-MM-DDTHH:mm
+            hint: "Empty: open right away"
+            required: false
+          - name: closes
+            label: Closes
+            widget: datetime
+            format: YYYY-MM-DDTHH:mm
+            hint: "Empty: when the event starts"
+            required: false
+          - name: extra_fields
+            label: Extra questions
+            widget: list
+            required: false
+            fields:
+              - name: label
+                label: Question
+                widget: object
+                collapsed: false
+                required: true
+                fields:
+                  - name: hu
+                    label: Magyar
+                    widget: string
+                    required: true
+                  - name: en
+                    label: English
+                    widget: string
+                    required: false
+                    hint: "Empty: the Hungarian text is shown."
+              - name: help
+                label: Help text
+                widget: object
+                collapsed: false
+                required: false
+                fields:
+                  - name: hu
+                    label: Magyar
+                    widget: string
+                    required: false
+                  - name: en
+                    label: English
+                    widget: string
+                    required: false
+                    hint: "Empty: the Hungarian text is shown."
+              - name: type
+                label: Type
+                widget: select
+                options:
+                  - label: Short text
+                    value: text
+                  - label: Long text
+                    value: textarea
+                  - label: Single choice
+                    value: single_choice
+                  - label: Multiple choice
+                    value: multiple_choice
+                  - label: Checkbox (yes/no)
+                    value: checkbox
+              - name: options
+                label: Options (for choice types)
+                widget: list
+                required: false
+                summary: "{{hu}}"
+                fields:
+                  - name: hu
+                    label: Magyar
+                    widget: string
+                  - name: en
+                    label: English
+                    widget: string
+                    required: false
+                  - name: value
+                    label: Stored value
+                    widget: string
+                    required: false
+                    pattern:
+                      - ^[a-z0-9_]*$
+                      - Lowercase letters, digits and _ only
+                    hint: "Optional. Keeps answers stable if you later rename the option. Empty: made from the Hungarian text."
+              - name: required
+                label: Required
+                widget: boolean
+                default: false
+              - name: id
+                label: Column key
+                widget: string
+                required: false
+                pattern:
+                  - ^[a-z0-9_]*$
+                  - Lowercase letters, digits and _ only
+                hint: "Optional. Keeps the sheet column stable if you later change the question. Empty: made from the Hungarian question."
+            summary: "{{label.hu}}"
+            hint: Name, email, studies and consent are always asked.
+      - name: reminder
+        label: Reminder email
+        widget: object
+        collapsed: true
+        required: false
+        fields:
+          - name: enabled
+            label: Send this email
+            widget: boolean
+            default: false
+          - name: subject
+            label: Subject
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: string
+                required: false
+              - name: en
+                label: English
+                widget: string
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: body
+            label: Text
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: text
+                required: false
+              - name: en
+                label: English
+                widget: text
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+            hint: "Placeholders: {name}, {event_title}, {date}, {place}, {event_url}"
+          - name: test_to
+            label: Send a test copy to
+            widget: string
+            required: false
+            hint: Optional. A test copy goes to this address whenever the text changes.
+          - name: hours_before
+            label: Hours before the start
+            widget: number
+            value_type: int
+            default: 24
+            min: 1
+      - name: confirmation
+        label: Registration confirmation email
+        widget: object
+        collapsed: true
+        required: false
+        fields:
+          - name: enabled
+            label: Send this email
+            widget: boolean
+            default: false
+          - name: subject
+            label: Subject
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: string
+                required: false
+              - name: en
+                label: English
+                widget: string
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: body
+            label: Text
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: text
+                required: false
+              - name: en
+                label: English
+                widget: text
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+            hint: "Placeholders: {name}, {event_title}, {date}, {place}, {event_url}"
+          - name: test_to
+            label: Send a test copy to
+            widget: string
+            required: false
+            hint: Optional. A test copy goes to this address whenever the text changes.
+  - name: members
+    label: Members
+    label_singular: Member
+    folder: src/content/members
+    extension: yaml
+    format: yaml
+    create: true
+    slug: "{{fields.name.hu}}"
+    identifier_field: name.hu
+    summary: "{{name.hu}}"
+    sortable_fields:
+      - order
+      - name.hu
+    media_folder: /src/content/members
+    public_folder: ""
+    fields:
+      - name: active
+        label: Shown on the site
+        widget: boolean
+        default: true
+      - name: name
+        label: Name
+        widget: object
+        collapsed: false
+        required: true
+        fields:
+          - name: hu
+            label: Magyar
+            widget: string
+            required: true
+          - name: en
+            label: English
+            widget: string
+            required: false
+            hint: "Empty: the Hungarian text is shown."
+        hint: Hungarian order in Magyar ("Szigeti Tibor"), English order in English ("Tibor Szigeti")
+      - name: role
+        label: Role
+        widget: object
+        collapsed: false
+        required: false
+        fields:
+          - name: hu
+            label: Magyar
+            widget: string
+            required: false
+          - name: en
+            label: English
+            widget: string
+            required: false
+            hint: "Empty: the Hungarian text is shown."
+      - name: order
+        label: Order (lower comes first)
+        widget: number
+        value_type: int
+        default: 100
+      - name: photo
+        label: Photo
+        widget: image
+        required: false
+      - name: description
+        label: Description
+        widget: object
+        collapsed: false
+        required: false
+        fields:
+          - name: hu
+            label: Magyar
+            widget: markdown
+            required: false
+          - name: en
+            label: English
+            widget: markdown
+            required: false
+            hint: "Empty: the Hungarian text is shown."
+      - name: linkedin
+        label: LinkedIn link
+        widget: string
+        required: false
+  - name: partners
+    label: Partners
+    label_singular: Partner
+    folder: src/content/partners
+    extension: yaml
+    format: yaml
+    create: true
+    slug: "{{fields.name}}"
+    identifier_field: name
+    sortable_fields:
+      - order
+      - name
+    media_folder: /src/content/partners
+    public_folder: ""
+    fields:
+      - name: active
+        label: Shown on the site
+        widget: boolean
+        default: true
+      - name: name
+        label: Name
+        widget: string
+      - name: logo
+        label: Logo
+        widget: image
+      - name: link
+        label: Website
+        widget: string
+        required: false
+      - name: order
+        label: Order (lower comes first)
+        widget: number
+        value_type: int
+        default: 100
+  - name: pages
+    label: Pages
+    media_folder: /src/content/pages
+    public_folder: ""
+    files:
+      - name: home
+        label: Home
+        file: src/content/pages/home.yaml
+        fields:
+          - name: title
+            label: Title
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: string
+                required: true
+              - name: en
+                label: English
+                widget: string
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: description
+            label: Short description (search engines, link previews)
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: text
+                required: false
+              - name: en
+                label: English
+                widget: text
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: intro
+            label: Introduction
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: markdown
+                required: false
+              - name: en
+                label: English
+                widget: markdown
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: ctas
+            label: Call-to-action boxes
+            widget: list
+            required: false
+            summary: "{{title.hu}}"
+            fields:
+              - name: title
+                label: Title
+                widget: object
+                collapsed: false
+                required: true
+                fields:
+                  - name: hu
+                    label: Magyar
+                    widget: string
+                    required: true
+                  - name: en
+                    label: English
+                    widget: string
+                    required: false
+                    hint: "Empty: the Hungarian text is shown."
+              - name: text
+                label: Text
+                widget: object
+                collapsed: false
+                required: false
+                fields:
+                  - name: hu
+                    label: Magyar
+                    widget: text
+                    required: false
+                  - name: en
+                    label: English
+                    widget: text
+                    required: false
+                    hint: "Empty: the Hungarian text is shown."
+              - name: button
+                label: Button
+                widget: object
+                collapsed: false
+                required: true
+                fields:
+                  - name: hu
+                    label: Magyar
+                    widget: string
+                    required: true
+                  - name: en
+                    label: English
+                    widget: string
+                    required: false
+                    hint: "Empty: the Hungarian text is shown."
+              - name: link
+                label: Link
+                widget: string
+                hint: A page of this site without the language (/join, /companies#contact) or a full URL
+      - name: about
+        label: About
+        file: src/content/pages/about.yaml
+        fields:
+          - name: title
+            label: Title
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: string
+                required: true
+              - name: en
+                label: English
+                widget: string
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: description
+            label: Short description (search engines, link previews)
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: text
+                required: false
+              - name: en
+                label: English
+                widget: text
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: image
+            label: Banner image
+            widget: image
+            required: false
+          - name: image_alt
+            label: Banner description (for screen readers)
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: string
+                required: false
+              - name: en
+                label: English
+                widget: string
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: intro
+            label: Introduction
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: markdown
+                required: false
+              - name: en
+                label: English
+                widget: markdown
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: body
+            label: Text
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: markdown
+                required: false
+              - name: en
+                label: English
+                widget: markdown
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+      - name: companies
+        label: For companies
+        file: src/content/pages/companies.yaml
+        fields:
+          - name: title
+            label: Title
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: string
+                required: true
+              - name: en
+                label: English
+                widget: string
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: description
+            label: Short description (search engines, link previews)
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: text
+                required: false
+              - name: en
+                label: English
+                widget: text
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: intro
+            label: Introduction
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: markdown
+                required: false
+              - name: en
+                label: English
+                widget: markdown
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: body
+            label: What we offer
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: markdown
+                required: false
+              - name: en
+                label: English
+                widget: markdown
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+      - name: events
+        label: Events
+        file: src/content/pages/events.yaml
+        fields:
+          - name: title
+            label: Title
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: string
+                required: true
+              - name: en
+                label: English
+                widget: string
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: description
+            label: Short description (search engines, link previews)
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: text
+                required: false
+              - name: en
+                label: English
+                widget: text
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: intro
+            label: Introduction
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: markdown
+                required: false
+              - name: en
+                label: English
+                widget: markdown
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+      - name: join
+        label: Join us
+        file: src/content/pages/join.yaml
+        fields:
+          - name: title
+            label: Title
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: string
+                required: true
+              - name: en
+                label: English
+                widget: string
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: description
+            label: Short description (search engines, link previews)
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: text
+                required: false
+              - name: en
+                label: English
+                widget: text
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: intro
+            label: Introduction (always shown)
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: markdown
+                required: false
+              - name: en
+                label: English
+                widget: markdown
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+            hint: The season texts are in Settings > Recruitment.
+      - name: privacy
+        label: Privacy
+        file: src/content/pages/privacy.yaml
+        fields:
+          - name: title
+            label: Title
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: string
+                required: true
+              - name: en
+                label: English
+                widget: string
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: description
+            label: Short description (search engines, link previews)
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: text
+                required: false
+              - name: en
+                label: English
+                widget: text
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: intro
+            label: General information
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: markdown
+                required: false
+              - name: en
+                label: English
+                widget: markdown
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+            hint: The details of each form come from Forms.
+  - name: settings
+    label: Settings
+    files:
+      - name: site
+        label: Site settings
+        file: src/content/settings/site.yaml
+        fields:
+          - name: recruitment
+            label: Recruitment
+            widget: object
+            collapsed: false
+            fields:
+              - name: status
+                label: Status
+                widget: select
+                options:
+                  - label: Closed (interest form)
+                    value: closed
+                  - label: Open (application form)
+                    value: open
+                hint: "Open: applications are accepted between the dates below. The site rebuilds every night."
+              - name: opens
+                label: Season opens
+                widget: datetime
+                format: YYYY-MM-DDTHH:mm
+                hint: Budapest time
+                required: false
+              - name: closes
+                label: Season closes
+                widget: datetime
+                format: YYYY-MM-DDTHH:mm
+                hint: Budapest time
+                required: false
+              - name: expected_text
+                label: Text while closed
+                widget: object
+                collapsed: false
+                required: true
+                fields:
+                  - name: hu
+                    label: Magyar
+                    widget: markdown
+                    required: true
+                  - name: en
+                    label: English
+                    widget: markdown
+                    required: false
+                    hint: "Empty: the Hungarian text is shown."
+              - name: intro
+                label: Text while open
+                widget: object
+                collapsed: false
+                required: true
+                fields:
+                  - name: hu
+                    label: Magyar
+                    widget: markdown
+                    required: true
+                  - name: en
+                    label: English
+                    widget: markdown
+                    required: false
+                    hint: "Empty: the Hungarian text is shown."
+          - name: contact
+            label: Contact
+            widget: object
+            fields:
+              - name: email
+                label: Email
+                widget: string
+              - name: address
+                label: Address
+                widget: object
+                collapsed: false
+                required: false
+                fields:
+                  - name: hu
+                    label: Magyar
+                    widget: text
+                    required: false
+                  - name: en
+                    label: English
+                    widget: text
+                    required: false
+                    hint: "Empty: the Hungarian text is shown."
+          - name: social
+            label: Social links
+            widget: list
+            required: false
+            summary: "{{label}}"
+            fields:
+              - name: label
+                label: Name
+                widget: string
+              - name: url
+                label: Link
+                widget: string
+              - name: icon
+                label: Icon
+                widget: select
+                options:
+                  - facebook
+                  - instagram
+                  - linkedin
+                  - mail
+                  - link
+                default: link
+          - name: events
+            label: Events
+            widget: object
+            collapsed: true
+            fields:
+              - name: home_count
+                label: Upcoming events on the home page
+                widget: number
+                value_type: int
+                min: 0
+              - name: default_duration_minutes
+                label: Default event length (minutes, for calendars)
+                widget: number
+                value_type: int
+                min: 1
+          - name: forms
+            label: Forms
+            widget: object
+            collapsed: true
+            fields:
+              - name: source
+                label: Site name in the form service
+                widget: string
+                hint: Set by the infra lead; matches the service configuration.
+              - name: api_url
+                label: Form service address
+                widget: string
+                required: false
+                hint: 'Set by the infra lead, e.g. https://svk.bme.hu/api/forms. Empty: forms show "coming soon".'
+          - name: analytics
+            label: Analytics
+            widget: object
+            collapsed: true
+            required: false
+            fields:
+              - name: goatcounter
+                label: GoatCounter address
+                widget: string
+                required: false
+          - name: name
+            label: Site name
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: string
+                required: true
+              - name: en
+                label: English
+                widget: string
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: short_name
+            label: Short name
+            widget: string
+          - name: description
+            label: Default description
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: text
+                required: true
+              - name: en
+                label: English
+                widget: text
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: site_url
+            label: Site address
+            widget: string
+          - name: timezone
+            label: Timezone
+            widget: string
+  - name: forms
+    label: Forms
+    files:
+      - name: event-registration
+        label: Event registration (all events)
+        file: src/content/forms/event-registration.yaml
+        fields:
+          - name: title
+            label: Title
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: string
+                required: true
+              - name: en
+                label: English
+                widget: string
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: order
+            label: Order on the privacy page
+            widget: number
+            value_type: int
+            default: 100
+          - name: purpose
+            label: Purpose
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: markdown
+                required: true
+              - name: en
+                label: English
+                widget: markdown
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: collected
+            label: What is collected
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: markdown
+                required: false
+              - name: en
+                label: English
+                widget: markdown
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: retention
+            label: Retention (in words)
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: text
+                required: true
+              - name: en
+                label: English
+                widget: text
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: duplicates
+            label: Same email address again
+            widget: select
+            options:
+              - label: Reject it
+                value: reject
+              - label: Update the earlier answers
+                value: update
+              - label: Allow it
+                value: allow
+          - name: retention_policy
+            label: Retention (for the form service)
+            widget: object
+            collapsed: true
+            hint: Must match the text above.
+            fields:
+              - name: anchor
+                label: Counted from
+                widget: select
+                options:
+                  - label: Submission
+                    value: submitted
+                  - label: End of the event
+                    value: event_end
+                  - label: Close of the recruitment season
+                    value: season_close
+                  - label: Close of the next recruitment season
+                    value: next_season_close
+                  - label: Last contact
+                    value: last_contact
+              - name: days
+                label: Days
+                widget: number
+                value_type: int
+                min: 0
+                default: 0
+              - name: min_days
+                label: At least this many days after submission
+                widget: number
+                value_type: int
+                min: 0
+                required: false
+          - name: withdraw
+            label: How to withdraw
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: markdown
+                required: false
+              - name: en
+                label: English
+                widget: markdown
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: consent
+            label: Consent checkbox
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: text
+                required: false
+              - name: en
+                label: English
+                widget: text
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+            hint: "Empty: no consent checkbox"
+          - name: success
+            label: Message after sending
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: text
+                required: true
+              - name: en
+                label: English
+                widget: text
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: notify
+            label: Notify these addresses of each submission
+            widget: list
+            required: false
+      - name: interest
+        label: Interest (join us, closed)
+        file: src/content/forms/interest.yaml
+        fields:
+          - name: title
+            label: Title
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: string
+                required: true
+              - name: en
+                label: English
+                widget: string
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: order
+            label: Order on the privacy page
+            widget: number
+            value_type: int
+            default: 100
+          - name: purpose
+            label: Purpose
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: markdown
+                required: true
+              - name: en
+                label: English
+                widget: markdown
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: collected
+            label: What is collected
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: markdown
+                required: false
+              - name: en
+                label: English
+                widget: markdown
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: retention
+            label: Retention (in words)
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: text
+                required: true
+              - name: en
+                label: English
+                widget: text
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: duplicates
+            label: Same email address again
+            widget: select
+            options:
+              - label: Reject it
+                value: reject
+              - label: Update the earlier answers
+                value: update
+              - label: Allow it
+                value: allow
+          - name: double_opt_in_days
+            label: Days to confirm the signup
+            widget: number
+            value_type: int
+            min: 1
+            hint: Unconfirmed signups are deleted after this.
+          - name: retention_policy
+            label: Retention (for the form service)
+            widget: object
+            collapsed: true
+            hint: Must match the text above.
+            fields:
+              - name: anchor
+                label: Counted from
+                widget: select
+                options:
+                  - label: Submission
+                    value: submitted
+                  - label: End of the event
+                    value: event_end
+                  - label: Close of the recruitment season
+                    value: season_close
+                  - label: Close of the next recruitment season
+                    value: next_season_close
+                  - label: Last contact
+                    value: last_contact
+              - name: days
+                label: Days
+                widget: number
+                value_type: int
+                min: 0
+                default: 0
+              - name: min_days
+                label: At least this many days after submission
+                widget: number
+                value_type: int
+                min: 0
+                required: false
+          - name: withdraw
+            label: How to withdraw
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: markdown
+                required: false
+              - name: en
+                label: English
+                widget: markdown
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: consent
+            label: Consent checkbox
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: text
+                required: false
+              - name: en
+                label: English
+                widget: text
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+            hint: "Empty: no consent checkbox"
+          - name: success
+            label: Message after sending
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: text
+                required: true
+              - name: en
+                label: English
+                widget: text
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: notify
+            label: Notify these addresses of each submission
+            widget: list
+            required: false
+      - name: application
+        label: Application (join us, open)
+        file: src/content/forms/application.yaml
+        fields:
+          - name: title
+            label: Title
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: string
+                required: true
+              - name: en
+                label: English
+                widget: string
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: order
+            label: Order on the privacy page
+            widget: number
+            value_type: int
+            default: 100
+          - name: purpose
+            label: Purpose
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: markdown
+                required: true
+              - name: en
+                label: English
+                widget: markdown
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: collected
+            label: What is collected
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: markdown
+                required: false
+              - name: en
+                label: English
+                widget: markdown
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: retention
+            label: Retention (in words)
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: text
+                required: true
+              - name: en
+                label: English
+                widget: text
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: duplicates
+            label: Same email address again
+            widget: select
+            options:
+              - label: Reject it
+                value: reject
+              - label: Update the earlier answers
+                value: update
+              - label: Allow it
+                value: allow
+          - name: retention_policy
+            label: Retention (for the form service)
+            widget: object
+            collapsed: true
+            hint: Must match the text above.
+            fields:
+              - name: anchor
+                label: Counted from
+                widget: select
+                options:
+                  - label: Submission
+                    value: submitted
+                  - label: End of the event
+                    value: event_end
+                  - label: Close of the recruitment season
+                    value: season_close
+                  - label: Close of the next recruitment season
+                    value: next_season_close
+                  - label: Last contact
+                    value: last_contact
+              - name: days
+                label: Days
+                widget: number
+                value_type: int
+                min: 0
+                default: 0
+              - name: min_days
+                label: At least this many days after submission
+                widget: number
+                value_type: int
+                min: 0
+                required: false
+          - name: withdraw
+            label: How to withdraw
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: markdown
+                required: false
+              - name: en
+                label: English
+                widget: markdown
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: consent
+            label: Consent checkbox
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: text
+                required: false
+              - name: en
+                label: English
+                widget: text
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+            hint: "Empty: no consent checkbox"
+          - name: success
+            label: Message after sending
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: text
+                required: true
+              - name: en
+                label: English
+                widget: text
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: notify
+            label: Notify these addresses of each submission
+            widget: list
+            required: false
+      - name: partner-contact
+        label: Partner contact
+        file: src/content/forms/partner-contact.yaml
+        fields:
+          - name: title
+            label: Title
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: string
+                required: true
+              - name: en
+                label: English
+                widget: string
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: order
+            label: Order on the privacy page
+            widget: number
+            value_type: int
+            default: 100
+          - name: purpose
+            label: Purpose
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: markdown
+                required: true
+              - name: en
+                label: English
+                widget: markdown
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: collected
+            label: What is collected
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: markdown
+                required: false
+              - name: en
+                label: English
+                widget: markdown
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: retention
+            label: Retention (in words)
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: text
+                required: true
+              - name: en
+                label: English
+                widget: text
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: duplicates
+            label: Same email address again
+            widget: select
+            options:
+              - label: Reject it
+                value: reject
+              - label: Update the earlier answers
+                value: update
+              - label: Allow it
+                value: allow
+          - name: retention_policy
+            label: Retention (for the form service)
+            widget: object
+            collapsed: true
+            hint: Must match the text above.
+            fields:
+              - name: anchor
+                label: Counted from
+                widget: select
+                options:
+                  - label: Submission
+                    value: submitted
+                  - label: End of the event
+                    value: event_end
+                  - label: Close of the recruitment season
+                    value: season_close
+                  - label: Close of the next recruitment season
+                    value: next_season_close
+                  - label: Last contact
+                    value: last_contact
+              - name: days
+                label: Days
+                widget: number
+                value_type: int
+                min: 0
+                default: 0
+              - name: min_days
+                label: At least this many days after submission
+                widget: number
+                value_type: int
+                min: 0
+                required: false
+          - name: withdraw
+            label: How to withdraw
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: markdown
+                required: false
+              - name: en
+                label: English
+                widget: markdown
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: consent
+            label: Consent checkbox
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: text
+                required: false
+              - name: en
+                label: English
+                widget: text
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+            hint: "Empty: no consent checkbox"
+          - name: success
+            label: Message after sending
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: text
+                required: true
+              - name: en
+                label: English
+                widget: text
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: notify
+            label: Notify these addresses of each submission
+            widget: list
+            required: false
+          - name: options
+            label: Options
+            widget: object
+            fields:
+              - name: topic
+                label: Topics
+                widget: list
+                summary: "{{hu}}"
+                fields:
+                  - name: hu
+                    label: Magyar
+                    widget: string
+                  - name: en
+                    label: English
+                    widget: string
+                    required: false
+                  - name: value
+                    label: Stored value
+                    widget: string
+                    required: false
+                    pattern:
+                      - ^[a-z0-9_]*$
+                      - Lowercase letters, digits and _ only
+                    hint: "Optional. Keeps answers stable if you later rename the option. Empty: made from the Hungarian text."
+      - name: delete-request
+        label: Delete my data
+        file: src/content/forms/delete-request.yaml
+        fields:
+          - name: title
+            label: Title
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: string
+                required: true
+              - name: en
+                label: English
+                widget: string
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: order
+            label: Order on the privacy page
+            widget: number
+            value_type: int
+            default: 100
+          - name: purpose
+            label: Purpose
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: markdown
+                required: true
+              - name: en
+                label: English
+                widget: markdown
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: collected
+            label: What is collected
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: markdown
+                required: false
+              - name: en
+                label: English
+                widget: markdown
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: retention
+            label: Retention (in words)
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: text
+                required: true
+              - name: en
+                label: English
+                widget: text
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: withdraw
+            label: How to withdraw
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: markdown
+                required: false
+              - name: en
+                label: English
+                widget: markdown
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: consent
+            label: Consent checkbox
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: text
+                required: false
+              - name: en
+                label: English
+                widget: text
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+            hint: "Empty: no consent checkbox"
+          - name: success
+            label: Message after sending
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: text
+                required: true
+              - name: en
+                label: English
+                widget: text
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: notify
+            label: Notify these addresses of each submission
+            widget: list
+            required: false
+  - name: questions
+    label: Quick questions
+    label_singular: Question
+    folder: src/content/questions
+    extension: yaml
+    format: yaml
+    create: true
+    slug: "{{fields.label.hu}}"
+    identifier_field: label.hu
+    summary: "{{label.hu}}"
+    sortable_fields:
+      - order
+    description: Optional choice questions on the interest and application forms.
+    fields:
+      - name: active
+        label: Asked
+        widget: boolean
+        default: true
+      - name: label
+        label: Question
+        widget: object
+        collapsed: false
+        required: true
+        fields:
+          - name: hu
+            label: Magyar
+            widget: string
+            required: true
+          - name: en
+            label: English
+            widget: string
+            required: false
+            hint: "Empty: the Hungarian text is shown."
+      - name: help
+        label: Help text
+        widget: object
+        collapsed: false
+        required: false
+        fields:
+          - name: hu
+            label: Magyar
+            widget: string
+            required: false
+          - name: en
+            label: English
+            widget: string
+            required: false
+            hint: "Empty: the Hungarian text is shown."
+      - name: type
+        label: Type
+        widget: select
+        options:
+          - label: Single choice
+            value: single_choice
+          - label: Multiple choice
+            value: multiple_choice
+      - name: options
+        label: Options
+        widget: list
+        summary: "{{hu}}"
+        fields:
+          - name: hu
+            label: Magyar
+            widget: string
+          - name: en
+            label: English
+            widget: string
+            required: false
+          - name: value
+            label: Stored value
+            widget: string
+            required: false
+            pattern:
+              - ^[a-z0-9_]*$
+              - Lowercase letters, digits and _ only
+            hint: "Optional. Keeps answers stable if you later rename the option. Empty: made from the Hungarian text."
+      - name: forms
+        label: Ask on
+        widget: select
+        multiple: true
+        options:
+          - label: Interest form
+            value: interest
+          - label: Application form
+            value: application
+      - name: required
+        label: Required
+        widget: boolean
+        default: false
+      - name: order
+        label: Order
+        widget: number
+        value_type: int
+        default: 100
+  - name: emails
+    label: Emails
+    description: Emails sent by the form service. Event emails are set on each event.
+    files:
+      - name: interest-confirmation
+        label: Confirm your interest
+        file: src/content/emails/interest-confirmation.yaml
+        fields:
+          - name: note
+            label: When it is sent
+            widget: text
+            required: false
+          - name: enabled
+            label: Send this email
+            widget: boolean
+            default: true
+          - name: subject
+            label: Subject
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: string
+                required: true
+              - name: en
+                label: English
+                widget: string
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: body
+            label: Text
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: text
+                required: true
+              - name: en
+                label: English
+                widget: text
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+            hint: "Placeholders: {name}, {link} (confirmation link)"
+          - name: test_to
+            label: Send a test copy to
+            widget: string
+            required: false
+            hint: Optional. A test copy goes to this address whenever the text changes.
+      - name: recruitment-open
+        label: Recruitment is open
+        file: src/content/emails/recruitment-open.yaml
+        fields:
+          - name: note
+            label: When it is sent
+            widget: text
+            required: false
+          - name: enabled
+            label: Send this email
+            widget: boolean
+            default: true
+          - name: subject
+            label: Subject
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: string
+                required: true
+              - name: en
+                label: English
+                widget: string
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: body
+            label: Text
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: text
+                required: true
+              - name: en
+                label: English
+                widget: text
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+            hint: "Placeholders: {name}, {date} (season closes), {link} (pre-filled application)"
+          - name: send_at
+            label: "Send on (empty: when the season opens)"
+            widget: datetime
+            format: YYYY-MM-DDTHH:mm
+            hint: Budapest time
+            required: false
+          - name: test_to
+            label: Send a test copy to
+            widget: string
+            required: false
+            hint: Optional. A test copy goes to this address whenever the text changes.
+      - name: delete-confirmation
+        label: Confirm deletion
+        file: src/content/emails/delete-confirmation.yaml
+        fields:
+          - name: note
+            label: When it is sent
+            widget: text
+            required: false
+          - name: enabled
+            label: Send this email
+            widget: boolean
+            default: true
+          - name: subject
+            label: Subject
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: string
+                required: true
+              - name: en
+                label: English
+                widget: string
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: body
+            label: Text
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: text
+                required: true
+              - name: en
+                label: English
+                widget: text
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+            hint: "Placeholders: {link} (deletes the data)"
+          - name: test_to
+            label: Send a test copy to
+            widget: string
+            required: false
+            hint: Optional. A test copy goes to this address whenever the text changes.
+      - name: list-footer
+        label: Interest list footer
+        file: src/content/emails/list-footer.yaml
+        fields:
+          - name: note
+            label: When it is sent
+            widget: text
+            required: false
+          - name: enabled
+            label: Send this email
+            widget: boolean
+            default: true
+          - name: body
+            label: Text
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: text
+                required: true
+              - name: en
+                label: English
+                widget: text
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+            hint: Added to every email to the interest list. Must contain {unsubscribe_link}.
+          - name: test_to
+            label: Send a test copy to
+            widget: string
+            required: false
+            hint: Optional. A test copy goes to this address whenever the text changes.
+  - name: actions
+    label: Email link pages
+    description: Pages that confirm, unsubscribe and delete links open. Nothing happens until the visitor clicks the button.
+    files:
+      - name: confirm
+        label: Confirm interest
+        file: src/content/actions/confirm.yaml
+        fields:
+          - name: title
+            label: Title
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: string
+                required: true
+              - name: en
+                label: English
+                widget: string
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: body
+            label: Text
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: markdown
+                required: false
+              - name: en
+                label: English
+                widget: markdown
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: button
+            label: Button
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: string
+                required: true
+              - name: en
+                label: English
+                widget: string
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: result
+            label: Result page shown after success
+            widget: hidden
+      - name: unsubscribe
+        label: Unsubscribe
+        file: src/content/actions/unsubscribe.yaml
+        fields:
+          - name: title
+            label: Title
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: string
+                required: true
+              - name: en
+                label: English
+                widget: string
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: body
+            label: Text
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: markdown
+                required: false
+              - name: en
+                label: English
+                widget: markdown
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: button
+            label: Button
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: string
+                required: true
+              - name: en
+                label: English
+                widget: string
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: result
+            label: Result page shown after success
+            widget: hidden
+      - name: delete
+        label: Delete data
+        file: src/content/actions/delete.yaml
+        fields:
+          - name: title
+            label: Title
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: string
+                required: true
+              - name: en
+                label: English
+                widget: string
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: body
+            label: Text
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: markdown
+                required: false
+              - name: en
+                label: English
+                widget: markdown
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: button
+            label: Button
+            widget: object
+            collapsed: false
+            required: true
+            fields:
+              - name: hu
+                label: Magyar
+                widget: string
+                required: true
+              - name: en
+                label: English
+                widget: string
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+          - name: result
+            label: Result page shown after success
+            widget: hidden
+  - name: notices
+    label: Result pages
+    label_singular: Result page
+    folder: src/content/notices
+    extension: yaml
+    format: yaml
+    create: false
+    delete: false
+    identifier_field: title.hu
+    description: Pages people reach from email links (confirm, unsubscribe, delete).
+    fields:
+      - name: title
+        label: Title
+        widget: object
+        collapsed: false
+        required: true
+        fields:
+          - name: hu
+            label: Magyar
+            widget: string
+            required: true
+          - name: en
+            label: English
+            widget: string
+            required: false
+            hint: "Empty: the Hungarian text is shown."
+      - name: body
+        label: Text
+        widget: object
+        collapsed: false
+        required: false
+        fields:
+          - name: hu
+            label: Magyar
+            widget: markdown
+            required: false
+          - name: en
+            label: English
+            widget: markdown
+            required: false
+            hint: "Empty: the Hungarian text is shown."
