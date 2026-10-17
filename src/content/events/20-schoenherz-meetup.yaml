@@ -11,7 +11,7 @@ speaker: null
 description: null
 image: ''
 image_alt: null
-external_link: meetup.svk.bme.hu
+external_link: https://meetup.svk.bme.hu/
 album_link: ''
 registration:
   enabled: false
