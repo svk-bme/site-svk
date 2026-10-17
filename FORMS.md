@@ -1,6 +1,6 @@
 **English** · Magyar: not yet translated
 
-# Forms: how site-svk feeds service-forms
+# Forms: how this site feeds service-forms
 
 The contract is defined by `service-forms`:
 [docs/FORMS_JSON.md](https://git.sch.bme.hu/svk/service-forms/-/blob/main/docs/FORMS_JSON.md) (the `/forms.json` format) and
@@ -9,7 +9,7 @@ This page only says where each part comes from in this repo.
 
 ## Switching the forms on
 
-Settings → Forms: **Form service address** (`forms.api_url`, e.g. `https://svk.bme.hu/api/forms`) and
+Settings → Forms: **Form service address** (`forms.api_url`, the service's address ending in `/api/forms`) and
 **Site name in the form service** (`forms.source`, the `[[sources]]` name in the service config).
 With no address every form shows "coming soon". `FORMS_API_URL` overrides the address at build time.
 
@@ -21,7 +21,7 @@ Built from content on every build by `src/lib/forms-json.ts`, from the form defi
 
 | Content | In `forms.json` |
 | --- | --- |
-| `settings/site.yaml` `site_url` (or `SITE_URL`) | `base_url` |
+| `settings/site.yaml` `site_url` (or `SITE_URL`) | `base_url` (the origin; page paths below include the base path, e.g. `/<base>/confirm`) |
 | `settings/site.yaml` `forms.source` | `site` |
 | `settings/site.yaml` `recruitment` | `seasons[]` (id: year of `opens`); `interest.enabled` while applications are not accepted (with `closes` at the season start if it is already set to open); `application.enabled` = status open, `opens`/`closes` = the season |
 | `forms/<kind>.yaml` `retention_policy`, `duplicates`, `notify`, `double_opt_in_days` | each form's `retention`, `duplicates`, `notify`, `double_opt_in.expires_days` |

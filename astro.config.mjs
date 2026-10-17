@@ -3,11 +3,13 @@ import { defineConfig } from 'astro/config'
 import YAML from 'yaml'
 
 // The public address comes from the site settings (edited in the CMS).
-// SITE_URL overrides it, e.g. for the draft preview at preview.svk.bme.hu.
+// SITE_URL overrides it (e.g. a preview site). BASE_PATH serves the site below a path instead of the root;
+// every internal URL goes through withBase()/localePath() in src/i18n/index.ts.
 const settings = YAML.parse(fs.readFileSync('./src/content/settings/site.yaml', 'utf8'))
 
 export default defineConfig({
   site: process.env.SITE_URL || settings.site_url,
+  base: process.env.BASE_PATH || '/',
   output: 'static',
   trailingSlash: 'ignore',
   build: {
@@ -20,11 +22,6 @@ export default defineConfig({
     routing: {
       prefixDefaultLocale: false,
     },
-  },
-  redirects: {
-    // URLs of the previous site
-    '/event/[slug]': '/events/[slug]',
-    '/en/event/[slug]': '/en/events/[slug]',
   },
   devToolbar: { enabled: false },
 })

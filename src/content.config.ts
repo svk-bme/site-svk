@@ -320,7 +320,7 @@ const settings = defineCollection({
       intro: text,
     }),
     forms: z.object({
-      // Base URL of service-forms, e.g. https://svk.bme.hu/api/forms. Empty: forms show "coming soon".
+      // Base URL of service-forms, ending in /api/forms. Empty: forms show "coming soon".
       api_url: z.url().nullish().or(z.literal('')),
       // Name of this site in the form service's configuration ([[sources]] name)
       source: key,
@@ -333,7 +333,7 @@ const settings = defineCollection({
     }),
     analytics: z
       .object({
-        // GoatCounter endpoint, e.g. https://stats.svk.bme.hu/count. Empty: no analytics.
+        // GoatCounter endpoint (…/count). Empty: no analytics.
         goatcounter: z.url().nullish().or(z.literal('')),
       })
       .nullish(),

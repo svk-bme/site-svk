@@ -1,0 +1,14 @@
+---
+// Old URL /event/<slug> of the previous site
+import Redirect from '~/components/Redirect.astro'
+import { getAllEvents, eventPath } from '~/lib/events'
+
+export async function getStaticPaths() {
+  const events = await getAllEvents()
+  return events.map((event) => ({ params: { slug: event.id }, props: { event } }))
+}
+
+const { event } = Astro.props
+---
+
+<Redirect to={eventPath('en', event)} />

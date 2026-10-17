@@ -2,10 +2,10 @@
 
 # Editing the website
 
-How to change events, members, partners, page texts, forms, emails and the recruitment season on `svk.bme.hu`.
+How to change events, members, partners, page texts, forms, emails and the recruitment season on SVK's website.
 No programming needed.
 
-> Status: the browser editor at `svk.bme.hu/admin` is ready but needs a one-time login setup by the infra lead
+> Status: the browser editor at `/admin` on the website is ready but needs a one-time login setup by the infra lead
 > (see README). Until then, use "Without the editor" below. Screenshots will be added when the editor is live.
 
 ## Before you start
@@ -16,7 +16,7 @@ No programming needed.
 
 ## With the editor
 
-1. Open `svk.bme.hu/admin` and log in with `git.sch.bme.hu`.
+1. Open `/admin` on the website (the site's address followed by `/admin`) and log in with `git.sch.bme.hu`.
 2. Choose a collection on the left (see the table below).
 3. Every text has a **Magyar** and an **English** box. Hungarian is required; if English is empty, the Hungarian text is shown.
 4. Save. The site updates within a few minutes. Every save is a commit, so it can be undone.
@@ -40,7 +40,7 @@ Every email has **Send a test copy to**: enter your address and you get a test c
 
 ## Events
 
-- **Draft** on: the event is not published. (A preview site at `preview.svk.bme.hu` is planned.)
+- **Draft** on: the event is not published. (A separate preview site is planned.)
 - **Start / End:** End is optional; calendar files then use the default length from Settings.
 - **External link:** event tiles link there instead of the event page (e.g. the MeetUp site).
 - Events move from "upcoming" to "past events" by themselves the morning after they end. Past events are listed by year.
@@ -85,7 +85,7 @@ link that opens the application form filled in with their earlier answers. To se
 
 ## Without the editor
 
-1. Open `git.sch.bme.hu/svk/site-svk` and go to `src/content/` (for example `src/content/events/`).
+1. Open this project on `git.sch.bme.hu` and go to `src/content/` (for example `src/content/events/`).
 2. To change an entry, open its YAML file and click **Edit**. To add one, copy an existing file and rename it
    (the file name becomes the web address: `my-event.yaml` → `/events/my-event`).
 3. Change the values after the field names. Keep the field names and the indentation as they are.

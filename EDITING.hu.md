@@ -5,9 +5,9 @@
 # A weboldal szerkesztése
 
 Hogyan lehet eseményt, tagot, partnert, oldalszöveget, űrlapot, levelet és a toborzási időszakot módosítani az
-`svk.bme.hu`-n. Programozni nem kell hozzá.
+SVK weboldalán. Programozni nem kell hozzá.
 
-> Állapot: a böngészős szerkesztő az `svk.bme.hu/admin` címen elkészült, de a belépést egyszer be kell állítania az
+> Állapot: a böngészős szerkesztő a weboldal `/admin` címén elkészült, de a belépést egyszer be kell állítania az
 > infrastruktúra-felelősnek (lásd README). Addig a lenti „Szerkesztő nélkül” rész szerint lehet szerkeszteni.
 > Képernyőképek a szerkesztő elindulásakor kerülnek ide.
 
@@ -19,7 +19,7 @@ Hogyan lehet eseményt, tagot, partnert, oldalszöveget, űrlapot, levelet és a
 
 ## A szerkesztővel
 
-1. Nyisd meg az `svk.bme.hu/admin` oldalt, és lépj be a `git.sch.bme.hu`-fiókoddal.
+1. Nyisd meg a weboldal `/admin` oldalát (az oldal címe után `/admin`), és lépj be a `git.sch.bme.hu`-fiókoddal.
 2. Válassz bal oldalt egy gyűjteményt (lásd a lenti táblázatot).
 3. Minden szövegnek van egy **Magyar** és egy **English** mezője. A magyar kötelező; ha az angol üres, a magyar szöveg jelenik meg.
 4. Ments. Az oldal néhány percen belül frissül. Minden mentés egy commit, így visszavonható.
@@ -43,7 +43,7 @@ Minden levélnél van **Send a test copy to** mező: ha beírod a címed, a szö
 
 ## Események
 
-- **Draft** (piszkozat) bekapcsolva: az esemény nem jelenik meg. (Előnézeti oldal a `preview.svk.bme.hu` címen tervben van.)
+- **Draft** (piszkozat) bekapcsolva: az esemény nem jelenik meg. (Külön előnézeti oldal tervben van.)
 - **Start / End** (kezdés / vége): a vége nem kötelező; ilyenkor a naptárfájl a Beállításokban megadott alapértelmezett hosszal számol.
 - **External link** (külső link): az eseménykártya ide mutat az eseményoldal helyett (pl. a MeetUp oldalára).
 - Az események a befejezésük utáni reggelre maguktól átkerülnek a „Korábbi események” közé, évenként csoportosítva.
@@ -88,7 +88,7 @@ töltsd ki a **Send on** dátumot.
 
 ## Szerkesztő nélkül
 
-1. Nyisd meg a `git.sch.bme.hu/svk/site-svk` projektet, és menj az `src/content/` mappába (például `src/content/events/`).
+1. Nyisd meg ezt a projektet a `git.sch.bme.hu`-n, és menj az `src/content/` mappába (például `src/content/events/`).
 2. Egy bejegyzés módosításához nyisd meg a YAML-fájlját, és kattints az **Edit** gombra. Új bejegyzéshez másolj le egy
    meglévő fájlt, és nevezd át (a fájlnévből lesz a webcím: `my-event.yaml` → `/events/my-event`).
 3. A mezőnevek utáni értékeket módosítsd. A mezőneveket és a behúzást hagyd változatlanul.

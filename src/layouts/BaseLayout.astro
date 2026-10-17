@@ -8,7 +8,7 @@ import '~/styles/base.css'
 import '~/styles/components.css'
 import Footer from '~/components/Footer.astro'
 import Header from '~/components/Header.astro'
-import { localePath, locales, pathWithoutLocale, t, tr, type Locale } from '~/i18n'
+import { localePath, locales, pathWithoutLocale, t, tr, withBase, type Locale } from '~/i18n'
 import { settings } from '~/lib/site'
 
 interface Props {
@@ -27,7 +27,7 @@ const siteName = tr(locale, settings.name)
 const pageTitle = title ? `${title} | ${settings.short_name}` : `${settings.short_name} – ${siteName}`
 const path = pathWithoutLocale(Astro.url.pathname)
 const alternates = locales.map((l) => ({ locale: l, href: new URL(localePath(l, path), Astro.site).href }))
-const ogImage = new URL(image ?? '/favicon/ms-icon-310x310.png', Astro.site).href
+const ogImage = new URL(image ?? withBase('/favicon/ms-icon-310x310.png'), Astro.site).href
 const goatcounter = settings.analytics?.goatcounter || undefined
 ---
 
@@ -46,9 +46,9 @@ const goatcounter = settings.analytics?.goatcounter || undefined
     {alternates.map((a) => <link rel="alternate" hreflang={a.locale} href={a.href} />)}
     <link rel="alternate" hreflang="x-default" href={alternates[0].href} />
     <link rel="alternate" type="text/calendar" title={t(locale, 'events.subscribe')} href={localePath(locale, '/events.ics')} />
-    <link rel="icon" href="/favicon/favicon.ico" sizes="any" />
-    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
-    <link rel="apple-touch-icon" href="/favicon/apple-icon-180x180.png" />
+    <link rel="icon" href={withBase('/favicon/favicon.ico')} sizes="any" />
+    <link rel="icon" type="image/png" href={withBase('/favicon/favicon-96x96.png')} sizes="96x96" />
+    <link rel="apple-touch-icon" href={withBase('/favicon/apple-icon-180x180.png')} />
     <meta name="theme-color" content="#000000" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={settings.short_name} />

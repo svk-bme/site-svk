@@ -1,7 +1,9 @@
 # Sveltia CMS configuration (https://sveltiacms.app). Mirrors src/content.config.ts; change both together.
+# Template: the build serves it as /admin/config.yml (src/pages/admin/config.yml.ts) and fills in
+# site_url, display_url and public_folder from the site address and base path.
 # Bilingual fields are objects with hu and en. Dates are Budapest wall-clock times (2027-04-15T18:00);
 # the build adds the offset valid on that date.
-# backend.app_id: Client ID of the OAuth application on git.sch.bme.hu (see README).
+# backend: the git project the editor commits to; app_id is the Client ID of its OAuth application (see README).
 
 backend:
   name: gitlab
@@ -11,10 +13,8 @@ backend:
   api_root: https://git.sch.bme.hu/api/v4
   auth_type: pkce
   app_id: SET_GITLAB_OAUTH_APP_ID
-site_url: https://svk.bme.hu
-display_url: https://svk.bme.hu
 media_folder: public/uploads
-public_folder: /uploads
+public_folder: /uploads # base path added by the build
 slug:
   encoding: ascii
   clean_accents: true
@@ -1001,7 +1001,7 @@ collections:
                 label: Form service address
                 widget: string
                 required: false
-                hint: 'Set by the infra lead, e.g. https://svk.bme.hu/api/forms. Empty: forms show "coming soon".'
+                hint: 'Set by the infra lead: the address of the form service, ending in /api/forms. Empty: forms show "coming soon".'
           - name: analytics
             label: Analytics
             widget: object

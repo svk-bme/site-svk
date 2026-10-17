@@ -1,0 +1,25 @@
+---
+// A static redirect page (works on any static host). Used for URLs of the previous site.
+
+interface Props {
+  /** Target path, already with the base path (from localePath) */
+  to: string
+}
+
+const { to } = Astro.props
+const absolute = new URL(to, Astro.site).href
+---
+
+<!doctype html>
+<html lang="hu">
+  <head>
+    <meta charset="utf-8" />
+    <title>{to}</title>
+    <meta http-equiv="refresh" content={`0;url=${to}`} />
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href={absolute} />
+  </head>
+  <body>
+    <a href={to}>{absolute}</a>
+  </body>
+</html>

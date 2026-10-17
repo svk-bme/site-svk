@@ -1,4 +1,4 @@
-import { tr, type Locale } from '~/i18n'
+import { localePath, tr, type Locale } from '~/i18n'
 import { eventEnd, type Event } from '~/lib/events'
 import { buildTime, settings, siteUrl } from '~/lib/site'
 
@@ -29,10 +29,7 @@ function fold(line: string): string {
 
 function vevent(locale: Locale, event: Event): string[] {
   const host = new URL(siteUrl).host
-  const url = new URL(
-    event.data.external_link ?? `${locale === 'en' ? '/en' : ''}/events/${event.id}`,
-    siteUrl,
-  ).href
+  const url = new URL(event.data.external_link ?? localePath(locale, `/events/${event.id}`), siteUrl).href
   const description = [tr(locale, event.data.speaker), tr(locale, event.data.description), url]
     .filter(Boolean)
     .join('\n\n')

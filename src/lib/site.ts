@@ -11,8 +11,11 @@ const settingsEntry = await getEntry('settings', 'site')
 if (!settingsEntry) throw new Error('Missing src/content/settings/site.yaml')
 export const settings = settingsEntry.data
 
-/** The site's address without a trailing slash: settings.site_url, or SITE_URL if set (see astro.config.mjs). */
-export const siteUrl: string = import.meta.env.SITE.replace(/\/$/, '')
+/**
+ * The site's origin (scheme and host): settings.site_url, or SITE_URL if set (see astro.config.mjs).
+ * Absolute URLs are siteUrl + localePath(...), which already contains the base path.
+ */
+export const siteUrl: string = new URL(import.meta.env.SITE).origin
 
 /**
  * Base URL of service-forms, or undefined while the forms are "coming soon".

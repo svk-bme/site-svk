@@ -1,4 +1,4 @@
-# Runs on the GitHub mirror (github.com/svk-bme/site-svk). Edit on git.sch.bme.hu only.
+# Runs on the GitHub mirror of this repo. Edit on git.sch.bme.hu only.
 name: Deploy to GitHub Pages
 
 on:
@@ -27,9 +27,15 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: npm
+      # Origin and base path of the Pages site: <owner>.github.io and /<repo>, or the custom domain and no base path
+      - id: pages
+        uses: actions/configure-pages@v5
       - run: npm ci
       - run: npm test
       - run: npm run build
+        env:
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          SITE_URL: ${{ steps.pages.outputs.origin }}
       - uses: actions/upload-pages-artifact@v5
         with:
           path: dist

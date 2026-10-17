@@ -2,7 +2,8 @@
 
 # site-svk
 
-The website of Schönherz Vállalati Kapcsolatok (SVK) at `svk.bme.hu`: a static Astro site in Hungarian and English.
+The website of Schönherz Vállalati Kapcsolatok (SVK): a static Astro site in Hungarian and English.
+Its public address is `site_url` in `src/content/settings/site.yaml`; nothing else in the code assumes an address or a root path.
 
 Part of SVK's web infrastructure. Conventions: [svk/infra › CONVENTIONS.md](https://git.sch.bme.hu/svk/infra/-/blob/main/CONVENTIONS.md).
 Specification: [SPEC.md](SPEC.md). How the site feeds `service-forms`: [FORMS.md](FORMS.md).
@@ -32,7 +33,11 @@ Requires Node 24 LTS (`.nvmrc`). Build-time environment variables, all optional:
 | --- | --- |
 | `SHOW_DRAFTS=true` | Include draft events (preview site) |
 | `FORMS_API_URL` | Overrides the form service address from the settings |
-| `SITE_URL` | Overrides the site address from the settings (e.g. `https://preview.svk.bme.hu`) |
+| `SITE_URL` | Overrides the site address from the settings (e.g. for a preview site) |
+| `BASE_PATH` | Serves the site below a path such as `/<repo>` (default: the root) |
+
+Every internal URL goes through `withBase()` / `localePath()` in `src/i18n/index.ts`, which use `import.meta.env.BASE_URL`;
+root-relative links that editors write in Markdown get the base path too.
 
 ## Structure
 
@@ -50,7 +55,7 @@ src/
   components/           header, footer, event card, generic form renderer, registration block
   scripts/forms.ts      browser side of the forms
   styles/               tokens.css (colours, type, spacing), base.css, components.css
-public/admin/           Sveltia CMS (index.html, config.yml mirrors content.config.ts)
+src/cms/config.yml      Sveltia CMS configuration (mirrors content.config.ts); public/admin/index.html loads the editor
 ```
 
 Styles use only the variables in `tokens.css` and the classes in `components.css`, so a design system can replace them
@@ -58,17 +63,20 @@ without touching page logic.
 
 ## Deploy
 
-- **Now:** every push to `main` on `git.sch.bme.hu` is mirrored to `github.com/svk-bme/site-svk`, where GitHub Actions
-  (`.github/workflows/deploy.yml`) builds the site and publishes it to GitHub Pages at `svk.bme.hu`. It also rebuilds
+- **Now:** every push to `main` on `git.sch.bme.hu` is mirrored to SVK's GitHub organization (same repo name, see CONVENTIONS),
+  where GitHub Actions (`.github/workflows/deploy.yml`) builds the site and publishes it to GitHub Pages. It also rebuilds
   every night, so events move to "past" and the recruitment season switches on its dates. Check the Actions tab if a change does not appear.
-  One-time settings: *Settings → Pages → Source: GitHub Actions*, custom domain `svk.bme.hu` (`public/CNAME`).
+  One-time settings: *Settings → Pages → Source: GitHub Actions*, and the custom domain under *Settings → Pages*
+  (Actions deploys need no CNAME file). The workflow takes `SITE_URL` and `BASE_PATH` from `actions/configure-pages`:
+  `https://<owner>.github.io` and `/<repo>` without a custom domain, the custom domain and the root with one.
+  Nothing in the code assumes either.
   GitHub pauses scheduled workflows after 60 days without commits; re-enable it in the Actions tab if that happens.
 - **Later:** the SVK VM pulls and builds the site itself (see `svk/infra`).
 - **Roll back:** revert the bad commit on `main`.
 
 **CMS login** (`/admin`): create an OAuth application on `git.sch.bme.hu` (group `svk` → Settings → Applications,
-redirect URI `https://svk.bme.hu/admin/`, scope `api`, not confidential) and put its Application ID in `backend.app_id`
-of `public/admin/config.yml`. Until then editors can sign in with a personal access token.
+redirect URI `<site address>/admin/`, scope `api`, not confidential) and put its Application ID in `backend.app_id`
+of `src/cms/config.yml`. The build fills in the site address and base path (`/admin/config.yml`). Until then editors can sign in with a personal access token.
 
 ## Languages
 
