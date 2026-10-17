@@ -7,33 +7,78 @@
 A Schönherz Vállalati Kapcsolatok (SVK) weboldala az `svk.bme.hu` címen: statikus Astro-oldal magyarul és angolul.
 
 Az SVK webes infrastruktúrájának része. Konvenciók: [svk/infra › CONVENTIONS.hu.md](https://git.sch.bme.hu/svk/infra/-/blob/main/CONVENTIONS.hu.md).
+Specifikáció: [SPEC.md](SPEC.md). Hogyan kapja meg a `service-forms` az oldal űrlapjait: [FORMS.md](FORMS.md).
 
 ## Mire való
 
-Bemutatja az SVK eseményeit, tagjait és partnereit. Minden tartalom fájlként ebben a repóban van, és böngészőből
-szerkeszthető (lásd: [EDITING.hu.md](EDITING.hu.md)). Az elkészült oldal egyszerű statikus fájlokból áll, így bármilyen statikus tárhelyen fut.
+Bemutatja, kik vagyunk, az SVK eseményeit (naptárfájllal és jelentkezéssel), tagjait és partnereit, tartalmazza a
+cégeknek szóló kapcsolatfelvételi űrlapot, és a Csatlakozz oldalt, amely a toborzási időszaktól függően érdeklődési
+vagy jelentkezési űrlapot mutat. Minden tartalom fájlként ebben a repóban van, és böngészőből szerkeszthető
+(lásd: [EDITING.hu.md](EDITING.hu.md)). Az elkészült oldal egyszerű statikus fájlokból áll, így bármilyen statikus
+tárhelyen fut. Minden, amit a látogatók beküldenek, a `service-forms`-hoz kerül, amely az oldal `/forms.json` fájljából dolgozik; amíg
+ennek a címe nincs beállítva, az űrlapok helyén „hamarosan” felirat áll. A levelekben lévő linkek a `/confirm`,
+`/unsubscribe` és `/delete` oldalra vezetnek, amelyek csak akkor lépnek, ha a látogató megnyomja a gombot.
 
 ## Helyi futtatás
 
 ```sh
 npm ci
-npm run dev      # http://localhost:4321
-npm run build    # a statikus kimenet a dist/ mappába kerül
+npm run dev          # http://localhost:4321
+npm run build        # típusellenőrzés + statikus kimenet a dist/ mappába
+npm run preview      # a dist/ kiszolgálása
+npm test             # egységtesztek (dátumok és időzónák)
 ```
 
-Node 22 LTS kell hozzá. <a tényleges parancsokhoz igazítandó>
+Node 24 LTS kell hozzá (`.nvmrc`). Opcionális környezeti változók a buildhez:
+
+| Változó | Hatása |
+| --- | --- |
+| `SHOW_DRAFTS=true` | A piszkozat események is megjelennek (előnézeti oldal) |
+| `FORMS_API_URL` | Felülírja a beállításokban megadott űrlapszolgáltatás-címet |
+| `SITE_URL` | Felülírja a beállításokban megadott oldalcímet (pl. `https://preview.svk.bme.hu`) |
+
+## Felépítés
+
+```
+src/
+  content/              minden tartalom, a CMS-ben szerkeszthető (bejegyzésenként egy YAML-fájl, mellette a képek)
+    events/ members/ partners/ questions/   gyűjtemények, amelyekhez a szerkesztők új elemet adnak
+    pages/ forms/ emails/                   állandó szövegek: oldalak, űrlapszövegek, levélsablonok
+    actions/ notices/                       a levelek linkjeinek oldalai (/confirm, ...) és az utánuk következő eredményoldalak
+    settings/site.yaml                      toborzási időszak, kapcsolat, közösségi linkek, űrlapszolgáltatás címe
+  content.config.ts     minden tartalomtípus sémája (hibás tartalomnál a build érthető hibával leáll)
+  i18n/                 felületi szövegek (hu.json, en.json) és nyelvi segédfüggvények
+  lib/                  események, űrlapok (definíciók → oldalak; forms-json.ts → /forms.json), időzónák, naptárfájlok
+  views/                a két nyelv közös oldaltörzsei; a pages/ csak az URL-eket köti hozzájuk
+  components/           fejléc, lábléc, eseménykártya, általános űrlap, jelentkezési blokk
+  scripts/forms.ts      az űrlapok böngészőoldali része
+  styles/               tokens.css (színek, betűk, térközök), base.css, components.css
+public/admin/           Sveltia CMS (index.html; a config.yml a content.config.ts tükre)
+```
+
+A stílusok csak a `tokens.css` változóit és a `components.css` osztályait használják, így egy design system
+az oldalak logikájának módosítása nélkül lecserélheti őket.
 
 ## Telepítés
 
 - **Most:** minden `main`-be küldött változás a `git.sch.bme.hu`-ról átkerül a `github.com/svk-bme/site-svk` tükörbe, ahol
-  a GitHub Actions megépíti az oldalt, és kiteszi GitHub Pagesre az `svk.bme.hu` címre. Ha egy változás nem jelenik meg, az Actions fülön látszik, miért.
+  a GitHub Actions (`.github/workflows/deploy.yml`) megépíti az oldalt, és kiteszi GitHub Pagesre az `svk.bme.hu` címre.
+  Minden éjjel is újraépül, így az események időben kerülnek a korábbiak közé, és a toborzási időszak a megadott
+  dátumokon vált. Ha egy változás nem jelenik meg, az Actions fülön látszik, miért.
+  Egyszeri beállítás: *Settings → Pages → Source: GitHub Actions*, egyéni domain `svk.bme.hu` (`public/CNAME`).
+  A GitHub 60 nap commit nélkül szünetelteti az ütemezett futásokat; ilyenkor az Actions fülön újra kell engedélyezni.
 - **Később:** az SVK VM maga húzza le és építi meg az oldalt (lásd: `svk/infra`).
 - **Visszaállítás:** a hibás commitot kell visszavonni (revert) a `main`-en.
 
+**Belépés a CMS-be** (`/admin`): a `git.sch.bme.hu`-n létre kell hozni egy OAuth-alkalmazást (`svk` csoport → Settings →
+Applications, redirect URI `https://svk.bme.hu/admin/`, scope `api`, nem bizalmas), és az Application ID-ját beírni a
+`public/admin/config.yml` `backend.app_id` mezőjébe. Addig a szerkesztők személyes hozzáférési tokennel léphetnek be.
+
 ## Nyelvek
 
-- A magyar a gyökérben (`/events`), az angol a `/en/` alatt (`/en/events`).
-- Felületi szövegek: <az üzenetfájlok helye>. Tartalom: minden bejegyzésnek van magyar és angol mezője; ha az angol üres, a magyar jelenik meg.
+- A magyar a gyökérben (`/events`), az angol a `/en/` alatt (`/en/events`). A régi `/event/<slug>` címek átirányítanak.
+- Felületi szövegek: `src/i18n/hu.json` és `src/i18n/en.json`. Tartalom: minden bejegyzésben `{ hu, en }` mezők;
+  ha az angol üres, a magyar jelenik meg.
 
 ## Kapcsolat
 

@@ -5,33 +5,76 @@
 The website of Schönherz Vállalati Kapcsolatok (SVK) at `svk.bme.hu`: a static Astro site in Hungarian and English.
 
 Part of SVK's web infrastructure. Conventions: [svk/infra › CONVENTIONS.md](https://git.sch.bme.hu/svk/infra/-/blob/main/CONVENTIONS.md).
+Specification: [SPEC.md](SPEC.md). How the site feeds `service-forms`: [FORMS.md](FORMS.md).
 
 ## What it does
 
-Shows SVK's events, members and partners. All content lives in this repo as files and is edited through
-the browser (see [EDITING.md](EDITING.md)). The build output is plain static files, so the site runs on any static host.
+Shows who SVK is, its events (with calendar files and registration), members and partners, the partner contact form,
+and the Join page, which switches between an interest form and the application form with the recruitment season.
+All content lives in this repo as files and is edited through the browser (see [EDITING.md](EDITING.md)).
+The build output is plain static files, so the site runs on any static host. Everything visitors submit goes to
+`service-forms`, which reads the site's `/forms.json`; until its address is set, forms show "coming soon".
+Links in emails open `/confirm`, `/unsubscribe` and `/delete`, which act only when the visitor clicks the button.
 
 ## Run it locally
 
 ```sh
 npm ci
-npm run dev      # http://localhost:4321
-npm run build    # static output in dist/
+npm run dev          # http://localhost:4321
+npm run build        # type check + static output in dist/
+npm run preview      # serve dist/
+npm test             # unit tests (dates and timezones)
 ```
 
-Requires Node 22 LTS. <adjust to the actual scripts>
+Requires Node 24 LTS (`.nvmrc`). Build-time environment variables, all optional:
+
+| Variable | Effect |
+| --- | --- |
+| `SHOW_DRAFTS=true` | Include draft events (preview site) |
+| `FORMS_API_URL` | Overrides the form service address from the settings |
+| `SITE_URL` | Overrides the site address from the settings (e.g. `https://preview.svk.bme.hu`) |
+
+## Structure
+
+```
+src/
+  content/              all content, edited through the CMS (one YAML file per entry, images next to it)
+    events/ members/ partners/ questions/   collections editors add to
+    pages/ forms/ emails/                   fixed texts: pages, form texts, email templates
+    actions/ notices/                       email link pages (/confirm, ...) and the result pages after them
+    settings/site.yaml                      recruitment season, contact, social links, form service address
+  content.config.ts     schemas of every content type (the build fails with a clear message on invalid content)
+  i18n/                 interface texts (hu.json, en.json) and language helpers
+  lib/                  events, forms (definitions → pages; forms-json.ts → /forms.json), time zones, calendar files
+  views/                page bodies shared by both languages; pages/ only maps URLs to them
+  components/           header, footer, event card, generic form renderer, registration block
+  scripts/forms.ts      browser side of the forms
+  styles/               tokens.css (colours, type, spacing), base.css, components.css
+public/admin/           Sveltia CMS (index.html, config.yml mirrors content.config.ts)
+```
+
+Styles use only the variables in `tokens.css` and the classes in `components.css`, so a design system can replace them
+without touching page logic.
 
 ## Deploy
 
 - **Now:** every push to `main` on `git.sch.bme.hu` is mirrored to `github.com/svk-bme/site-svk`, where GitHub Actions
-  builds the site and publishes it to GitHub Pages at `svk.bme.hu`. Check the Actions tab if a change does not appear.
+  (`.github/workflows/deploy.yml`) builds the site and publishes it to GitHub Pages at `svk.bme.hu`. It also rebuilds
+  every night, so events move to "past" and the recruitment season switches on its dates. Check the Actions tab if a change does not appear.
+  One-time settings: *Settings → Pages → Source: GitHub Actions*, custom domain `svk.bme.hu` (`public/CNAME`).
+  GitHub pauses scheduled workflows after 60 days without commits; re-enable it in the Actions tab if that happens.
 - **Later:** the SVK VM pulls and builds the site itself (see `svk/infra`).
 - **Roll back:** revert the bad commit on `main`.
 
+**CMS login** (`/admin`): create an OAuth application on `git.sch.bme.hu` (group `svk` → Settings → Applications,
+redirect URI `https://svk.bme.hu/admin/`, scope `api`, not confidential) and put its Application ID in `backend.app_id`
+of `public/admin/config.yml`. Until then editors can sign in with a personal access token.
+
 ## Languages
 
-- Hungarian at the root (`/events`), English under `/en/` (`/en/events`).
-- Interface texts: <path to the message files>. Content: Hungarian and English fields in each entry; an empty English field falls back to Hungarian.
+- Hungarian at the root (`/events`), English under `/en/` (`/en/events`). Old `/event/<slug>` URLs redirect.
+- Interface texts: `src/i18n/hu.json` and `src/i18n/en.json`. Content: `{ hu, en }` fields in each entry;
+  an empty English field falls back to Hungarian.
 
 ## Contact
 
