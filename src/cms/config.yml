@@ -12,7 +12,7 @@ backend:
   base_url: https://git.sch.bme.hu
   api_root: https://git.sch.bme.hu/api/v4
   auth_type: pkce
-  app_id: SET_GITLAB_OAUTH_APP_ID
+  app_id: 31f4c02e89574e32534c6110e18b3296ddd6b83e226fdb1f1b6d5c48c6bd0540
 media_folder: public/uploads
 public_folder: /uploads # base path added by the build
 slug:
