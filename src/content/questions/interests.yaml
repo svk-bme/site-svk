@@ -1,0 +1,23 @@
+label:
+  hu: Mi érdekel leginkább az SVK munkájából?
+  en: What interests you most in SVK's work?
+type: single_choice
+options:
+  - value: companies
+    hu: Kapcsolattartás cégekkel
+    en: Working with companies
+  - value: events
+    hu: Rendezvényszervezés
+    en: Organizing events
+  - value: marketing
+    hu: Marketing és kommunikáció
+    en: Marketing and communication
+  - value: not_sure
+    hu: Még nem tudom
+    en: Not sure yet
+forms:
+  - interest
+  - application
+required: false
+order: 2
+active: true

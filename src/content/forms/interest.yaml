@@ -1,0 +1,28 @@
+title:
+  hu: Érdeklődés a toborzás iránt
+  en: Interest in joining
+order: 2
+purpose:
+  hu: Az adataidat arra használjuk, hogy szóljunk, amikor elindul a toborzás, és megkönnyítsük a jelentkezésed. A válaszaid segítenek a toborzás tervezésében.
+  en: We use your data to let you know when recruitment starts and to make applying easier. Your answers help us plan recruitment.
+collected:
+  hu: Név, e-mail-cím, tanulmányok, hátralévő aktív félévek száma, valamint a választható kérdésekre adott válaszok.
+  en: Name, email address, studies, number of active semesters left, and your answers to the optional questions.
+retention:
+  hu: A következő toborzási időszak végéig, de legalább 12 hónapig a feliratkozástól számítva. A meg nem erősített feliratkozásokat 7 nap után töröljük.
+  en: Until the end of the next recruitment season, but at least 12 months from signing up. Unconfirmed signups are deleted after 7 days.
+retention_policy:
+  anchor: next_season_close
+  days: 0
+  min_days: 365
+duplicates: update
+double_opt_in_days: 7
+withdraw:
+  hu: Minden levelünkben van egy leiratkozási link, amely azonnal törli az adataidat. Használhatod a lap alján található törlési kérelmet is.
+  en: Every email we send has an unsubscribe link that deletes your data immediately. You can also use the deletion request at the bottom of this page.
+consent:
+  hu: Hozzájárulok, hogy az SVK a fenti adataimat kezelje, és e-mailben értesítsen a toborzás indulásáról.
+  en: I agree that SVK processes the data above and emails me when recruitment starts.
+success:
+  hu: Elmentettük az érdeklődésed! Küldtünk egy e-mailt egy megerősítő linkkel; kattints rá, hogy szólhassunk, amikor elindul a toborzás.
+  en: We have saved your interest! We sent you an email with a confirmation link; click it so we can contact you when recruitment starts.

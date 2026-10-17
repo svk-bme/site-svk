@@ -1,0 +1,23 @@
+label:
+  hu: Honnan hallottál rólunk?
+  en: How did you hear about us?
+type: multiple_choice
+options:
+  - value: friend
+    hu: Ismerőstől
+    en: From a friend
+  - value: social
+    hu: Közösségi média
+    en: Social media
+  - value: event
+    hu: Eseményen
+    en: At an event
+  - value: other
+    hu: Egyéb
+    en: Other
+forms:
+  - interest
+  - application
+required: false
+order: 1
+active: true

@@ -1,0 +1,16 @@
+title:
+  hu: Adataim törlése
+  en: Delete my data
+order: 5
+purpose:
+  hu: Add meg az e-mail-címed, és küldünk egy megerősítő linket. A linkre kattintva minden adatodat töröljük, amelyet az űrlapjainkon keresztül megadtál. A megerősítés azért kell, hogy más ne törölhesse az adataidat.
+  en: Enter your email address and we will send you a confirmation link. Clicking it deletes all data you gave us through our forms. The confirmation makes sure nobody else can delete your data.
+collected:
+  hu: E-mail-cím, csak a törlés megerősítéséig.
+  en: Email address, only until the deletion is confirmed.
+retention:
+  hu: A megerősítő link 24 óráig érvényes; utána a kérést töröljük.
+  en: The confirmation link is valid for 24 hours; after that the request is deleted.
+success:
+  hu: Ha ehhez a címhez tartoznak adatok, küldtünk egy e-mailt a törlés megerősítéséhez.
+  en: If we hold data for this address, we have sent you an email to confirm the deletion.

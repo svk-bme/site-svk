@@ -1,0 +1,42 @@
+title:
+  hu: Kapcsolatfelvétel
+  en: Contact us
+order: 4
+purpose:
+  hu: Az adataidat arra használjuk, hogy válaszoljunk a megkeresésedre, és kapcsolatban maradjunk a közös munkáról.
+  en: We use your data to answer your message and stay in touch about working together.
+collected:
+  hu: Név, cégnév, e-mail-cím, telefonszám (nem kötelező), a megkeresés témája és az üzenet.
+  en: Name, company, email address, phone number (optional), topic and message.
+retention:
+  hu: Az utolsó kapcsolatfelvételt követő 2 évig őrizzük.
+  en: Kept for 2 years after our last contact.
+retention_policy:
+  anchor: last_contact
+  days: 730
+duplicates: allow
+withdraw:
+  hu: Az adataid törléséhez használd a lap alján található törlési kérelmet, vagy írj nekünk.
+  en: To have your data deleted, use the deletion request at the bottom of this page or write to us.
+consent:
+  hu: Hozzájárulok, hogy az SVK a fenti adataimat a megkeresésem megválaszolásához kezelje.
+  en: I agree that SVK processes the data above to answer my message.
+success:
+  hu: Köszönjük az üzenetet! Hamarosan válaszolunk.
+  en: Thank you for your message! We will reply soon.
+notify:
+  - kapcsolat@svk.bme.hu
+options:
+  topic:
+    - value: partnership
+      hu: Partnerség
+      en: Partnership
+    - value: event
+      hu: Esemény
+      en: Event
+    - value: sponsorship
+      hu: Szponzoráció
+      en: Sponsorship
+    - value: other
+      hu: Egyéb
+      en: Other

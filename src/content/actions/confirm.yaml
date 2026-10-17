@@ -1,0 +1,10 @@
+title:
+  hu: Érdeklődés megerősítése
+  en: Confirm your interest
+body:
+  hu: Kattints a gombra, hogy megerősítsd a feliratkozásod. Szólunk, amikor elindul a toborzás.
+  en: Click the button to confirm your signup. We will let you know when recruitment starts.
+button:
+  hu: Megerősítem
+  en: Confirm
+result: interest-confirmed

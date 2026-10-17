@@ -1,0 +1,87 @@
+title:
+  hu: Példa esemény jelentkezéssel
+  en: Example event with registration
+start: 2027-04-15T18:00
+end: 2027-04-15T20:00
+place:
+  hu: Schönherz Kollégium, 102-es terem
+  en: Schönherz College, room 102
+speaker:
+  hu: Példa Előadó
+description:
+  hu: |-
+    Ez egy **piszkozat** példaesemény: csak az előnézeti oldalon látszik. Megmutatja a jelentkezést, a további kérdéseket és az emlékeztetőt.
+  en: |-
+    This is a **draft** example event: it only shows on the preview site. It demonstrates registration, extra questions and the reminder.
+draft: true
+registration:
+  enabled: true
+  capacity: 40
+  opens: 2027-03-01T12:00
+  closes: 2027-04-14T23:59
+  extra_fields:
+    - label:
+        hu: Mit szeretnél megkérdezni az előadótól?
+        en: What would you like to ask the speaker?
+      type: textarea
+      required: false
+    - id: year
+      label:
+        hu: Melyik évfolyamon vagy?
+        en: Which year are you in?
+      type: single_choice
+      options:
+        - value: bsc_1_2
+          hu: BSc 1–2.
+          en: BSc year 1–2
+        - value: bsc_3
+          hu: BSc 3+
+          en: BSc year 3+
+        - value: msc
+          hu: MSc
+          en: MSc
+      required: true
+    - label:
+        hu: Kérek vegetáriánus pizzát
+        en: I would like vegetarian pizza
+      type: checkbox
+      required: false
+reminder:
+  enabled: true
+  hours_before: 24
+  test_to: ''
+  subject:
+    hu: 'Holnap: {event_title}'
+    en: 'Tomorrow: {event_title}'
+  body:
+    hu: |-
+      Szia {name}!
+
+      Emlékeztetünk, hogy holnap ({date}) találkozunk a(z) {event_title} eseményen.
+
+      Részletek: {event_url}
+    en: |-
+      Hi {name},
+
+      A reminder that we meet tomorrow ({date}) at {event_title}.
+
+      Details: {event_url}
+confirmation:
+  enabled: false
+  test_to: ''
+  subject:
+    hu: 'Jelentkezésed: {event_title}'
+    en: 'Your registration: {event_title}'
+  body:
+    hu: |-
+      Szia {name}!
+
+      Megkaptuk a jelentkezésed erre: {event_title} ({date}, {place}).
+
+      Részletek: {event_url}
+    en: |-
+      Hi {name},
+
+      We have your registration for {event_title} ({date}, {place}).
+
+      Details: {event_url}

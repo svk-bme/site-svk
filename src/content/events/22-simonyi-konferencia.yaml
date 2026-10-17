@@ -1,0 +1,17 @@
+title:
+  hu: 22. Simonyi Konferencia
+  en: 22. Simonyi Conference
+start: 2025-03-18T10:00
+place:
+  hu: BME I épület
+speaker:
+  hu: 20+
+description:
+  hu: Magyarország legnagyobb egyetemi hallgatók által szervezett éves technológiai konferenciája.
+image: ./22-simonyi-konferencia.png
+image_alt:
+  hu: Konferencia
+album_link: https://spot.sch.bme.hu/photo/2025/20250318_simonyi_konferencia/
+draft: false
+registration:
+  enabled: false

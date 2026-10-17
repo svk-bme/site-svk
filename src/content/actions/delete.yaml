@@ -1,0 +1,10 @@
+title:
+  hu: Adataid törlése
+  en: Delete your data
+body:
+  hu: A gombra kattintva minden adatot törlünk, amelyet ehhez az e-mail-címhez az űrlapjainkon keresztül tárolunk, a feltöltött fájlokkal együtt. Ez nem vonható vissza.
+  en: Click the button to delete all data we store for this email address through our forms, including uploaded files. This cannot be undone.
+button:
+  hu: Adataim végleges törlése
+  en: Delete my data permanently
+result: deleted

@@ -1,0 +1,54 @@
+site_url: https://svk.bme.hu
+name:
+  hu: Schönherz Vállalati Kapcsolatok
+  en: Schönherz Corporate Relations
+short_name: SVK
+description:
+  hu: A Schönherz Vállalati Kapcsolatok (SVK) employer branding szolgáltatásokkal köti össze a mérnök- és informatikushallgatókat a cégekkel.
+  en: Schönherz Corporate Relations (SVK) connects engineering and IT students with companies through employer branding services.
+timezone: Europe/Budapest
+contact:
+  email: kapcsolat@svk.bme.hu
+  address:
+    hu: |-
+      Budapest, Irinyi József u. 42
+      1117, Magyarország
+    en: |-
+      Irinyi József u. 42, Budapest
+      1117, Hungary
+social:
+  - label: Facebook
+    url: https://www.facebook.com/SchonherzVallalatiKapcsolatok
+    icon: facebook
+  - label: LinkedIn
+    url: https://linkedin.com/company/sch%C3%B6nherz-corporate-relations
+    icon: linkedin
+  - label: Instagram
+    url: https://www.instagram.com/svk_bme
+    icon: instagram
+recruitment:
+  status: closed
+  opens: 2027-03-01T00:00
+  closes: 2027-03-21T23:59
+  expected_text:
+    hu: A toborzás általában év elején, március környékén indul. Hagyd meg az elérhetőséged, és szólunk, amikor jelentkezhetsz!
+    en: Recruitment usually starts at the beginning of the year, around March. Leave your details and we will let you know when you can apply.
+  intro:
+    hu: |-
+      Elindult a toborzás! Olyan hallgatókat keresünk, akiket érdekel a cégek és a hallgatók közötti kapcsolat építése.
+
+      **A folyamat:** jelentkezés motivációs levéllel és egy rövid bemutatkozó prezentációval, majd személyes beszélgetés.
+    en: |-
+      Recruitment is open! We are looking for students who are interested in building connections between companies and students.
+
+      **The process:** apply with a motivation letter and a short introduction presentation, followed by a personal interview.
+forms:
+  # Empty until service-forms runs; the forms then show "coming soon".
+  api_url: ''
+  # Name of this site in the form service's configuration ([[sources]] name)
+  source: svk
+events:
+  default_duration_minutes: 120
+  home_count: 3
+analytics:
+  goatcounter: ''

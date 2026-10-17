@@ -1,0 +1,14 @@
+title:
+  hu: 23. Simonyi Konferencia
+  en: 23. Simonyi Conference
+start: 2026-03-24T10:00
+place:
+  hu: BME I épület
+speaker:
+  hu: 20+
+description:
+  hu: Magyarország legnagyobb egyetemi hallgatók által szervezett éves technológiai konferenciája. https://konferencia.simonyi.bme.hu/
+image: ./23-simonyi-konferencia.png
+draft: false
+registration:
+  enabled: false

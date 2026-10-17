@@ -1,0 +1,10 @@
+title:
+  hu: Leiratkozás
+  en: Unsubscribe
+body:
+  hu: A gombra kattintva leiratkozol az SVK toborzási értesítőjéről, és töröljük az ehhez tartozó adataidat.
+  en: Click the button to unsubscribe from SVK's recruitment updates. We will delete the data you gave us for them.
+button:
+  hu: Leiratkozom
+  en: Unsubscribe
+result: unsubscribed

@@ -1,0 +1,30 @@
+note: Sent right after someone fills in the interest form. {link} confirms the signup.
+enabled: true
+# A test copy goes here whenever the text changes (empty: none)
+test_to: ''
+subject:
+  hu: Erősítsd meg az érdeklődésed az SVK iránt
+  en: Confirm your interest in SVK
+body:
+  hu: |-
+    Szia {name}!
+
+    Köszönjük, hogy érdeklődsz az SVK iránt. Kattints az alábbi linkre, hogy megerősítsd a feliratkozásod, és szólhassunk, amikor elindul a toborzás:
+
+    {link}
+
+    Ha nem te iratkoztál fel, nincs teendőd: a meg nem erősített feliratkozást 7 nap múlva töröljük.
+
+    Üdv,
+    SVK
+  en: |-
+    Hi {name},
+
+    Thank you for your interest in SVK. Click the link below to confirm your signup so we can let you know when recruitment starts:
+
+    {link}
+
+    If you did not sign up, you do not need to do anything: unconfirmed signups are deleted after 7 days.
+
+    Best,
+    SVK

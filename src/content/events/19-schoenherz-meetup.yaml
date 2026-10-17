@@ -1,0 +1,13 @@
+title:
+  hu: 19. Schönherz MeetUp
+start: 2025-10-29T17:00
+place:
+  hu: BME Q épület, QB404
+speaker:
+  hu: Dr. Bacsárdi László, Mihályi Antal, Szpisják Tibor, Szatmári Tamás, Fazekas Barbara
+  en: Dr. László Bacsárdi, Antal Mihályi, Tibor Szpisják, Tamás Szatmári, Barbara Fazekas
+image: ./19-schoenherz-meetup.png
+external_link: https://meetup.svk.bme.hu/
+draft: false
+registration:
+  enabled: false

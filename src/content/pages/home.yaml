@@ -1,0 +1,36 @@
+title:
+  hu: Híd a jövő szakembereihez
+  en: Bridge to the professionals of the future
+description:
+  hu: A Schönherz Vállalati Kapcsolatok (SVK) employer branding szolgáltatásokkal köti össze a mérnök- és informatikushallgatókat a cégekkel.
+  en: Schönherz Corporate Relations (SVK) connects engineering and IT students with companies through employer branding services.
+intro:
+  hu: |-
+    Employer branding szolgáltatások mérnöki és informatikai területen.
+
+    Csoportunk a Schönherz Kollégium és az ipar meghatározó szereplői között dolgozik azon, hogy a hallgatók már az egyetemi éveik alatt megismerjék a cégeket, a cégek pedig a jövő szakembereit.
+  en: |-
+    Employer branding services in engineering and information technology.
+
+    Our group works between the Schönherz College and key players of the industry so that students get to know companies during their university years, and companies get to know the professionals of the future.
+ctas:
+  - title:
+      hu: Hallgató vagy?
+      en: Are you a student?
+    text:
+      hu: Csatlakozz hozzánk, és dolgozz együtt cégekkel már az egyetem alatt.
+      en: Join us and work with companies while you study.
+    button:
+      hu: Csatlakozz hozzánk
+      en: Join us
+    link: /join
+  - title:
+      hu: Cégeknek
+      en: For companies
+    text:
+      hu: Érd el a BME legtehetségesebb mérnök- és informatikushallgatóit.
+      en: Reach the most talented engineering and IT students of BME.
+    button:
+      hu: Lépj kapcsolatba velünk
+      en: Contact us
+    link: /companies#contact

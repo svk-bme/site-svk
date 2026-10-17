@@ -1,0 +1,9 @@
+name:
+  hu: Vámossy Barna
+  en: Barna Vámossy
+role:
+  hu: Tag
+  en: Member
+order: 8
+photo: ./vamossy-barna.jpg
+active: true

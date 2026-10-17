@@ -1,0 +1,26 @@
+title:
+  hu: Jelentkezés eseményre
+  en: Event registration
+order: 1
+purpose:
+  hu: Az adataidat az esemény megszervezéséhez és a résztvevők nyilvántartásához használjuk.
+  en: We use your data to organize the event and keep track of attendees.
+collected:
+  hu: Név, e-mail-cím, tanulmányok, valamint az adott eseménynél feltett további kérdésekre adott válaszok.
+  en: Name, email address, studies, and your answers to any extra questions asked for the event.
+retention:
+  hu: Az esemény után 90 napig őrizzük, utána töröljük.
+  en: Kept for 90 days after the event, then deleted.
+retention_policy:
+  anchor: event_end
+  days: 90
+duplicates: reject
+withdraw:
+  hu: A jelentkezésed visszavonásához és az adataid törléséhez használd a lap alján található törlési kérelmet, vagy írj nekünk.
+  en: To cancel your registration and have your data deleted, use the deletion request at the bottom of this page or write to us.
+consent:
+  hu: Hozzájárulok, hogy az SVK a fenti adataimat az esemény szervezéséhez kezelje.
+  en: I agree that SVK processes the data above to organize the event.
+success:
+  hu: Sikeresen jelentkeztél az eseményre. Várunk szeretettel!
+  en: You have registered for the event. See you there!

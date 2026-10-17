@@ -1,0 +1,28 @@
+title:
+  hu: Jelentkezés az SVK-ba
+  en: Application to SVK
+order: 3
+purpose:
+  hu: Az adataidat és a feltöltött anyagaidat a jelentkezésed elbírálásához használjuk.
+  en: We use your data and the files you upload to evaluate your application.
+collected:
+  hu: Név, e-mail-cím, tanulmányok, hátralévő aktív félévek száma, a választható kérdésekre adott válaszok, motivációs levél és bemutatkozó prezentáció.
+  en: Name, email address, studies, number of active semesters left, your answers to the optional questions, motivation letter and introduction presentation.
+retention:
+  hu: A toborzási időszak lezárulta után 3 hónapig őrizzük. A felvett tagok adatai az SVK belső nyilvántartásába kerülnek.
+  en: Kept for 3 months after the recruitment season closes. Data of accepted members moves to SVK's internal records.
+retention_policy:
+  anchor: season_close
+  days: 90
+duplicates: update
+withdraw:
+  hu: A jelentkezésed visszavonásához használd a lap alján található törlési kérelmet, vagy írj nekünk.
+  en: To withdraw your application, use the deletion request at the bottom of this page or write to us.
+consent:
+  hu: Hozzájárulok, hogy az SVK a fenti adataimat és feltöltött anyagaimat a jelentkezésem elbírálásához kezelje.
+  en: I agree that SVK processes the data and files above to evaluate my application.
+success:
+  hu: Megkaptuk a jelentkezésed! Hamarosan jelentkezünk a következő lépésekkel.
+  en: We have received your application! We will get back to you soon with the next steps.
+notify:
+  - kapcsolat@svk.bme.hu
