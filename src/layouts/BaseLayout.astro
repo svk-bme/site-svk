@@ -1,0 +1,69 @@
+---
+import '@fontsource/montserrat/latin-500.css'
+import '@fontsource/montserrat/latin-ext-500.css'
+import '@fontsource/montserrat/latin-700.css'
+import '@fontsource/montserrat/latin-ext-700.css'
+import '~/styles/tokens.css'
+import '~/styles/base.css'
+import '~/styles/components.css'
+import Footer from '~/components/Footer.astro'
+import Header from '~/components/Header.astro'
+import { localePath, locales, pathWithoutLocale, t, tr, type Locale } from '~/i18n'
+import { settings } from '~/lib/site'
+
+interface Props {
+  locale: Locale
+  /** Page title; the site name is appended. Omit on the home page. */
+  title?: string
+  description?: string
+  /** Absolute or root-relative URL of the link preview image */
+  image?: string
+  /** Pages that exist in one language only (none today) or must not be indexed */
+  noindex?: boolean
+}
+
+const { locale, title, description = tr(locale, settings.description), image, noindex = false } = Astro.props
+const siteName = tr(locale, settings.name)
+const pageTitle = title ? `${title} | ${settings.short_name}` : `${settings.short_name} – ${siteName}`
+const path = pathWithoutLocale(Astro.url.pathname)
+const alternates = locales.map((l) => ({ locale: l, href: new URL(localePath(l, path), Astro.site).href }))
+const ogImage = new URL(image ?? '/favicon/ms-icon-310x310.png', Astro.site).href
+const goatcounter = settings.analytics?.goatcounter || undefined
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>
+      document.documentElement.classList.add('js')
+    </script>
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={new URL(localePath(locale, path), Astro.site).href} />
+    {alternates.map((a) => <link rel="alternate" hreflang={a.locale} href={a.href} />)}
+    <link rel="alternate" hreflang="x-default" href={alternates[0].href} />
+    <link rel="alternate" type="text/calendar" title={t(locale, 'events.subscribe')} href={localePath(locale, '/events.ics')} />
+    <link rel="icon" href="/favicon/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="apple-touch-icon" href="/favicon/apple-icon-180x180.png" />
+    <meta name="theme-color" content="#000000" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={settings.short_name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content={t(locale, 'meta.ogLocale')} />
+    {goatcounter && <script is:inline async data-goatcounter={goatcounter} src={new URL('/count.js', goatcounter).href} />}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{t(locale, 'nav.skipToContent')}</a>
+    <Header locale={locale} />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer locale={locale} />
+  </body>
+</html>

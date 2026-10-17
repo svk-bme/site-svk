@@ -1,0 +1,59 @@
+---
+import SvkLogo from '~/icons/svk-logo.svg'
+import { localePath, otherLocale, pathWithoutLocale, t, tr, type Locale } from '~/i18n'
+import { isCurrent, navigation } from '~/lib/routes'
+import { settings } from '~/lib/site'
+
+interface Props {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const path = pathWithoutLocale(Astro.url.pathname)
+const other = otherLocale(locale)
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="site-header__logo" href={localePath(locale, '/')}>
+      <SvkLogo role="img" aria-label={`${tr(locale, settings.name)} – ${t(locale, 'nav.home')}`} />
+    </a>
+    <nav class="nav" aria-label={t(locale, 'nav.label')} data-nav>
+      <button type="button" class="nav__toggle" aria-expanded="false" aria-controls="nav-list" data-nav-toggle>
+        {t(locale, 'nav.menu')}
+      </button>
+      <ul class="nav__list" id="nav-list">
+        {
+          navigation.map((item) => (
+            <li>
+              <a href={localePath(locale, item.href)} aria-current={isCurrent(path, item.href) ? 'page' : undefined}>
+                {t(locale, `nav.${item.key}`)}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a class="lang-switch" href={localePath(other, path)} hreflang={other} lang={other}>
+        <span aria-hidden="true">{other.toUpperCase()}</span>
+        <span class="sr-only">{t(locale, 'nav.switchLanguage')}</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const nav = document.querySelector<HTMLElement>('[data-nav]')!
+  const toggle = nav.querySelector<HTMLButtonElement>('[data-nav-toggle]')!
+  const setOpen = (open: boolean) => {
+    toggle.setAttribute('aria-expanded', String(open))
+    if (open) nav.dataset.open = ''
+    else delete nav.dataset.open
+  }
+  toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'))
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && nav.dataset.open !== undefined) {
+      setOpen(false)
+      toggle.focus()
+    }
+  })
+</script>

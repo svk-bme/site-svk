@@ -1,0 +1,52 @@
+/*
+ * Design tokens. Pages and components use only these variables, so a design system
+ * can replace this file (phase 4) without touching page logic.
+ */
+:root {
+  /* Colours */
+  --color-bg: #071c42;
+  --color-surface: #000;
+  --color-surface-raised: rgb(0 0 0 / 0.35);
+  --color-text: #fff;
+  --color-text-muted: #c7cbd4;
+  --color-accent: #3dcab1;
+  --color-on-accent: #071c42;
+  --color-border: rgb(255 255 255 / 0.25);
+  --color-focus: #3dcab1;
+  --color-success: #3dcab1;
+  --color-error: #ff8a8a;
+
+  /* Type */
+  --font-body: 'Montserrat', system-ui, sans-serif;
+  --font-weight-body: 500;
+  --font-weight-strong: 700;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: clamp(1.75rem, 1.2rem + 2vw, 2.5rem);
+  --text-3xl: clamp(2rem, 1.2rem + 3.5vw, 3.75rem);
+  --line-height: 1.6;
+  --line-height-tight: 1.2;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Layout */
+  --content-width: 72rem;
+  --prose-width: 46rem;
+  --gutter: clamp(1rem, 5vw, 4rem);
+
+  /* Shape */
+  --radius-sm: 0.5rem;
+  --radius: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-pill: 999px;
+}

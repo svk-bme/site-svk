@@ -1,0 +1,39 @@
+---
+import { Image } from 'astro:assets'
+import { formatDate, t, tr, type Locale } from '~/i18n'
+import { eventHref, type Event } from '~/lib/events'
+import { settings } from '~/lib/site'
+
+interface Props {
+  locale: Locale
+  event: Event
+  headingLevel?: 'h2' | 'h3' | 'h4'
+}
+
+const { locale, event, headingLevel: Heading = 'h3' } = Astro.props
+const { image, image_alt, start, place, external_link, draft } = event.data
+const title = tr(locale, event.data.title)
+---
+
+<article class="card card--linked">
+  {
+    image && (
+      <Image
+        src={image}
+        alt={tr(locale, image_alt)}
+        widths={[400, 700]}
+        sizes="(min-width: 60rem) 25vw, 90vw"
+        class="card__image"
+      />
+    )
+  }
+  <Heading class="card__title">
+    <a href={eventHref(locale, event)}>{title}</a>
+  </Heading>
+  <p class="muted">
+    <time datetime={start.toISOString()}>{formatDate(locale, start, settings.timezone)}</time>
+    {place && <><br />{tr(locale, place)}</>}
+  </p>
+  {draft && <p><span class="badge">{t(locale, 'events.draft')}</span></p>}
+  {external_link && <p class="field__help">{t(locale, 'events.external')} ↗</p>}
+</article>

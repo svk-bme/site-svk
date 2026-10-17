@@ -1,0 +1,13 @@
+---
+import { getCollection } from 'astro:content'
+import NoticePage from '~/views/NoticePage.astro'
+
+export async function getStaticPaths() {
+  const notices = await getCollection('notices')
+  return notices.map((notice) => ({ params: { id: notice.id }, props: { notice } }))
+}
+
+const { notice } = Astro.props
+---
+
+<NoticePage locale="en" notice={notice} />

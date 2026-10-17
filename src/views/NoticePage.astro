@@ -1,0 +1,23 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import { localePath, md, t, tr, type Locale } from '~/i18n'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+
+// Result pages reached from email links (service-forms redirects here): /status/<id>
+
+interface Props {
+  locale: Locale
+  notice: CollectionEntry<'notices'>
+}
+
+const { locale, notice } = Astro.props
+const title = tr(locale, notice.data.title)
+---
+
+<BaseLayout locale={locale} title={title} noindex>
+  <div class="section container">
+    <h1>{title}</h1>
+    <div class="prose" set:html={md(locale, notice.data.body)} />
+    <p><a class="button" href={localePath(locale, '/')}>{t(locale, 'status.home')}</a></p>
+  </div>
+</BaseLayout>

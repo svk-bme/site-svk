@@ -1,0 +1,559 @@
+/*
+ * The small component set: layout, buttons, cards, header/footer, events, people,
+ * forms. Uses tokens only; a design system can restyle these classes in place.
+ */
+
+/* ---------------------------------------------------------------- layout */
+
+.container {
+  width: 100%;
+  max-width: calc(var(--content-width) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--space-12);
+}
+
+.section-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.section-header > * {
+  margin: 0;
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-6);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+  padding: 0;
+  list-style: none;
+}
+
+.stack > * + * {
+  margin-top: var(--space-4);
+}
+
+.prose {
+  max-width: var(--prose-width);
+}
+
+.prose :where(h2, h3) {
+  margin-top: var(--space-8);
+}
+
+.prose :where(ul, ol) {
+  padding-left: var(--space-6);
+}
+
+.lead {
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+  max-width: var(--prose-width);
+}
+
+.muted {
+  color: var(--color-text-muted);
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--space-4);
+  top: -10rem;
+  z-index: 100;
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  border-radius: var(--radius-sm);
+}
+
+.skip-link:focus {
+  top: var(--space-4);
+}
+
+/* ---------------------------------------------------------------- buttons */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 2.75rem;
+  padding: var(--space-2) var(--space-6);
+  border: 2px solid var(--color-accent);
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font-weight: var(--font-weight-strong);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  color: var(--color-on-accent);
+  opacity: 0.85;
+}
+
+.button[disabled] {
+  cursor: progress;
+  opacity: 0.6;
+}
+
+.button--secondary {
+  background: transparent;
+  color: var(--color-text);
+}
+
+.button--secondary:hover {
+  color: var(--color-accent);
+}
+
+/* ---------------------------------------------------------------- cards */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  height: 100%;
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-raised);
+}
+
+.card > * {
+  margin: 0;
+}
+
+.card__image {
+  width: 100%;
+  border-radius: var(--radius);
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.card__title a {
+  text-decoration: none;
+}
+
+/* Makes the whole card clickable through its title link */
+.card--linked {
+  position: relative;
+}
+
+.card--linked .card__title a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+}
+
+.card--linked:focus-within {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.card--linked .card__title a:focus-visible {
+  outline: none;
+}
+
+.card__actions {
+  margin-top: auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------------------------------------------------------------- header */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--color-surface);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  min-height: 4rem;
+}
+
+.site-header__logo {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.site-header__logo svg {
+  height: 2.5rem;
+  width: auto;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.nav__list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav__list a {
+  text-decoration: none;
+}
+
+.nav__list a[aria-current='page'] {
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: 2px;
+}
+
+.nav__toggle {
+  display: none;
+}
+
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  border-radius: var(--radius-sm);
+  background: rgb(255 255 255 / 0.1);
+  font-size: var(--text-sm);
+  text-decoration: none;
+}
+
+@media (max-width: 52rem) {
+  .nav__toggle {
+    display: inline-flex;
+    min-height: 2.75rem;
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .nav__list {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+    padding: var(--space-6) var(--gutter);
+    background: var(--color-surface);
+  }
+
+  .nav[data-open] .nav__list {
+    display: flex;
+  }
+
+  /* Without JavaScript the menu stays visible */
+  html:not(.js) .nav__toggle {
+    display: none;
+  }
+
+  html:not(.js) .nav__list {
+    display: flex;
+    position: static;
+    flex-wrap: wrap;
+    flex-direction: row;
+    padding: 0;
+  }
+
+  html:not(.js) .site-header__inner {
+    flex-wrap: wrap;
+    padding-block: var(--space-2);
+  }
+}
+
+/* ---------------------------------------------------------------- footer */
+
+.site-footer {
+  background: var(--color-surface);
+  padding-block: var(--space-12);
+  font-size: var(--text-sm);
+}
+
+.site-footer__inner {
+  display: grid;
+  gap: var(--space-8);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+}
+
+.site-footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.site-footer address {
+  font-style: normal;
+  white-space: pre-line;
+}
+
+.social {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+.social svg {
+  width: 1.75rem;
+  height: 1.75rem;
+  fill: currentColor;
+}
+
+/* ---------------------------------------------------------------- hero, CTA */
+
+.hero {
+  padding-block: var(--space-16);
+  text-align: center;
+}
+
+.hero__logo {
+  display: inline-block;
+  width: min(100%, 32rem);
+  margin-bottom: var(--space-8);
+}
+
+.hero__logo svg {
+  width: 100%;
+  height: auto;
+}
+
+.hero .lead {
+  margin-inline: auto;
+}
+
+.banner {
+  width: 100%;
+  max-height: 60vh;
+  object-fit: cover;
+  display: block;
+}
+
+/* ---------------------------------------------------------------- events */
+
+.meta {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--space-1) var(--space-4);
+  margin: 0;
+}
+
+.meta dt {
+  color: var(--color-text-muted);
+}
+
+.meta dd {
+  margin: 0;
+}
+
+.event-detail {
+  display: grid;
+  gap: var(--space-8);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  align-items: start;
+}
+
+.event-detail__image {
+  width: 100%;
+  border-radius: var(--radius);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin: var(--space-6) 0;
+}
+
+.archive-year {
+  margin-top: var(--space-8);
+}
+
+/* ---------------------------------------------------------------- people, partners */
+
+.member__photo {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+.member__role {
+  color: var(--color-accent);
+}
+
+.partners {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-8);
+  padding: 0;
+  list-style: none;
+}
+
+.partners img {
+  max-height: 4rem;
+  width: auto;
+}
+
+/* ---------------------------------------------------------------- notices */
+
+.notice {
+  padding: var(--space-4) var(--space-6);
+  border-left: 4px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-raised);
+}
+
+.notice > :last-child {
+  margin-bottom: 0;
+}
+
+.notice--error {
+  border-color: var(--color-error);
+}
+
+.badge {
+  display: inline-block;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  background: rgb(255 255 255 / 0.1);
+  font-size: var(--text-sm);
+}
+
+/* ---------------------------------------------------------------- forms */
+
+.form {
+  display: grid;
+  gap: var(--space-6);
+  max-width: var(--prose-width);
+}
+
+.form__about {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.form__about > * {
+  margin-bottom: var(--space-2);
+}
+
+.field {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.field__label {
+  font-weight: var(--font-weight-strong);
+  padding: 0;
+}
+
+.field__hint {
+  font-weight: var(--font-weight-body);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.field__help {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.field__error {
+  font-size: var(--text-sm);
+  color: var(--color-error);
+  margin: 0;
+}
+
+.field__error:empty {
+  display: none;
+}
+
+.input {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-raised);
+}
+
+textarea.input {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+.input[aria-invalid='true'] {
+  border-color: var(--color-error);
+}
+
+.choice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  cursor: pointer;
+}
+
+.choice input {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+  accent-color: var(--color-accent);
+}
+
+/* "Other" studies: the free-text field shows when "Other" is picked */
+.field[data-show-if] {
+  display: none;
+}
+
+.form:has([data-controls-other] input[value='other']:checked) .field[data-show-if='studies=other'],
+.field[data-show-if].is-visible {
+  display: grid;
+}
+
+/* Honeypot: hidden from people, visible to naive bots */
+.form__trap {
+  position: absolute;
+  left: -100vw;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form__status:empty {
+  display: none;
+}

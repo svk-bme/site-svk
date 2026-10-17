@@ -1,0 +1,63 @@
+---
+import EventCard from '~/components/EventCard.astro'
+import { localePath, md, t, tr, type Locale } from '~/i18n'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import { getEvents, groupByYear } from '~/lib/events'
+import { getPage } from '~/lib/site'
+
+interface Props {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const page = await getPage('events')
+const { upcoming, past } = await getEvents()
+const archive = groupByYear(past)
+---
+
+<BaseLayout locale={locale} title={tr(locale, page.title)} description={tr(locale, page.description) || undefined}>
+  <div class="section container">
+    <h1>{tr(locale, page.title)}</h1>
+    {page.intro && <div class="lead" set:html={md(locale, page.intro)} />}
+    <p>
+      <a href={localePath(locale, '/events.ics')}>{t(locale, 'events.subscribe')}</a>
+    </p>
+
+    <section aria-labelledby="upcoming">
+      <h2 id="upcoming">{t(locale, 'events.upcoming')}</h2>
+      {
+        upcoming.length > 0 ? (
+          <ul class="grid">
+            {upcoming.map((event) => (
+              <li>
+                <EventCard locale={locale} event={event} />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="muted">{t(locale, 'events.none')}</p>
+        )
+      }
+    </section>
+
+    {
+      archive.length > 0 && (
+        <section class="archive-year" aria-labelledby="past">
+          <h2 id="past">{t(locale, 'events.past')}</h2>
+          {archive.map(([year, events]) => (
+            <section class="archive-year" aria-labelledby={`year-${year}`}>
+              <h3 id={`year-${year}`}>{year}</h3>
+              <ul class="grid">
+                {events.map((event) => (
+                  <li>
+                    <EventCard locale={locale} event={event} headingLevel="h4" />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </section>
+      )
+    }
+  </div>
+</BaseLayout>

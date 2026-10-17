@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "intl": "en-GB",
+    "languageName": "English",
+    "ogLocale": "en_GB"
+  },
+  "nav": {
+    "label": "Main menu",
+    "home": "Home",
+    "about": "About",
+    "companies": "For companies",
+    "events": "Events",
+    "join": "Join us",
+    "privacy": "Privacy",
+    "menu": "Menu",
+    "switchLanguage": "Magyar változat",
+    "skipToContent": "Skip to content"
+  },
+  "footer": {
+    "nav": "Footer menu",
+    "contact": "Contact",
+    "social": "Follow us"
+  },
+  "home": {
+    "upcoming": "Upcoming events",
+    "allEvents": "All events"
+  },
+  "about": {
+    "team": "Our team",
+    "linkedin": "{name} on LinkedIn"
+  },
+  "companies": {
+    "partners": "Our partners",
+    "contact": "Get in touch"
+  },
+  "events": {
+    "upcoming": "Upcoming events",
+    "past": "Past events",
+    "none": "There are no upcoming events at the moment.",
+    "when": "When",
+    "where": "Where",
+    "speaker": "Speaker",
+    "details": "Details",
+    "external": "Event website",
+    "album": "Photos",
+    "addToCalendar": "Add to calendar (.ics)",
+    "subscribe": "Subscribe to the events calendar",
+    "back": "Back to events",
+    "registration": "Registration",
+    "draft": "Draft",
+    "state": {
+      "upcoming": "Registration opens on {date}.",
+      "open": "Registration is open.",
+      "openUntil": "Register by {date}.",
+      "full": "This event is full.",
+      "closed": "Registration is closed.",
+      "past": "This event has ended."
+    }
+  },
+  "join": {
+    "closed": "Recruitment is closed",
+    "nextSeason": "Next recruitment: {opens} – {closes}",
+    "nextSeasonFrom": "Next recruitment from {opens}",
+    "openUntil": "Apply by {date}",
+    "interest": "Get notified",
+    "application": "Apply"
+  },
+  "privacy": {
+    "forms": "Our forms",
+    "purpose": "What we use it for",
+    "collected": "What we collect",
+    "retention": "How long we keep it",
+    "withdraw": "Withdrawal and deletion",
+    "contact": "Questions? Write to us: {email}"
+  },
+  "forms": {
+    "comingSoon": "The online form is coming soon. Until then, write to us: {email}",
+    "submit": "Send",
+    "sending": "Sending…",
+    "required": "required",
+    "optional": "optional",
+    "choose": "Choose…",
+    "chooseOne": "Choose at least one.",
+    "retention": "Retention:",
+    "privacyLink": "Details in our privacy notice",
+    "errorGeneric": "Sending failed. Please try again later or write to us: {email}",
+    "errorNetwork": "Could not connect. Check your internet connection and try again.",
+    "errorFields": "Please correct the marked fields.",
+    "prefillFailed": "We could not load your earlier answers; please fill in the form yourself.",
+    "honeypot": "Leave this field empty",
+    "fileHelp": "Allowed: {types}, up to {size} MB.",
+    "fields": {
+      "name": "Name",
+      "email": "Email address",
+      "studies": "Studies",
+      "studiesBme": "BME VIK",
+      "studiesOther": "Other",
+      "studiesOtherText": "Where do you study?",
+      "semestersLeft": "Active semesters left",
+      "semestersLeftHelp": "Approximately, including MSc.",
+      "company": "Company",
+      "phone": "Phone number",
+      "topic": "Topic",
+      "message": "Message",
+      "motivation": "Motivation letter",
+      "motivationFile": "Motivation letter as PDF",
+      "motivationFileHelp": "You can upload a PDF instead of writing in the text box.",
+      "presentation": "Introduction presentation"
+    }
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "This page does not exist or has moved.",
+    "home": "Back to the home page"
+  },
+  "actions": {
+    "needsJs": "This page needs JavaScript. Turn it on, or write to us."
+  },
+  "status": {
+    "home": "Back to the home page"
+  }
+}

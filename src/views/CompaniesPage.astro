@@ -1,0 +1,44 @@
+---
+import { Image } from 'astro:assets'
+import Form from '~/components/Form.astro'
+import { md, t, tr, type Locale } from '~/i18n'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import { partnerContactForm } from '~/lib/forms'
+import { getPage, getPartners } from '~/lib/site'
+
+interface Props {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const page = await getPage('companies')
+const partners = await getPartners()
+const form = await partnerContactForm()
+---
+
+<BaseLayout locale={locale} title={tr(locale, page.title)} description={tr(locale, page.description) || undefined}>
+  <div class="section container">
+    <h1>{tr(locale, page.title)}</h1>
+    <div class="lead" set:html={md(locale, page.intro)} />
+    <div class="prose" set:html={md(locale, page.body)} />
+  </div>
+
+  {
+    partners.length > 0 && (
+      <section class="section container" aria-labelledby="partners">
+        <h2 id="partners">{t(locale, 'companies.partners')}</h2>
+        <ul class="partners">
+          {partners.map((partner) => {
+            const logo = <Image src={partner.data.logo} alt={partner.data.name} height={64} densities={[1, 2]} />
+            return <li>{partner.data.link ? <a href={partner.data.link} rel="noopener">{logo}</a> : logo}</li>
+          })}
+        </ul>
+      </section>
+    )
+  }
+
+  <section class="section container" id="contact" aria-labelledby="contact-title">
+    <h2 id="contact-title">{t(locale, 'companies.contact')}</h2>
+    <Form locale={locale} form={form} />
+  </section>
+</BaseLayout>

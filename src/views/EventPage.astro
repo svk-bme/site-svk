@@ -1,0 +1,90 @@
+---
+import { Image } from 'astro:assets'
+import Registration from '~/components/Registration.astro'
+import { formatDate, localePath, md, t, tr, type Locale } from '~/i18n'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import { calendarPath, eventEnd, type Event } from '~/lib/events'
+import { settings } from '~/lib/site'
+
+interface Props {
+  locale: Locale
+  event: Event
+}
+
+const { locale, event } = Astro.props
+const { image, image_alt, start, end, place, speaker, external_link, album_link } = event.data
+const title = tr(locale, event.data.title)
+const description = md(locale, event.data.description)
+const tz = settings.timezone
+const sameDay = end && formatDate(locale, start, tz, { time: false }) === formatDate(locale, end, tz, { time: false })
+const endText = end
+  ? sameDay
+    ? new Intl.DateTimeFormat(t(locale, 'meta.intl'), { timeZone: tz, timeStyle: 'short' }).format(end)
+    : formatDate(locale, end, tz)
+  : undefined
+---
+
+<BaseLayout
+  locale={locale}
+  title={title}
+  description={tr(locale, event.data.description).slice(0, 200) || undefined}
+  image={image?.src}
+  noindex={event.data.draft}
+>
+  <article class="section container">
+    <p><a href={localePath(locale, '/events')}>← {t(locale, 'events.back')}</a></p>
+    <div class="event-detail">
+      <div>
+        <h1>{title}</h1>
+        <dl class="meta">
+          <dt>{t(locale, 'events.when')}</dt>
+          <dd>
+            <time datetime={start.toISOString()}>{formatDate(locale, start, tz)}</time>
+            {endText && <> – <time datetime={eventEnd(event).toISOString()}>{endText}</time></>}
+          </dd>
+          {place && (
+            <>
+              <dt>{t(locale, 'events.where')}</dt>
+              <dd>{tr(locale, place)}</dd>
+            </>
+          )}
+          {speaker && (
+            <>
+              <dt>{t(locale, 'events.speaker')}</dt>
+              <dd>{tr(locale, speaker)}</dd>
+            </>
+          )}
+        </dl>
+        <p class="links">
+          <a class="button button--secondary" href={calendarPath(locale, event)} download={`${event.id}.ics`}>
+            {t(locale, 'events.addToCalendar')}
+          </a>
+          {external_link && (
+            <a class="button button--secondary" href={external_link} rel="noopener">
+              {t(locale, 'events.external')} ↗
+            </a>
+          )}
+          {album_link && (
+            <a class="button button--secondary" href={album_link} rel="noopener">
+              {t(locale, 'events.album')} ↗
+            </a>
+          )}
+        </p>
+      </div>
+      {
+        image && (
+          <Image
+            src={image}
+            alt={tr(locale, image_alt)}
+            widths={[400, 800, 1200]}
+            sizes="(min-width: 60rem) 40vw, 90vw"
+            loading="eager"
+            class="event-detail__image"
+          />
+        )
+      }
+    </div>
+    {description && <div class="prose section" set:html={description} />}
+    <Registration locale={locale} event={event} />
+  </article>
+</BaseLayout>

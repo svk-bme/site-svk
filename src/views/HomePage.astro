@@ -1,0 +1,69 @@
+---
+import SvkLogoWithText from '~/icons/svk-logo-with-text.svg'
+import EventCard from '~/components/EventCard.astro'
+import { localePath, md, t, tr, type Locale } from '~/i18n'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import { getEvents } from '~/lib/events'
+import { getPage, settings } from '~/lib/site'
+
+interface Props {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const page = await getPage('home')
+const { upcoming } = await getEvents()
+const events = upcoming.slice(0, settings.events.home_count)
+---
+
+<BaseLayout locale={locale} description={tr(locale, page.description) || undefined}>
+  <section class="hero container">
+    <div class="hero__logo" aria-hidden="true"><SvkLogoWithText /></div>
+    <h1>{tr(locale, page.title)}</h1>
+    <div class="lead" set:html={md(locale, page.intro)} />
+  </section>
+
+  {
+    settings.events.home_count > 0 && (
+      <section class="section container" aria-labelledby="upcoming">
+        <div class="section-header">
+          <h2 id="upcoming">{t(locale, 'home.upcoming')}</h2>
+          <a href={localePath(locale, '/events')}>{t(locale, 'home.allEvents')} →</a>
+        </div>
+        {events.length > 0 ? (
+          <ul class="grid">
+            {events.map((event) => (
+              <li>
+                <EventCard locale={locale} event={event} />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="muted">{t(locale, 'events.none')}</p>
+        )}
+      </section>
+    )
+  }
+
+  {
+    page.ctas && page.ctas.length > 0 && (
+      <section class="section container">
+        <ul class="grid">
+          {page.ctas.map((cta) => (
+            <li>
+              <div class="card">
+                <h2>{tr(locale, cta.title)}</h2>
+                {cta.text && <p>{tr(locale, cta.text)}</p>}
+                <p class="card__actions">
+                  <a class="button" href={localePath(locale, cta.link)}>
+                    {tr(locale, cta.button)}
+                  </a>
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+</BaseLayout>

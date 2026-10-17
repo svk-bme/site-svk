@@ -1,0 +1,63 @@
+---
+import Form from '~/components/Form.astro'
+import { formatDate, md, t, tr, type Locale } from '~/i18n'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import { applicationForm, interestForm } from '~/lib/forms'
+import { buildTime, getPage, recruitmentState, settings } from '~/lib/site'
+
+// The recruitment season switch: the application form while recruitment is open,
+// otherwise the expected-season text and the interest form. Rebuilt daily, so the
+// `opens` and `closes` dates take effect on their own.
+
+interface Props {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const page = await getPage('join')
+const season = recruitmentState()
+const { recruitment } = settings
+const date = (d: Date) => formatDate(locale, d, settings.timezone, { time: false })
+const dateTime = (d: Date) => formatDate(locale, d, settings.timezone)
+const upcoming = !season.open && season.opens && season.opens > buildTime ? season.opens : undefined
+const form = season.open ? await applicationForm() : await interestForm()
+---
+
+<BaseLayout locale={locale} title={tr(locale, page.title)} description={tr(locale, page.description) || undefined}>
+  <div class="section container">
+    <h1>{tr(locale, page.title)}</h1>
+    {page.intro && <div class="lead" set:html={md(locale, page.intro)} />}
+
+    {
+      season.open ? (
+        <>
+          <div class="prose" set:html={md(locale, recruitment.intro)} />
+          {season.closes && (
+            <p class="notice">
+              <strong>{t(locale, 'join.openUntil', { date: dateTime(season.closes) })}</strong>
+            </p>
+          )}
+          <section class="section" aria-labelledby="form-title">
+            <h2 id="form-title">{t(locale, 'join.application')}</h2>
+            <Form locale={locale} form={form} />
+          </section>
+        </>
+      ) : (
+        <>
+          <div class="prose" set:html={md(locale, recruitment.expected_text)} />
+          {upcoming && (
+            <p class="notice">
+              {season.closes && season.closes > upcoming
+                ? t(locale, 'join.nextSeason', { opens: date(upcoming), closes: date(season.closes) })
+                : t(locale, 'join.nextSeasonFrom', { opens: date(upcoming) })}
+            </p>
+          )}
+          <section class="section" aria-labelledby="form-title">
+            <h2 id="form-title">{t(locale, 'join.interest')}</h2>
+            <Form locale={locale} form={form} />
+          </section>
+        </>
+      )
+    }
+  </div>
+</BaseLayout>

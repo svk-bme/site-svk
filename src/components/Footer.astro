@@ -1,0 +1,64 @@
+---
+import FacebookIcon from '~/icons/facebook.svg'
+import InstagramIcon from '~/icons/instagram.svg'
+import LinkedInIcon from '~/icons/linkedin.svg'
+import MailIcon from '~/icons/mail.svg'
+import { localePath, pathWithoutLocale, t, tr, type Locale } from '~/i18n'
+import { isCurrent, navigation } from '~/lib/routes'
+import { settings } from '~/lib/site'
+
+interface Props {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const path = pathWithoutLocale(Astro.url.pathname)
+const icons = { facebook: FacebookIcon, instagram: InstagramIcon, linkedin: LinkedInIcon, mail: MailIcon, link: undefined }
+const footerLinks = [...navigation, { key: 'privacy', href: '/privacy' }]
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <nav aria-label={t(locale, 'footer.nav')}>
+      <ul>
+        {
+          footerLinks.map((item) => (
+            <li>
+              <a href={localePath(locale, item.href)} aria-current={isCurrent(path, item.href) ? 'page' : undefined}>
+                {t(locale, `nav.${item.key}`)}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <div>
+      <p><strong>{tr(locale, settings.name)}</strong></p>
+      {settings.contact.address && <address>{tr(locale, settings.contact.address)}</address>}
+      <p>
+        {t(locale, 'footer.contact')}: <a href={`mailto:${settings.contact.email}`}>{settings.contact.email}</a>
+      </p>
+    </div>
+    {
+      settings.social.length > 0 && (
+        <div>
+          <p>
+            <strong>{t(locale, 'footer.social')}</strong>
+          </p>
+          <ul class="social">
+            {settings.social.map((s) => {
+              const Icon = icons[s.icon]
+              return (
+                <li>
+                  <a href={s.url} rel="noopener" aria-label={s.label}>
+                    {Icon ? <Icon aria-hidden="true" /> : s.label}
+                  </a>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+      )
+    }
+  </div>
+</footer>

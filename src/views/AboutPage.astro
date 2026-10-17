@@ -1,0 +1,78 @@
+---
+import { Image } from 'astro:assets'
+import { md, t, tr, type Locale } from '~/i18n'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import { getMembers, getPage } from '~/lib/site'
+
+interface Props {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const page = await getPage('about')
+const members = await getMembers()
+---
+
+<BaseLayout
+  locale={locale}
+  title={tr(locale, page.title)}
+  description={tr(locale, page.description) || undefined}
+  image={page.image?.src}
+>
+  {
+    page.image && (
+      <Image
+        src={page.image}
+        alt={tr(locale, page.image_alt)}
+        widths={[640, 1024, 1600, 2048]}
+        sizes="100vw"
+        loading="eager"
+        fetchpriority="high"
+        class="banner"
+      />
+    )
+  }
+  <div class="section container">
+    <h1>{tr(locale, page.title)}</h1>
+    <div class="lead" set:html={md(locale, page.intro)} />
+    <div class="prose" set:html={md(locale, page.body)} />
+  </div>
+
+  {
+    members.length > 0 && (
+      <section class="section container" aria-labelledby="team">
+        <h2 id="team">{t(locale, 'about.team')}</h2>
+        <ul class="grid">
+          {members.map((member) => {
+            const name = tr(locale, member.data.name)
+            return (
+              <li>
+                <article class="card">
+                  {member.data.photo && (
+                    <Image
+                      src={member.data.photo}
+                      alt=""
+                      widths={[300, 600]}
+                      sizes="(min-width: 60rem) 25vw, 90vw"
+                      class="member__photo"
+                    />
+                  )}
+                  <h3>{name}</h3>
+                  {member.data.role && <p class="member__role">{tr(locale, member.data.role)}</p>}
+                  {member.data.description && <div set:html={md(locale, member.data.description)} />}
+                  {member.data.linkedin && (
+                    <p class="card__actions">
+                      <a href={member.data.linkedin} rel="noopener">
+                        LinkedIn<span class="sr-only"> – {t(locale, 'about.linkedin', { name })}</span>
+                      </a>
+                    </p>
+                  )}
+                </article>
+              </li>
+            )
+          })}
+        </ul>
+      </section>
+    )
+  }
+</BaseLayout>

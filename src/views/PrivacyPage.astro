@@ -1,0 +1,65 @@
+---
+import { getCollection } from 'astro:content'
+import Form from '~/components/Form.astro'
+import { md, t, tr, type Locale } from '~/i18n'
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import { deleteRequestForm } from '~/lib/forms'
+import { getPage, settings } from '~/lib/site'
+
+// One page listing every form: what is collected, why, how long, how to withdraw.
+// The list comes from src/content/forms, so a new form appears here automatically.
+
+interface Props {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const page = await getPage('privacy')
+const forms = (await getCollection('forms'))
+  .filter((f) => f.id !== 'delete-request')
+  .sort((a, b) => a.data.order - b.data.order)
+const deleteForm = await deleteRequestForm()
+const email = settings.contact.email
+---
+
+<BaseLayout locale={locale} title={tr(locale, page.title)} description={tr(locale, page.description) || undefined}>
+  <div class="section container">
+    <h1>{tr(locale, page.title)}</h1>
+    <div class="prose" set:html={md(locale, page.intro)} />
+    <p set:html={t(locale, 'privacy.contact', { email: `<a href="mailto:${email}">${email}</a>` })} />
+
+    <section aria-labelledby="forms">
+      <h2 id="forms">{t(locale, 'privacy.forms')}</h2>
+      {
+        forms.map(({ id, data }) => (
+          <section class="prose section" aria-labelledby={`form-${id}`} id={id}>
+            <h3 id={`form-${id}`}>{tr(locale, data.title)}</h3>
+            <dl>
+              <dt><strong>{t(locale, 'privacy.purpose')}</strong></dt>
+              <dd set:html={md(locale, data.purpose)} />
+              {data.collected && (
+                <>
+                  <dt><strong>{t(locale, 'privacy.collected')}</strong></dt>
+                  <dd set:html={md(locale, data.collected)} />
+                </>
+              )}
+              <dt><strong>{t(locale, 'privacy.retention')}</strong></dt>
+              <dd set:html={md(locale, data.retention)} />
+              {data.withdraw && (
+                <>
+                  <dt><strong>{t(locale, 'privacy.withdraw')}</strong></dt>
+                  <dd set:html={md(locale, data.withdraw)} />
+                </>
+              )}
+            </dl>
+          </section>
+        ))
+      }
+    </section>
+
+    <section class="section" id="delete" aria-labelledby="delete-title">
+      <h2 id="delete-title">{deleteForm.title[locale]}</h2>
+      <Form locale={locale} form={deleteForm} />
+    </section>
+  </div>
+</BaseLayout>

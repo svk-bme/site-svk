@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "intl": "hu-HU",
+    "languageName": "Magyar",
+    "ogLocale": "hu_HU"
+  },
+  "nav": {
+    "label": "Főmenü",
+    "home": "Kezdőlap",
+    "about": "Rólunk",
+    "companies": "Cégeknek",
+    "events": "Események",
+    "join": "Csatlakozz",
+    "privacy": "Adatkezelés",
+    "menu": "Menü",
+    "switchLanguage": "English version",
+    "skipToContent": "Ugrás a tartalomra"
+  },
+  "footer": {
+    "nav": "Lábléc menü",
+    "contact": "Kapcsolat",
+    "social": "Közösségi oldalaink"
+  },
+  "home": {
+    "upcoming": "Közelgő események",
+    "allEvents": "Összes esemény"
+  },
+  "about": {
+    "team": "Csapatunk",
+    "linkedin": "{name} LinkedIn-profilja"
+  },
+  "companies": {
+    "partners": "Partnereink",
+    "contact": "Kapcsolatfelvétel"
+  },
+  "events": {
+    "upcoming": "Közelgő események",
+    "past": "Korábbi események",
+    "none": "Jelenleg nincs meghirdetett esemény.",
+    "when": "Időpont",
+    "where": "Helyszín",
+    "speaker": "Előadó",
+    "details": "Részletek",
+    "external": "Az esemény oldala",
+    "album": "Fényképek",
+    "addToCalendar": "Hozzáadás a naptárhoz (.ics)",
+    "subscribe": "Feliratkozás az eseménynaptárra",
+    "back": "Vissza az eseményekhez",
+    "registration": "Jelentkezés",
+    "draft": "Piszkozat",
+    "state": {
+      "upcoming": "A jelentkezés {date}-kor nyílik.",
+      "open": "A jelentkezés nyitva.",
+      "openUntil": "Jelentkezni {date}-ig lehet.",
+      "full": "Az esemény betelt.",
+      "closed": "A jelentkezés lezárult.",
+      "past": "Az esemény már lezajlott."
+    }
+  },
+  "join": {
+    "closed": "Jelenleg nincs toborzás",
+    "nextSeason": "Következő toborzás: {opens} – {closes}",
+    "nextSeasonFrom": "Következő toborzás: {opens}-tól",
+    "openUntil": "Jelentkezési határidő: {date}",
+    "interest": "Szólunk, ha indul",
+    "application": "Jelentkezés"
+  },
+  "privacy": {
+    "forms": "Űrlapjaink",
+    "purpose": "Mire használjuk",
+    "collected": "Milyen adatokat kérünk",
+    "retention": "Meddig őrizzük",
+    "withdraw": "Visszavonás és törlés",
+    "contact": "Kérdésed van? Írj nekünk: {email}"
+  },
+  "forms": {
+    "comingSoon": "Az online űrlap hamarosan elérhető. Addig írj nekünk: {email}",
+    "submit": "Küldés",
+    "sending": "Küldés…",
+    "required": "kötelező",
+    "optional": "nem kötelező",
+    "choose": "Válassz…",
+    "chooseOne": "Válassz legalább egyet.",
+    "retention": "Adatmegőrzés:",
+    "privacyLink": "Részletek az adatkezelési tájékoztatóban",
+    "errorGeneric": "Nem sikerült elküldeni. Próbáld újra később, vagy írj nekünk: {email}",
+    "errorNetwork": "Nem sikerült kapcsolódni. Ellenőrizd az internetkapcsolatot, és próbáld újra.",
+    "errorFields": "Kérjük, javítsd a megjelölt mezőket.",
+    "prefillFailed": "Nem sikerült betölteni a korábbi adataidat; töltsd ki az űrlapot kézzel.",
+    "honeypot": "Ezt a mezőt hagyd üresen",
+    "fileHelp": "Megengedett: {types}, legfeljebb {size} MB.",
+    "fields": {
+      "name": "Név",
+      "email": "E-mail-cím",
+      "studies": "Tanulmányok",
+      "studiesBme": "BME VIK",
+      "studiesOther": "Egyéb",
+      "studiesOtherText": "Hol tanulsz?",
+      "semestersLeft": "Hátralévő aktív félévek száma",
+      "semestersLeftHelp": "Körülbelül, az MSc-t is beleértve.",
+      "company": "Cég",
+      "phone": "Telefonszám",
+      "topic": "Téma",
+      "message": "Üzenet",
+      "motivation": "Motivációs levél",
+      "motivationFile": "Motivációs levél PDF-ben",
+      "motivationFileHelp": "A szöveges mező helyett feltöltheted PDF-ben is.",
+      "presentation": "Bemutatkozó prezentáció"
+    }
+  },
+  "notFound": {
+    "title": "Az oldal nem található",
+    "body": "Ez az oldal nem létezik, vagy elköltözött.",
+    "home": "Vissza a kezdőlapra"
+  },
+  "actions": {
+    "needsJs": "Ehhez az oldalhoz JavaScript kell. Kapcsold be, vagy írj nekünk."
+  },
+  "status": {
+    "home": "Vissza a kezdőlapra"
+  }
+}
