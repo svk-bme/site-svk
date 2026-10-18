@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 import { defineConfig } from 'astro/config'
 import YAML from 'yaml'
+import sveltiaCms from './integrations/sveltia-cms.mjs'
 
 // The public address comes from the site settings (edited in the CMS).
 // SITE_URL overrides it (e.g. a preview site). BASE_PATH serves the site below a path instead of the root;
@@ -24,4 +25,6 @@ export default defineConfig({
     },
   },
   devToolbar: { enabled: false },
+  // The content editor at /admin, served from this site
+  integrations: [sveltiaCms()],
 })

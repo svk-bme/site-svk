@@ -55,7 +55,8 @@ src/
   components/           header, footer, event card, generic form renderer, registration block
   scripts/forms.ts      browser side of the forms
   styles/               tokens.css (colours, type, spacing), base.css, components.css
-src/cms/config.yml      Sveltia CMS configuration (mirrors content.config.ts); public/admin/index.html loads the editor
+src/cms/config.yml      Sveltia CMS configuration (mirrors content.config.ts); src/pages/admin/ serves the editor page and config
+integrations/           sveltia-cms.mjs: serves the editor from this site (no CDN)
 ```
 
 Styles use only the variables in `tokens.css` and the classes in `components.css`, so a design system can replace them
@@ -77,6 +78,16 @@ without touching page logic.
 **CMS login** (`/admin`): create an OAuth application on `git.sch.bme.hu` (group `svk` → Settings → Applications,
 redirect URI `<site address>/admin/`, scope `api`, not confidential) and put its Application ID in `backend.app_id`
 of `src/cms/config.yml`. The build fills in the site address and base path (`/admin/config.yml`). Until then editors can sign in with a personal access token.
+
+**The editor is served from this site.** `@sveltia/cms` is a pinned npm dependency; `integrations/sveltia-cms.mjs` copies it to
+`/admin/cms/` and points everything it loads at runtime (code chunks, UI translations, fonts, a few npm packages) to local copies
+from `node_modules`. The build fails if a CDN URL is left. `/admin` has a Content Security Policy that allows only this site and
+the git server from `backend` in the CMS config (sent as a `<meta>` tag, since GitHub Pages cannot set headers).
+Not mirrored, because this CMS config does not use them: code highlighting, date locales, maps, PDF previews, HEIC/WebP conversion.
+
+To upgrade the editor: `npm install --save-exact @sveltia/cms@<version>`, then `npm run build`. If the build names a font or a
+package, install the `@fontsource` package at the version the error shows, or add the package to `runtimePackages`.
+Open `/admin` and check the browser console for CSP messages before pushing.
 
 ## Languages
 

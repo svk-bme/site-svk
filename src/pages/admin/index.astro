@@ -1,0 +1,48 @@
+---
+import YAML from 'yaml'
+import template from '~/cms/config.yml?raw'
+import { withBase } from '~/i18n'
+
+// The content editor (Sveltia CMS), served from this site (integrations/sveltia-cms.mjs).
+// The CSP allows this site plus the git server the editor talks to, taken from the CMS config's
+// backend, so changing the backend there updates the policy too.
+
+const { backend } = YAML.parse(template)
+const git = [...new Set([backend.base_url, backend.api_root].filter(Boolean).map((url: string) => new URL(url).origin))].join(' ')
+
+const csp = [
+  `default-src 'self'`,
+  `script-src 'self'`,
+  // The editor sets inline styles
+  `style-src 'self' 'unsafe-inline'`,
+  `font-src 'self'`,
+  // Previews of images in the repository and of new uploads
+  `img-src 'self' data: blob: ${git}`,
+  `media-src 'self' blob: ${git}`,
+  // data: and blob: stay in the browser (the editor fetches its own logo and upload previews)
+  `connect-src 'self' data: blob: ${git}`,
+  `worker-src 'self' blob:`,
+  // The editor generates its web app manifest
+  `manifest-src 'self' blob:`,
+  `frame-src 'self' blob:`,
+  `form-action 'self' ${git}`,
+  `object-src 'none'`,
+  `base-uri 'self'`,
+].join('; ')
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Security-Policy" content={csp} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <meta name="referrer" content="same-origin" />
+    <title>SVK – Editor</title>
+    <link href={withBase('/admin/config.yml')} type="application/yaml" rel="cms-config-url" />
+  </head>
+  <body>
+    <script is:inline src={withBase('/admin/cms/sveltia-cms.js')}></script>
+  </body>
+</html>

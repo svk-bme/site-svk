@@ -58,7 +58,8 @@ src/
   components/           fejléc, lábléc, eseménykártya, általános űrlap, jelentkezési blokk
   scripts/forms.ts      az űrlapok böngészőoldali része
   styles/               tokens.css (színek, betűk, térközök), base.css, components.css
-src/cms/config.yml      Sveltia CMS-beállítás (a content.config.ts tükre); a public/admin/index.html tölti be a szerkesztőt
+src/cms/config.yml      Sveltia CMS-beállítás (a content.config.ts tükre); az src/pages/admin/ adja a szerkesztő oldalát és beállítását
+integrations/           sveltia-cms.mjs: a szerkesztőt az oldal maga szolgálja ki (CDN nélkül)
 ```
 
 A stílusok csak a `tokens.css` változóit és a `components.css` osztályait használják, így egy design system
@@ -81,6 +82,16 @@ az oldalak logikájának módosítása nélkül lecserélheti őket.
 **Belépés a CMS-be** (`/admin`): a `git.sch.bme.hu`-n létre kell hozni egy OAuth-alkalmazást (`svk` csoport → Settings →
 Applications, redirect URI `<az oldal címe>/admin/`, scope `api`, nem bizalmas), és az Application ID-ját beírni az
 `src/cms/config.yml` `backend.app_id` mezőjébe. Az oldal címét és az útvonalat a build tölti ki (`/admin/config.yml`). Addig a szerkesztők személyes hozzáférési tokennel léphetnek be.
+
+**A szerkesztőt az oldal maga szolgálja ki.** A `@sveltia/cms` rögzített verziójú npm-függőség; az `integrations/sveltia-cms.mjs`
+átmásolja az `/admin/cms/` alá, és mindent, amit futás közben betölt (kódrészek, felületi fordítások, betűtípusok, néhány npm-csomag),
+a `node_modules`-ból vett helyi másolatokra irányít. Ha CDN-cím marad benne, a build leáll. Az `/admin` Content Security Policyje
+csak ezt az oldalt és a CMS-beállítás `backend` részében megadott git-szervert engedi (`<meta>` tagként, mert a GitHub Pages nem tud fejlécet küldeni).
+Nincs helyben, mert ez a CMS-beállítás nem használja: kódkiemelés, dátum-lokalizáció, térkép, PDF-előnézet, HEIC/WebP-átalakítás.
+
+A szerkesztő frissítése: `npm install --save-exact @sveltia/cms@<verzió>`, majd `npm run build`. Ha a build betűtípust vagy csomagot
+nevez meg, telepítsd a `@fontsource` csomagot a hibában szereplő verzióval, vagy vedd fel a csomagot a `runtimePackages` közé.
+Pusholás előtt nyisd meg az `/admin` oldalt, és nézd meg a böngésző konzolján, van-e CSP-üzenet.
 
 ## Nyelvek
 
