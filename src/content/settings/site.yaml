@@ -28,11 +28,11 @@ social:
     icon: instagram
 recruitment:
   status: closed
-  opens: 2027-03-01T00:00
-  closes: 2027-03-21T23:59
+  opens: ''
+  closes: ''
   expected_text:
-    hu: A toborzás általában év elején, március környékén indul. Hagyd meg az elérhetőséged, és szólunk, amikor jelentkezhetsz!
-    en: Recruitment usually starts at the beginning of the year, around March. Leave your details and we will let you know when you can apply.
+    hu: Hamarosan, novemberben indul a toborzás! Hagyd meg az elérhetőséged, és szólunk, amint jelentkezhetsz.
+    en: Recruitment opens soon, in November! Leave your details and we will let you know as soon as you can apply.
   intro:
     hu: |-
       Elindult a toborzás! Olyan hallgatókat keresünk, akiket érdekel a cégek és a hallgatók közötti kapcsolat építése.
