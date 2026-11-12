@@ -8,6 +8,8 @@
 
 html {
   color-scheme: dark;
+  /* Anchored sections (#apply, #contact, …) and scrolled-to forms stop below the sticky header */
+  scroll-padding-top: calc(var(--header-height) + var(--space-2));
   background: var(--color-surface);
   -webkit-text-size-adjust: 100%;
 }

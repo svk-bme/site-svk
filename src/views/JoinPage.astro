@@ -7,6 +7,7 @@ import { buildTime, getPage, recruitmentState, settings } from '~/lib/site'
 // The recruitment season switch: the application form while recruitment is open,
 // otherwise the expected-season text and the interest form (both Google Forms, set in Forms).
 // Rebuilt daily, so the `opens` and `closes` dates take effect on their own.
+// #apply and #interest both lead to the form shown, so shared links keep working when the season switches.
 
 interface Props {
   locale: Locale
@@ -35,10 +36,12 @@ const upcoming = !season.open && season.opens && season.opens > buildTime ? seas
               <strong>{t(locale, 'join.openUntil', { date: dateTime(season.closes) })}</strong>
             </p>
           )}
-          <section class="section" aria-labelledby="form-title">
-            <h2 id="form-title">{t(locale, 'join.application')}</h2>
-            <GoogleForm locale={locale} kind="application" />
-          </section>
+          <div id="interest">
+            <section class="section" id="apply" aria-labelledby="apply-title">
+              <h2 id="apply-title">{t(locale, 'join.application')}</h2>
+              <GoogleForm locale={locale} kind="application" />
+            </section>
+          </div>
         </>
       ) : (
         <>
@@ -50,10 +53,12 @@ const upcoming = !season.open && season.opens && season.opens > buildTime ? seas
                 : t(locale, 'join.nextSeasonFrom', { opens: date(upcoming) })}
             </p>
           )}
-          <section class="section" aria-labelledby="form-title">
-            <h2 id="form-title">{t(locale, 'join.interest')}</h2>
-            <GoogleForm locale={locale} kind="interest" />
-          </section>
+          <div id="apply">
+            <section class="section" id="interest" aria-labelledby="interest-title">
+              <h2 id="interest-title">{t(locale, 'join.interest')}</h2>
+              <GoogleForm locale={locale} kind="interest" />
+            </section>
+          </div>
         </>
       )
     }

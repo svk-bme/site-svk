@@ -25,8 +25,8 @@ const emailLink = `<a href="mailto:${email}">${email}</a>`
     {settings.analytics?.goatcounter && <p>{t(locale, 'privacy.analytics')}</p>}
     <p set:html={t(locale, 'privacy.contact', { email: emailLink })} />
 
-    <section aria-labelledby="forms">
-      <h2 id="forms">{t(locale, 'privacy.forms')}</h2>
+    <section id="forms" aria-labelledby="forms-title">
+      <h2 id="forms-title">{t(locale, 'privacy.forms')}</h2>
       {
         forms.map(({ id, data }) => (
           <section class="prose section" aria-labelledby={`form-${id}`} id={id}>
@@ -54,7 +54,7 @@ const emailLink = `<a href="mailto:${email}">${email}</a>`
       }
     </section>
 
-    {page.body && <div class="section prose" set:html={md(locale, page.body)} />}
+    {page.body && <section class="section prose" id="rights" set:html={md(locale, page.body)} />}
 
     <section class="section prose" id="delete" aria-labelledby="delete-title">
       <h2 id="delete-title">{t(locale, 'privacy.deleteTitle')}</h2>

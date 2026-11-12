@@ -89,8 +89,8 @@ const registration = event.data.registration_form?.hu && event.data.start > buil
     {description && <div class="prose section" set:html={description} />}
     {
       registration && (
-        <section class="section" aria-labelledby="registration">
-          <h2 id="registration">{t(locale, 'events.registration')}</h2>
+        <section class="section" id="registration" aria-labelledby="registration-title">
+          <h2 id="registration-title">{t(locale, 'events.registration')}</h2>
           <GoogleForm locale={locale} kind="event-registration" url={event.data.registration_form} title={`${t(locale, 'events.registration')}: ${title}`} />
         </section>
       )

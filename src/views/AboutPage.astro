@@ -40,8 +40,8 @@ const members = await getMembers()
 
   {
     members.length > 0 && (
-      <section class="section container" aria-labelledby="team">
-        <h2 id="team">{t(locale, 'about.team')}</h2>
+      <section class="section container" id="team" aria-labelledby="team-title">
+        <h2 id="team-title">{t(locale, 'about.team')}</h2>
         <ul class="grid">
           {members.map((member) => {
             const name = tr(locale, member.data.name)

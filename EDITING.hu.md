@@ -116,6 +116,21 @@ Jó szokás minden félév elején átnézni.
 választáblában, töröld, amit találsz (sorok, válaszok az űrlapban, feltöltött fájlok), és válaszolj neki, ha kész.
 Ha az adatmegőrzés idejét módosítod, az űrlap **Retention** szövegét is írd át.
 
+## Link egy szakaszra
+
+Az oldal címe után írt `#…` egyenesen egy szakaszhoz visz, pl. az oldal címe után `/join#interest`.
+Ugyanezek a nevek működnek az angol oldalakon is (`/en/join#interest`).
+
+| Oldal | Szakaszok |
+| --- | --- |
+| Csatlakozz (`/join`) | `#interest`, `#apply`: mindkettő az éppen látható űrlaphoz visz, így egy megosztott link akkor is működik, ha az időszak átvált |
+| Cégeknek (`/companies`) | `#contact` (kapcsolatfelvételi űrlap), `#partners` |
+| Eseményoldal (`/events/<fájlnév>`) | `#registration` |
+| Események (`/events`) | `#upcoming`, `#past`, `#year-2025` (bármely év) |
+| Kezdőlap (`/`) | `#upcoming` |
+| Rólunk (`/about`) | `#team` |
+| Adatkezelés (`/privacy`) | `#forms`, űrlaponként egy (`#interest`, `#application`, `#partner-contact`, `#event-registration`), `#rights`, `#delete` |
+
 ## Szerkesztő nélkül
 
 1. Nyisd meg ezt a projektet a `git.sch.bme.hu`-n, és menj az `src/content/` mappába (például `src/content/events/`).

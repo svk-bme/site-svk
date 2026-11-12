@@ -23,8 +23,8 @@ const partners = await getPartners()
 
   {
     partners.length > 0 && (
-      <section class="section container" aria-labelledby="partners">
-        <h2 id="partners">{t(locale, 'companies.partners')}</h2>
+      <section class="section container" id="partners" aria-labelledby="partners-title">
+        <h2 id="partners-title">{t(locale, 'companies.partners')}</h2>
         <ul class="partners">
           {partners.map((partner) => {
             const logo = <Image src={partner.data.logo} alt={partner.data.name} height={64} densities={[1, 2]} />

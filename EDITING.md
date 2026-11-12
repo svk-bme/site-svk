@@ -113,6 +113,21 @@ A good habit: check it at the start of every semester.
 response sheet for their address, delete what you find (rows, responses in the form, uploaded files), and reply when it is done.
 If you change how long something is kept, change the form's **Retention** text too.
 
+## Links to a section
+
+Add `#…` to a page's address to link straight to a section, e.g. the site's address followed by `/join#interest`.
+The same names work on the English pages (`/en/join#interest`).
+
+| Page | Sections |
+| --- | --- |
+| Join us (`/join`) | `#interest`, `#apply`: both lead to the form shown at the time, so a shared link keeps working when the season switches |
+| For companies (`/companies`) | `#contact` (contact form), `#partners` |
+| Event page (`/events/<file name>`) | `#registration` |
+| Events (`/events`) | `#upcoming`, `#past`, `#year-2025` (any year) |
+| Home (`/`) | `#upcoming` |
+| About (`/about`) | `#team` |
+| Privacy (`/privacy`) | `#forms`, one per form (`#interest`, `#application`, `#partner-contact`, `#event-registration`), `#rights`, `#delete` |
+
 ## Without the editor
 
 1. Open this project on `git.sch.bme.hu` and go to `src/content/` (for example `src/content/events/`).

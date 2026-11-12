@@ -23,8 +23,8 @@ const archive = groupByYear(past)
       <a href={localePath(locale, '/events.ics')}>{t(locale, 'events.subscribe')}</a>
     </p>
 
-    <section aria-labelledby="upcoming">
-      <h2 id="upcoming">{t(locale, 'events.upcoming')}</h2>
+    <section id="upcoming" aria-labelledby="upcoming-title">
+      <h2 id="upcoming-title">{t(locale, 'events.upcoming')}</h2>
       {
         upcoming.length > 0 ? (
           <ul class="grid">
@@ -42,11 +42,11 @@ const archive = groupByYear(past)
 
     {
       archive.length > 0 && (
-        <section class="archive-year" aria-labelledby="past">
-          <h2 id="past">{t(locale, 'events.past')}</h2>
+        <section class="archive-year" id="past" aria-labelledby="past-title">
+          <h2 id="past-title">{t(locale, 'events.past')}</h2>
           {archive.map(([year, events]) => (
-            <section class="archive-year" aria-labelledby={`year-${year}`}>
-              <h3 id={`year-${year}`}>{year}</h3>
+            <section class="archive-year" id={`year-${year}`} aria-labelledby={`year-${year}-title`}>
+              <h3 id={`year-${year}-title`}>{year}</h3>
               <ul class="grid">
                 {events.map((event) => (
                   <li>

@@ -25,9 +25,9 @@ const events = upcoming.slice(0, settings.events.home_count)
 
   {
     settings.events.home_count > 0 && (
-      <section class="section container" aria-labelledby="upcoming">
+      <section class="section container" id="upcoming" aria-labelledby="upcoming-title">
         <div class="section-header">
-          <h2 id="upcoming">{t(locale, 'home.upcoming')}</h2>
+          <h2 id="upcoming-title">{t(locale, 'home.upcoming')}</h2>
           <a href={localePath(locale, '/events')}>{t(locale, 'home.allEvents')} →</a>
         </div>
         {events.length > 0 ? (
