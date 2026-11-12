@@ -6,14 +6,27 @@ description:
   en: What data we process, why, for how long, and how to have it deleted.
 intro:
   hu: |-
-    Az oldal űrlapjain megadott adataidat a Schönherz Vállalati Kapcsolatok kezeli. Adatkezeléssel kapcsolatos kérdéseiddel írj nekünk a lent megadott címre.
+    Az oldal űrlapjain megadott adataidat a Schönherz Vállalati Kapcsolatok (SVK) kezeli, a hozzájárulásod alapján. A hozzájárulást az űrlapok jelölőnégyzetével adod meg, és bármikor visszavonhatod.
 
-    Az űrlapok a Google Forms szolgáltatással működnek: a válaszokat és a feltöltött fájlokat az SVK Google-fiókjában (Google Drive) tároljuk, a Google ebben az SVK adatfeldolgozója.
+    Az űrlapok a Google Forms szolgáltatással működnek: a válaszokat és a feltöltött fájlokat az SVK Google-fiókjában tároljuk, a Google szerverein, amelyek az Európai Unión kívül is lehetnek. Amikor megnyitsz egy űrlapot, a Google megkapja az IP-címedet és a böngésződ adatait, és sütiket helyezhet el; ezekre a [Google adatvédelmi irányelvei](https://policies.google.com/privacy?hl=hu) vonatkoznak.
 
-    Az oldal maga nem használ sütiket. Egy űrlap csak akkor töltődik be, ha a megjelenítés gombra kattintasz; ekkor a Google sütiket helyezhet el.
+    Az oldal maga nem használ sütiket, és semmit nem tölt be a Google-tól, amíg nem kattintasz egy űrlap gombjára.
   en: |-
-    The data you enter in the forms on this site is processed by Schönherz Corporate Relations. Write to the address below with any question about your data.
+    The data you enter in the forms on this site is processed by Schönherz Corporate Relations (SVK), based on your consent. You give it with the checkbox in each form, and you can withdraw it at any time.
 
-    The forms run on Google Forms: answers and uploaded files are stored in SVK's Google account (Google Drive), with Google processing them on SVK's behalf.
+    The forms run on Google Forms: answers and uploaded files are stored in SVK's Google account, on Google's servers, which may be outside the European Union. When you open a form, Google receives your IP address and browser details and may set cookies, under [Google's privacy policy](https://policies.google.com/privacy?hl=en).
 
-    This site itself uses no cookies. A form loads only when you click its button; Google may then set cookies.
+    This site itself uses no cookies and loads nothing from Google until you click a form's button.
+body:
+  hu: |-
+    ## Jogaid
+
+    Kérhetsz másolatot a rólad tárolt adatokról, kérheted a helyesbítésüket, a törlésüket vagy a kezelésük korlátozását, kérheted, hogy géppel olvasható formában kiadjuk őket, tiltakozhatsz a kezelésük ellen, és a hozzájárulásodat bármikor visszavonhatod. Írj nekünk az ezen az oldalon megadott címre; egy hónapon belül válaszolunk.
+
+    Ha úgy gondolod, hogy jogellenesen kezeljük az adataidat, panaszt tehetsz a Nemzeti Adatvédelmi és Információszabadság Hatóságnál ([NAIH](https://naih.hu)), vagy bírósághoz fordulhatsz.
+  en: |-
+    ## Your rights
+
+    You can ask us for a copy of the data we hold about you, to correct it, to delete it or to restrict its use, and to give it to you in a machine-readable form. You can object to its processing and withdraw your consent at any time. Write to the address on this page; we answer within one month.
+
+    If you think we handle your data unlawfully, you can complain to the Hungarian National Authority for Data Protection and Freedom of Information ([NAIH](https://naih.hu)) or go to court.

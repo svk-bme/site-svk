@@ -65,12 +65,13 @@
     "withdraw": "Withdrawal and deletion",
     "contact": "Questions? Write to us: {email}",
     "deleteTitle": "Deleting your data",
-    "deleteText": "To have your data deleted, write to {email} from the email address you gave in the form. We will delete what we hold for it from all our forms and let you know."
+    "deleteText": "To have your data deleted, write to {email} from the email address you gave in the form. We will delete what we hold for it from all our forms and let you know.",
+    "analytics": "We count page views with GoatCounter, which sets no cookies and does not identify you."
   },
   "forms": {
     "show": "Show form",
     "openNewTab": "Open in a new tab",
-    "googleNotice": "This form is provided by Google Forms. It loads only when you click the button; Google may then set cookies.",
+    "googleNotice": "This form is provided by Google Forms and loads only when you click the button. Google then receives your IP address and may set cookies.",
     "unavailable": "This form is not available right now. Until then, write to us: {email}",
     "retention": "Retention:",
     "privacyLink": "Details in our privacy notice"

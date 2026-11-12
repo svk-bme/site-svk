@@ -22,6 +22,7 @@ const emailLink = `<a href="mailto:${email}">${email}</a>`
   <div class="section container">
     <h1>{tr(locale, page.title)}</h1>
     <div class="prose" set:html={md(locale, page.intro)} />
+    {settings.analytics?.goatcounter && <p>{t(locale, 'privacy.analytics')}</p>}
     <p set:html={t(locale, 'privacy.contact', { email: emailLink })} />
 
     <section aria-labelledby="forms">
@@ -52,6 +53,8 @@ const emailLink = `<a href="mailto:${email}">${email}</a>`
         ))
       }
     </section>
+
+    {page.body && <div class="section prose" set:html={md(locale, page.body)} />}
 
     <section class="section prose" id="delete" aria-labelledby="delete-title">
       <h2 id="delete-title">{t(locale, 'privacy.deleteTitle')}</h2>

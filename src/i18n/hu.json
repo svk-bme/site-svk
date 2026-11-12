@@ -65,12 +65,13 @@
     "withdraw": "Visszavonás és törlés",
     "contact": "Kérdésed van? Írj nekünk: {email}",
     "deleteTitle": "Adataid törlése",
-    "deleteText": "Ha szeretnéd, hogy töröljük az adataidat, írj nekünk a {email} címre arról az e-mail-címről, amelyet az űrlapon megadtál. Minden űrlapunkból töröljük, amit hozzá tárolunk, és visszajelzünk."
+    "deleteText": "Ha szeretnéd, hogy töröljük az adataidat, írj nekünk a {email} címre arról az e-mail-címről, amelyet az űrlapon megadtál. Minden űrlapunkból töröljük, amit hozzá tárolunk, és visszajelzünk.",
+    "analytics": "Az oldal látogatottságát GoatCounterrel mérjük, amely nem használ sütiket, és nem azonosít téged."
   },
   "forms": {
     "show": "Űrlap megjelenítése",
     "openNewTab": "Megnyitás új lapon",
-    "googleNotice": "Az űrlapot a Google Forms szolgáltatja. Csak a gombra kattintva töltődik be; ekkor a Google sütiket helyezhet el.",
+    "googleNotice": "Az űrlapot a Google Forms szolgáltatja, és csak a gombra kattintva töltődik be. Ekkor a Google megkapja az IP-címedet, és sütiket helyezhet el.",
     "unavailable": "Az űrlap jelenleg nem elérhető. Addig írj nekünk: {email}",
     "retention": "Adatmegőrzés:",
     "privacyLink": "Részletek az adatkezelési tájékoztatóban"

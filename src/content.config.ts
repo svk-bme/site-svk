@@ -63,7 +63,10 @@ const googleFormUrl = optional(
 )
 
 /** A Google Form in both languages; the English page shows the Hungarian form if the English link is empty. */
-const googleForm = z.object({ hu: googleFormUrl, en: googleFormUrl }).nullish()
+const googleForm = z
+  .object({ hu: googleFormUrl, en: googleFormUrl })
+  .refine((form) => form.hu || !form.en, { path: ['hu'], message: 'Add the Hungarian form too; the English one alone is not shown' })
+  .nullish()
 
 const events = defineCollection({
   loader: glob({ pattern: '*.yaml', base: './src/content/events' }),

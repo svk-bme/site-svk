@@ -10,6 +10,18 @@ export const defaultLocale: Locale = 'hu'
 
 const messages = { hu, en }
 
+// Markdown from editors may only produce Markdown: raw HTML is shown as text, and links and images
+// keep only web, mail and phone addresses (no javascript: or data: URLs), so a pasted snippet cannot run scripts.
+const escapeHtml = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+// An allowlist of how a link may start, so entity tricks like javascript&#58; do not pass either
+const allowedUrl = (href: string) => /^(?:https?:|mailto:|tel:|[/#?.]|[\w-]+(?:[/#?.]|$))/i.test(href)
+marked.use({
+  renderer: { html: ({ text }) => escapeHtml(text) },
+  walkTokens(token) {
+    if ((token.type === 'link' || token.type === 'image') && !allowedUrl(token.href)) token.href = '#'
+  },
+})
+
 /** A bilingual content field. English may be empty; it then falls back to Hungarian. */
 export type Localized = { hu?: string | null; en?: string | null } | null | undefined
 

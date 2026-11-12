@@ -688,6 +688,22 @@ collections:
                 required: false
                 hint: "Empty: the Hungarian text is shown."
             hint: The details of each form come from Forms.
+          - name: body
+            label: Your rights
+            widget: object
+            collapsed: false
+            required: false
+            fields:
+              - name: hu
+                label: Magyar
+                widget: markdown
+                required: false
+              - name: en
+                label: English
+                widget: markdown
+                required: false
+                hint: "Empty: the Hungarian text is shown."
+            hint: Shown after the list of forms, before the deletion section.
   - name: settings
     label: Settings
     files:
