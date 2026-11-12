@@ -43,6 +43,7 @@
   --content-width: 72rem;
   --prose-width: 46rem;
   --gutter: clamp(1rem, 5vw, 4rem);
+  --header-height: 4rem;
 
   /* Shape */
   --radius-sm: 0.5rem;

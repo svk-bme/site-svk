@@ -83,6 +83,11 @@ the form itself loads only when the visitor clicks **Show form**.
    If you leave English empty, the English page shows the Hungarian form.
 6. **Send → link icon**, copy the **long** link (`https://docs.google.com/forms/d/e/…/viewform`, do not tick
    *Shorten URL*) and paste it into the CMS.
+7. In the form's settings (Settings → Responses), keep **Limit to 1 response** off, and under **Publish → Manage
+   responders** choose **Anyone with the link**. Otherwise Google asks visitors to sign in and the form cannot be shown
+   on the page (the application form is the exception: file uploads always need sign-in).
+
+On the page the form fills the screen and scrolls inside its frame: Google does not tell the page how tall a form is.
 
 File uploads (application) only work for respondents signed in with a Google account; Google Forms asks for it.
 The application form's text tells applicants this.

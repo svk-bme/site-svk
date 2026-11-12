@@ -86,6 +86,11 @@ oldalra; maga az űrlap csak akkor töltődik be, ha a látogató az **Űrlap me
    Ha az angol mező üres, az angol oldalon a magyar űrlap jelenik meg.
 6. **Küldés → link ikon**, másold a **hosszú** linket (`https://docs.google.com/forms/d/e/…/viewform`, az *URL rövidítése*
    ne legyen bejelölve), és illeszd be a CMS-be.
+7. Az űrlap beállításaiban (Beállítások → Válaszok) a **Korlátozás egy válaszra** legyen kikapcsolva, a **Közzététel → Válaszadók
+   kezelése** alatt pedig **Bárki, aki rendelkezik a linkkel** legyen beállítva. Különben a Google bejelentkezést kér, és az űrlap
+   nem jelenhet meg az oldalon (kivétel a jelentkezési űrlap: fájlfeltöltéshez mindig be kell jelentkezni).
+
+Az oldalon az űrlap kitölti a képernyőt, és a keretén belül görgethető: a Google nem árulja el az oldalnak, milyen magas egy űrlap.
 
 Fájlt (jelentkezés) csak Google-fiókkal bejelentkezve lehet feltölteni; ezt a Google Forms kéri. A jelentkezési űrlap szövege
 szól erről a jelentkezőknek.

@@ -69,7 +69,10 @@ function embedUrl(viewUrl: string): string {
       box.querySelector('[data-google-notice]')?.remove()
       button.remove()
       box.prepend(frame)
-      frame.focus()
+      // Fill the view with the form, below the sticky header (scroll-margin-top)
+      const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches
+      frame.scrollIntoView({ block: 'start', behavior: reduceMotion ? 'auto' : 'smooth' })
+      frame.focus({ preventScroll: true })
     })
   })
 </script>
