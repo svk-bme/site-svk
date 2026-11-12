@@ -1,0 +1,75 @@
+---
+import { localePath, md, mdInline, t, tr, type Locale, type Localized } from '~/i18n'
+import { getFormTexts, settings } from '~/lib/site'
+
+// A Google Form with its purpose, retention and a privacy link. Nothing from Google loads until the
+// visitor clicks the button (Google may set cookies then); without JavaScript there is a plain link.
+
+interface Props {
+  locale: Locale
+  /** Texts from src/content/forms/<kind>.yaml */
+  kind: 'event-registration' | 'interest' | 'application' | 'partner-contact'
+  /** The form link; defaults to the one in the form's texts */
+  url?: Localized
+  /** Accessible name of the embedded form */
+  title?: string
+}
+
+const { locale, kind, url, title } = Astro.props
+const content = await getFormTexts(kind)
+const link = tr(locale, url ?? content.form)
+const email = settings.contact.email
+const emailLink = `<a href="mailto:${email}">${email}</a>`
+
+/** The embeddable form: same address with embedded=true. */
+function embedUrl(viewUrl: string): string {
+  const u = new URL(viewUrl)
+  u.searchParams.delete('usp')
+  u.searchParams.set('embedded', 'true')
+  return u.href
+}
+---
+
+<div class="stack">
+  <div class="form__about">
+    <Fragment set:html={md(locale, content.purpose)} />
+    <p>
+      <strong>{t(locale, 'forms.retention')}</strong>{' '}
+      <Fragment set:html={mdInline(locale, content.retention)} />{' '}
+      <a href={localePath(locale, '/privacy')}>{t(locale, 'forms.privacyLink')}</a>
+    </p>
+  </div>
+  {
+    link ? (
+      <div class="google-form" data-google-form={embedUrl(link)} data-title={title ?? tr(locale, content.title)}>
+        <p class="field__help" data-google-notice>{t(locale, 'forms.googleNotice')}</p>
+        <p class="links">
+          <button class="button" type="button">
+            {t(locale, 'forms.show')}
+          </button>
+          <a href={link} rel="noopener" target="_blank">
+            {t(locale, 'forms.openNewTab')} ↗
+          </a>
+        </p>
+      </div>
+    ) : (
+      <p class="notice" set:html={t(locale, 'forms.unavailable', { email: emailLink })} />
+    )
+  }
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-google-form]').forEach((box) => {
+    const button = box.querySelector('button')
+    button?.addEventListener('click', () => {
+      const frame = document.createElement('iframe')
+      frame.src = box.dataset.googleForm!
+      frame.title = box.dataset.title!
+      frame.className = 'google-form__frame'
+      box.querySelector('[data-google-notice]')?.remove()
+      button.remove()
+      box.prepend(frame)
+      frame.focus()
+    })
+  })
+</script>

@@ -4,7 +4,7 @@
 
 # A weboldal szerkesztése
 
-Hogyan lehet eseményt, tagot, partnert, oldalszöveget, űrlapot, levelet és a toborzási időszakot módosítani az
+Hogyan lehet eseményt, tagot, partnert, oldalszöveget, űrlapot és a toborzási időszakot módosítani az
 SVK weboldalán. Programozni nem kell hozzá.
 
 > Állapot: a böngészős szerkesztő a weboldal `/admin` címén elkészült, de a belépést egyszer be kell állítania az
@@ -26,41 +26,24 @@ SVK weboldalán. Programozni nem kell hozzá.
 
 | Gyűjtemény | Mi van benne |
 | --- | --- |
-| **Events** (Események) | Események időponttal, helyszínnel, előadóval, leírással, képpel; jelentkezés, emlékeztető és visszaigazoló levél |
+| **Events** (Események) | Események időponttal, helyszínnel, előadóval, leírással, képpel, és a jelentkezési űrlap linkje |
 | **Members** (Tagok) | A Rólunk oldalon látható tagok |
 | **Partners** (Partnerek) | Partnerlogók a Cégeknek oldalon |
 | **Pages** (Oldalak) | A Kezdőlap, Rólunk, Cégeknek, Események, Csatlakozz és Adatkezelés oldal szövegei |
 | **Settings** (Beállítások) | Toborzási időszak, kapcsolattartási e-mail, közösségi linkek |
-| **Forms** (Űrlapok) | Minden űrlap célja, adatmegőrzése, hozzájárulási és köszönőszövege (az Adatkezelés oldalon is megjelenik) |
-| **Quick questions** (Gyors kérdések) | Választható kérdések az érdeklődési és a jelentkezési űrlapon |
-| **Emails** (Levelek) | Érdeklődés megerősítése, „elindult a toborzás”, törlés megerősítése, az érdeklődői levelek lábléce |
-| **Email link pages** (Levéllink-oldalak) | Az oldalak, amelyeket a megerősítő, leiratkozó és törlő linkek megnyitnak; semmi nem történik, amíg a látogató meg nem nyomja a gombot |
-| **Result pages** (Eredményoldalak) | Az ezek után megjelenő oldalak (megerősítve, leiratkozva, törölve, a link már nem érvényes) |
+| **Forms** (Űrlapok) | Minden űrlap célja, a kért adatok, az adatmegőrzés és a visszavonás módja (az Adatkezelés oldalon is), valamint a Google-űrlap linkje |
 
 A Markdown-mezőkben használható a `**félkövér**`, a `[link](https://…)`, a felsorolás és a `## címsor`.
 A dátumok és időpontok budapesti idő szerint értendők; a nyári és téli időszámítást az oldal magától kezeli.
-Minden levélnél van **Send a test copy to** mező: ha beírod a címed, a szöveg minden módosításakor kapsz egy tesztpéldányt (mindkét nyelven).
 
 ## Események
 
 - **Draft** (piszkozat) bekapcsolva: az esemény nem jelenik meg. (Külön előnézeti oldal tervben van.)
 - **Start / End** (kezdés / vége): a vége nem kötelező; ilyenkor a naptárfájl a Beállításokban megadott alapértelmezett hosszal számol.
 - **External link** (külső link): az eseménykártya ide mutat az eseményoldal helyett (pl. a MeetUp oldalára).
+- **Registration form** (jelentkezési űrlap): az esemény Google-űrlapjának linkje (lásd lent). Az esemény kezdetéig látszik az eseményoldalon.
 - Az események a befejezésük utáni reggelre maguktól átkerülnek a „Korábbi események” közé, évenként csoportosítva.
 - Minden eseményoldalon van **Hozzáadás a naptárhoz** link; a teljes program a `/events.ics` címen iratkozható fel.
-
-**Jelentkezés** (az űrlapszolgáltatás kell hozzá; addig az űrlap helyén „hamarosan” felirat áll):
-
-1. Nyisd meg az esemény **Registration** részét, és kapcsold be a **Registration on this site** kapcsolót.
-2. Nem kötelező: **Capacity** (létszám), **Opens** (nyitás), **Closes** (zárás; ha üres, az esemény kezdetekor zár).
-3. A nevet, e-mail-címet, tanulmányokat és a hozzájárulást mindig kérjük. Szükség esetén adj hozzá **Extra questions**
-   (további kérdések) elemeket: kérdés, típus (rövid szöveg, hosszú szöveg, egy választás, több választás, jelölőnégyzet) és opciók.
-   Ha már jelentkeztek, ne írd át a kérdést; inkább vegyél fel újat (a válaszokat kérdésenként tároljuk), vagy az első
-   jelentkezés előtt töltsd ki a **Column key** / **Stored value** mezőt, így a későbbi átnevezés sem gond.
-4. Az oldal magától mutatja az állapotot: még nem nyílt meg, nyitva, betelt, lezárult, lezajlott.
-
-**Emlékeztető levél:** kapcsold be, add meg, hány órával a kezdés előtt menjen ki, és írd meg a tárgyát és szövegét.
-Helyőrzők: `{name}`, `{event_title}`, `{date}`, `{place}`, `{event_url}`. A **jelentkezés visszaigazolása** levél ugyanígy működik.
 
 ## Toborzási időszak
 
@@ -69,22 +52,64 @@ A Settings → **Recruitment** rész vezérli a Csatlakozz oldalt:
 | Mező | Jelentése |
 | --- | --- |
 | **Status** | *Closed* (zárva): az oldal a „Text while closed” szöveget és az érdeklődési űrlapot mutatja. *Open* (nyitva): a „Text while open” szöveget és a jelentkezési űrlapot |
-| **Season opens / closes** | *Open* állapotban csak e két dátum között lehet jelentkezni; ezen kívül az érdeklődési űrlap látszik. Zárva az oldal ezeket mutatja a következő időszakként |
+| **Season opens / closes** | *Open* állapotban a jelentkezési űrlap csak e két dátum között látszik; ezen kívül az érdeklődési űrlap. Zárva az oldal ezeket mutatja a következő időszakként |
 
 Az oldal minden éjjel újraépül, így a dátumok a következő reggelre maguktól érvénybe lépnek.
 Egy tipikus év: állítsd be korán a következő időszak dátumait *Closed* állapottal; a kezdés előtt kapcsolj *Open*-re.
 
-Amikor az időszak elindul, az érdeklődői listán mindenki megkapja a **Recruitment is open** levelet (Emails) egy személyes
-linkkel, amely a korábbi válaszaival kitöltve nyitja meg a jelentkezési űrlapot. Ha egy adott napon szeretnéd kiküldeni,
-töltsd ki a **Send on** dátumot.
+**Amikor az időszak elindul,** írj az érdeklődői listán mindenkinek: nyisd meg az érdeklődési űrlap választábláját, és küldd
+el a jelentkezési linket a benne lévő címekre (például Gmail körlevéllel vagy titkos másolatban). Írd meg, hogy válaszban
+kérhetik a listáról való törlésüket, és töröld, aki kéri.
 
-## Űrlapok és adatkezelés
+## Űrlapok (Google Forms)
 
-- Minden űrlap mutatja a célját, az adatmegőrzés idejét és egy linket az Adatkezelés oldalra. Ezek a szövegek a **Forms** alatt vannak.
-  Az Adatkezelés oldal innen magától felsorolja az összes űrlapot, és az „adataim törlése” űrlappal zárul.
-- Ha az adatmegőrzés idejét módosítod, a **Retention (in words)** és a **Retention (for the form service)** mezőt is írd át.
-- A **Same email address again** dönti el, mi történjen, ha valaki kétszer küldi el az űrlapot: elutasítjuk, frissítjük a korábbi válaszait, vagy engedjük.
-- A **Quick questions** a **Ask on** mezőben kiválasztott űrlapo(ko)n jelennek meg.
+Az űrlapok Google-űrlapok. Az oldal mindegyik mellett kiírja a célját, az adatmegőrzést és egy linket az Adatkezelés
+oldalra; maga az űrlap csak akkor töltődik be, ha a látogató az **Űrlap megjelenítése** gombra kattint.
+
+| Űrlap | Hová kerül a linkje |
+| --- | --- |
+| Kapcsolatfelvétel (cégek) | Forms → Partner contact → Google Form |
+| Érdeklődés (zárt toborzás) | Forms → Interest → Google Form |
+| Jelentkezés (nyitott toborzás) | Forms → Application → Google Form |
+| Eseményre jelentkezés | Events → az esemény → Registration form |
+
+**Űrlap készítése**
+
+1. Az **SVK Google-fiókjában**, az SVK Drive-ján készítsd, soha ne személyes fiókban (az űrlap a tulajdonosával együtt távozik).
+2. Azokat az adatokat kérd, amelyeket a **Forms** alatti szövegek felsorolnak (név, e-mail, …). Ha kérdést adsz hozzá vagy veszel ki,
+   a **What is collected** szöveget is frissítsd.
+3. Adj hozzá egy kötelező hozzájárulási jelölőnégyzetet, pl. *Hozzájárulok, hogy az SVK a fenti adataimat … kezelje*, és tedd
+   az Adatkezelés oldal linkjét az űrlap leírásába.
+4. Válaszok fül → **Összekapcsolás a Táblázatokkal**, az SVK Drive-ján. Ha valakinek válaszolnia kell (kapcsolatfelvétel),
+   kapcsold be neki az **E-mail-értesítés új válaszokról** opciót.
+5. Angol változat: készíts másolatot az űrlapról (⋮ → Másolat készítése), fordítsd le, és a linkjét az **English** mezőbe tedd.
+   Ha az angol mező üres, az angol oldalon a magyar űrlap jelenik meg.
+6. **Küldés → link ikon**, másold a **hosszú** linket (`https://docs.google.com/forms/d/e/…/viewform`, az *URL rövidítése*
+   ne legyen bejelölve), és illeszd be a CMS-be.
+
+Fájlt (jelentkezés) csak Google-fiókkal bejelentkezve lehet feltölteni; ezt a Google Forms kéri. A jelentkezési űrlap szövege
+szól erről a jelentkezőknek.
+
+**Űrlap lezárása:** Válaszok fül → **Válaszok elfogadása** kikapcsolása. A Google Forms nem tud létszámkorlátot vagy
+zárási dátumot: korlátozott létszámú eseménynél figyeld a válaszok számát, és zárd le az űrlapot, amikor betelt.
+
+## Adatkezelés: amit megígérünk
+
+Az oldal azt ígéri, amit a **Retention** szövegek mondanak; automatikusan semmi nem törlődik, ezt a csapat végzi:
+
+| Adat | Törlés |
+| --- | --- |
+| Eseményjelentkezések | 90 nappal az esemény után |
+| Érdeklődői lista | A következő toborzási időszak végén, de legkorábban 12 hónappal a feliratkozás után |
+| Jelentkezések (és a feltöltött fájlok) | 3 hónappal az időszak lezárulta után; a felvett tagok adatai az SVK belső nyilvántartásába kerülnek |
+| Céges megkeresések | 2 évvel az utolsó kapcsolatfelvétel után |
+
+Töröld a sorokat a választáblából **és** a Google Formsban (Válaszok fül), a feltöltött fájlokat pedig a Drive-ról.
+Jó szokás minden félév elején átnézni.
+
+**Ha valaki kéri az adatai törlését** (az Adatkezelés oldal szerint a kapcsolattartási címre ír): keresd meg a címét minden
+választáblában, töröld, amit találsz (sorok, válaszok az űrlapban, feltöltött fájlok), és válaszolj neki, ha kész.
+Ha az adatmegőrzés idejét módosítod, az űrlap **Retention** szövegét is írd át.
 
 ## Szerkesztő nélkül
 

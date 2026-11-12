@@ -17,13 +17,6 @@ export const settings = settingsEntry.data
  */
 export const siteUrl: string = new URL(import.meta.env.SITE).origin
 
-/**
- * Base URL of service-forms, or undefined while the forms are "coming soon".
- * FORMS_API_URL overrides the setting, e.g. for a local or test service.
- */
-export const formsApiUrl: string | undefined =
-  (process.env.FORMS_API_URL ?? settings.forms.api_url)?.replace(/\/$/, '') || undefined
-
 export async function getPage(id: string) {
   const page = await getEntry('pages', id)
   if (!page) throw new Error(`Missing src/content/pages/${id}.yaml`)

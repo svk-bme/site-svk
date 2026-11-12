@@ -13,11 +13,3 @@ image: ''
 image_alt: null
 external_link: https://meetup.svk.bme.hu/
 album_link: ''
-registration:
-  enabled: false
-  capacity: null
-  opens: ''
-  closes: ''
-  extra_fields: []
-reminder: null
-confirmation: null

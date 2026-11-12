@@ -9,5 +9,3 @@ speaker:
 image: ./19-schoenherz-meetup.png
 external_link: https://meetup.svk.bme.hu/
 draft: false
-registration:
-  enabled: false

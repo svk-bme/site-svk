@@ -1,9 +1,8 @@
 ---
 import { Image } from 'astro:assets'
-import Form from '~/components/Form.astro'
+import GoogleForm from '~/components/GoogleForm.astro'
 import { md, t, tr, type Locale } from '~/i18n'
 import BaseLayout from '~/layouts/BaseLayout.astro'
-import { partnerContactForm } from '~/lib/forms'
 import { getPage, getPartners } from '~/lib/site'
 
 interface Props {
@@ -13,7 +12,6 @@ interface Props {
 const { locale } = Astro.props
 const page = await getPage('companies')
 const partners = await getPartners()
-const form = await partnerContactForm()
 ---
 
 <BaseLayout locale={locale} title={tr(locale, page.title)} description={tr(locale, page.description) || undefined}>
@@ -39,6 +37,6 @@ const form = await partnerContactForm()
 
   <section class="section container" id="contact" aria-labelledby="contact-title">
     <h2 id="contact-title">{t(locale, 'companies.contact')}</h2>
-    <Form locale={locale} form={form} />
+    <GoogleForm locale={locale} kind="partner-contact" />
   </section>
 </BaseLayout>

@@ -2,7 +2,7 @@
 
 # Editing the website
 
-How to change events, members, partners, page texts, forms, emails and the recruitment season on SVK's website.
+How to change events, members, partners, page texts, forms and the recruitment season on SVK's website.
 No programming needed.
 
 > Status: the browser editor at `/admin` on the website is ready but needs a one-time login setup by the infra lead
@@ -23,41 +23,24 @@ No programming needed.
 
 | Collection | What it holds |
 | --- | --- |
-| **Events** | Events with date, place, speaker, description, image; registration, reminder and confirmation emails |
+| **Events** | Events with date, place, speaker, description, image, and the link of the registration form |
 | **Members** | Team members on the About page |
 | **Partners** | Partner logos on the For companies page |
 | **Pages** | Texts of Home, About, For companies, Events, Join us, Privacy |
 | **Settings** | Recruitment season, contact email, social links |
-| **Forms** | Purpose, retention, consent and thank-you texts of each form (also shown on the Privacy page) |
-| **Quick questions** | Optional choice questions on the interest and application forms |
-| **Emails** | Interest confirmation, "recruitment is open", deletion confirmation, interest list footer |
-| **Email link pages** | Pages that confirm, unsubscribe and delete links open; nothing happens until the visitor clicks the button |
-| **Result pages** | Pages shown after that (confirmed, unsubscribed, deleted, link no longer valid) |
+| **Forms** | Each form's purpose, what it collects, retention, how to withdraw (also on the Privacy page), and its Google Form link |
 
 Texts marked as Markdown can use `**bold**`, `[links](https://…)`, lists and `## headings`.
 Dates and times are Budapest time; summer and winter time are handled automatically.
-Every email has **Send a test copy to**: enter your address and you get a test copy (in both languages) whenever the text changes.
 
 ## Events
 
 - **Draft** on: the event is not published. (A separate preview site is planned.)
 - **Start / End:** End is optional; calendar files then use the default length from Settings.
 - **External link:** event tiles link there instead of the event page (e.g. the MeetUp site).
+- **Registration form:** the link of the event's Google Form (see below). It shows on the event page until the event starts.
 - Events move from "upcoming" to "past events" by themselves the morning after they end. Past events are listed by year.
 - Every event page has an **Add to calendar** link; the whole programme can be subscribed to at `/events.ics`.
-
-**Registration** (needs the form service; until then the form shows "coming soon"):
-
-1. Open **Registration** on the event and switch on **Registration on this site**.
-2. Optional: **Capacity**, **Opens**, **Closes** (empty: closes when the event starts).
-3. Name, email, studies and consent are always asked. Add **Extra questions** if needed: question, type
-   (short text, long text, single choice, multiple choice, checkbox) and options.
-   Do not change a question after people have registered; add a new one instead (the answers are stored by question),
-   or fill in **Column key** / **Stored value** before the first registration so later renames are safe.
-4. The page shows the state on its own: not yet open, open, full, closed, past.
-
-**Reminder email:** switch it on, set how many hours before the start it goes out, and write the subject and text.
-Placeholders: `{name}`, `{event_title}`, `{date}`, `{place}`, `{event_url}`. The **registration confirmation** email works the same way.
 
 ## Recruitment season
 
@@ -66,22 +49,64 @@ Settings → **Recruitment** controls the Join us page:
 | Field | Meaning |
 | --- | --- |
 | **Status** | *Closed*: the page shows "Text while closed" and the interest form. *Open*: it shows "Text while open" and the application form |
-| **Season opens / closes** | With status *Open*, applications are accepted only between these dates; outside them the interest form is shown. While closed, the page shows them as the next season |
+| **Season opens / closes** | With status *Open*, the application form is shown only between these dates; outside them the interest form is shown. While closed, the page shows them as the next season |
 
 The site rebuilds every night, so the dates take effect by the next morning without anyone changing anything.
 A typical year: set the dates of the next season early with status *Closed*; switch to *Open* before it starts.
 
-When the season opens, everyone on the interest list gets the **Recruitment is open** email (Emails), with a personal
-link that opens the application form filled in with their earlier answers. To send it on a set day instead, fill in its
-**Send on** date.
+**When the season opens,** email everyone on the interest list yourself: open the interest form's response sheet and send
+the application link to the addresses in it (for example with a Gmail mail merge, or in BCC). Tell them they can reply to
+be removed from the list, and remove anyone who asks.
 
-## Forms and privacy
+## Forms (Google Forms)
 
-- Every form shows its purpose, how long the data is kept and a link to the Privacy page. These texts are in **Forms**.
-  The Privacy page lists every form from there automatically and ends with the "delete my data" form.
-- If you change how long something is kept, change both **Retention (in words)** and **Retention (for the form service)**.
-- **Same email address again** decides what happens when someone sends a form twice: reject it, update the earlier answers, or allow it.
-- **Quick questions** appear on the interest and/or application form, as chosen in **Ask on**.
+The forms are Google Forms. The site shows each one with its purpose, retention and a link to the Privacy page;
+the form itself loads only when the visitor clicks **Show form**.
+
+| Form | Where its link goes |
+| --- | --- |
+| Partner contact | Forms → Partner contact → Google Form |
+| Interest (recruitment closed) | Forms → Interest → Google Form |
+| Application (recruitment open) | Forms → Application → Google Form |
+| Event registration | Events → the event → Registration form |
+
+**Creating a form**
+
+1. Create it in **SVK's Google account**, in SVK's Drive, never in a personal account (forms leave with their owner).
+2. Ask for the data the form's texts in **Forms** say it collects (name, email, …). If you add or remove questions,
+   update **What is collected** too.
+3. Add a required checkbox for consent, e.g. *I agree that SVK processes the data above to …*, and put the link of the
+   Privacy page in the form's description.
+4. Responses tab → **Link to Sheets**, in SVK's Drive. For forms someone must answer (partner contact), turn on
+   **Get email notifications for new responses** for that person.
+5. English: make a copy of the form (⋮ → Make a copy), translate it, and put its link in the **English** box.
+   If you leave English empty, the English page shows the Hungarian form.
+6. **Send → link icon**, copy the **long** link (`https://docs.google.com/forms/d/e/…/viewform`, do not tick
+   *Shorten URL*) and paste it into the CMS.
+
+File uploads (application) only work for respondents signed in with a Google account; Google Forms asks for it.
+The application form's text tells applicants this.
+
+**Closing a form:** Responses tab → switch off **Accepting responses**. Google Forms has no capacity limit or closing date
+of its own: for events with limited places, watch the response count and close the form when it is full.
+
+## Privacy: keeping the promises
+
+The site promises what the **Retention** texts say; nobody deletes automatically, so the team does it:
+
+| Data | Delete |
+| --- | --- |
+| Event registrations | 90 days after the event |
+| Interest list | After the next recruitment season ends, but not earlier than 12 months after signing up |
+| Applications (and uploaded files) | 3 months after the season closes; accepted members move to SVK's internal records |
+| Partner contacts | 2 years after the last contact |
+
+Delete the rows from the response sheet **and** in Google Forms (Responses tab), and the uploaded files from Drive.
+A good habit: check it at the start of every semester.
+
+**If someone asks for their data to be deleted** (the Privacy page tells them to write to the contact email): search every
+response sheet for their address, delete what you find (rows, responses in the form, uploaded files), and reply when it is done.
+If you change how long something is kept, change the form's **Retention** text too.
 
 ## Without the editor
 

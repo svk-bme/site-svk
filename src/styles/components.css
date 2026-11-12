@@ -452,41 +452,16 @@
   font-size: var(--text-sm);
 }
 
-/* ---------------------------------------------------------------- forms */
-
-.form {
-  display: grid;
-  gap: var(--space-6);
-  max-width: var(--prose-width);
-}
+/* ---------------------------------------------------------------- forms (Google Forms) */
 
 .form__about {
   font-size: var(--text-sm);
   color: var(--color-text-muted);
+  max-width: var(--prose-width);
 }
 
 .form__about > * {
   margin-bottom: var(--space-2);
-}
-
-.field {
-  display: grid;
-  gap: var(--space-2);
-  margin: 0;
-  padding: 0;
-  border: 0;
-  min-width: 0;
-}
-
-.field__label {
-  font-weight: var(--font-weight-strong);
-  padding: 0;
-}
-
-.field__hint {
-  font-weight: var(--font-weight-body);
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
 }
 
 .field__help {
@@ -495,68 +470,22 @@
   margin: 0;
 }
 
-.field__error {
-  font-size: var(--text-sm);
-  color: var(--color-error);
-  margin: 0;
+.google-form {
+  max-width: var(--prose-width);
 }
 
-.field__error:empty {
-  display: none;
-}
-
-.input {
+/* Google's page scrolls inside the frame; its height cannot follow the form's content */
+.google-form__frame {
+  display: block;
   width: 100%;
-  min-height: 2.75rem;
-  padding: var(--space-2) var(--space-3);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  background: var(--color-surface-raised);
+  height: 80vh;
+  min-height: 32rem;
+  border: 0;
+  border-radius: var(--radius);
+  background: #fff;
 }
 
-textarea.input {
-  min-height: 8rem;
-  resize: vertical;
-}
-
-.input[aria-invalid='true'] {
-  border-color: var(--color-error);
-}
-
-.choice {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-3);
-  cursor: pointer;
-}
-
-.choice input {
-  width: 1.25rem;
-  height: 1.25rem;
-  margin-top: 0.15rem;
-  flex-shrink: 0;
-  accent-color: var(--color-accent);
-}
-
-/* "Other" studies: the free-text field shows when "Other" is picked */
-.field[data-show-if] {
-  display: none;
-}
-
-.form:has([data-controls-other] input[value='other']:checked) .field[data-show-if='studies=other'],
-.field[data-show-if].is-visible {
-  display: grid;
-}
-
-/* Honeypot: hidden from people, visible to naive bots */
-.form__trap {
-  position: absolute;
-  left: -100vw;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-}
-
-.form__status:empty {
+/* Without JavaScript only the "open in a new tab" link works */
+html:not(.js) .google-form button {
   display: none;
 }

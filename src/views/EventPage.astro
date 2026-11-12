@@ -1,10 +1,10 @@
 ---
 import { Image } from 'astro:assets'
-import Registration from '~/components/Registration.astro'
+import GoogleForm from '~/components/GoogleForm.astro'
 import { formatDate, localePath, md, t, tr, type Locale } from '~/i18n'
 import BaseLayout from '~/layouts/BaseLayout.astro'
 import { calendarPath, eventEnd, type Event } from '~/lib/events'
-import { settings } from '~/lib/site'
+import { buildTime, settings } from '~/lib/site'
 
 interface Props {
   locale: Locale
@@ -22,6 +22,8 @@ const endText = end
     ? new Intl.DateTimeFormat(t(locale, 'meta.intl'), { timeZone: tz, timeStyle: 'short' }).format(end)
     : formatDate(locale, end, tz)
   : undefined
+// Registration is shown until the event starts (Google Forms' "Accepting responses" closes it earlier)
+const registration = event.data.registration_form?.hu && event.data.start > buildTime
 ---
 
 <BaseLayout
@@ -85,6 +87,13 @@ const endText = end
       }
     </div>
     {description && <div class="prose section" set:html={description} />}
-    <Registration locale={locale} event={event} />
+    {
+      registration && (
+        <section class="section" aria-labelledby="registration">
+          <h2 id="registration">{t(locale, 'events.registration')}</h2>
+          <GoogleForm locale={locale} kind="event-registration" url={event.data.registration_form} title={`${t(locale, 'events.registration')}: ${title}`} />
+        </section>
+      )
+    }
   </article>
 </BaseLayout>

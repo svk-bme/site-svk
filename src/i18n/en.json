@@ -47,15 +47,7 @@
     "subscribe": "Subscribe to the events calendar",
     "back": "Back to events",
     "registration": "Registration",
-    "draft": "Draft",
-    "state": {
-      "upcoming": "Registration opens on {date}.",
-      "open": "Registration is open.",
-      "openUntil": "Register by {date}.",
-      "full": "This event is full.",
-      "closed": "Registration is closed.",
-      "past": "This event has ended."
-    }
+    "draft": "Draft"
   },
   "join": {
     "closed": "Recruitment is closed",
@@ -71,52 +63,21 @@
     "collected": "What we collect",
     "retention": "How long we keep it",
     "withdraw": "Withdrawal and deletion",
-    "contact": "Questions? Write to us: {email}"
+    "contact": "Questions? Write to us: {email}",
+    "deleteTitle": "Deleting your data",
+    "deleteText": "To have your data deleted, write to {email} from the email address you gave in the form. We will delete what we hold for it from all our forms and let you know."
   },
   "forms": {
-    "comingSoon": "The online form is coming soon. Until then, write to us: {email}",
-    "submit": "Send",
-    "sending": "Sending…",
-    "required": "required",
-    "optional": "optional",
-    "choose": "Choose…",
-    "chooseOne": "Choose at least one.",
+    "show": "Show form",
+    "openNewTab": "Open in a new tab",
+    "googleNotice": "This form is provided by Google Forms. It loads only when you click the button; Google may then set cookies.",
+    "unavailable": "This form is not available right now. Until then, write to us: {email}",
     "retention": "Retention:",
-    "privacyLink": "Details in our privacy notice",
-    "errorGeneric": "Sending failed. Please try again later or write to us: {email}",
-    "errorNetwork": "Could not connect. Check your internet connection and try again.",
-    "errorFields": "Please correct the marked fields.",
-    "prefillFailed": "We could not load your earlier answers; please fill in the form yourself.",
-    "honeypot": "Leave this field empty",
-    "fileHelp": "Allowed: {types}, up to {size} MB.",
-    "fields": {
-      "name": "Name",
-      "email": "Email address",
-      "studies": "Studies",
-      "studiesBme": "BME VIK",
-      "studiesOther": "Other",
-      "studiesOtherText": "Where do you study?",
-      "semestersLeft": "Active semesters left",
-      "semestersLeftHelp": "Approximately, including MSc.",
-      "company": "Company",
-      "phone": "Phone number",
-      "topic": "Topic",
-      "message": "Message",
-      "motivation": "Motivation letter",
-      "motivationFile": "Motivation letter as PDF",
-      "motivationFileHelp": "You can upload a PDF instead of writing in the text box.",
-      "presentation": "Introduction presentation"
-    }
+    "privacyLink": "Details in our privacy notice"
   },
   "notFound": {
     "title": "Page not found",
     "body": "This page does not exist or has moved.",
-    "home": "Back to the home page"
-  },
-  "actions": {
-    "needsJs": "This page needs JavaScript. Turn it on, or write to us."
-  },
-  "status": {
     "home": "Back to the home page"
   }
 }

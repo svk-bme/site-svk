@@ -144,216 +144,26 @@ collections:
         pattern:
           - ^https?://[^ ]+$
           - Enter a full address starting with https://
-      - name: registration
-        label: Registration
+      - name: registration_form
+        label: Registration form (Google Forms)
         widget: object
-        collapsed: true
-        fields:
-          - name: enabled
-            label: Registration on this site
-            widget: boolean
-            default: false
-          - name: capacity
-            label: Capacity
-            widget: number
-            value_type: int
-            min: 1
-            required: false
-            hint: "Empty: no limit"
-          - name: opens
-            label: Opens
-            widget: datetime
-            format: YYYY-MM-DDTHH:mm
-            hint: "Empty: open right away"
-            required: false
-          - name: closes
-            label: Closes
-            widget: datetime
-            format: YYYY-MM-DDTHH:mm
-            hint: "Empty: when the event starts"
-            required: false
-          - name: extra_fields
-            label: Extra questions
-            widget: list
-            required: false
-            fields:
-              - name: label
-                label: Question
-                widget: object
-                collapsed: false
-                required: true
-                fields:
-                  - name: hu
-                    label: Magyar
-                    widget: string
-                    required: true
-                  - name: en
-                    label: English
-                    widget: string
-                    required: false
-                    hint: "Empty: the Hungarian text is shown."
-              - name: help
-                label: Help text
-                widget: object
-                collapsed: false
-                required: false
-                fields:
-                  - name: hu
-                    label: Magyar
-                    widget: string
-                    required: false
-                  - name: en
-                    label: English
-                    widget: string
-                    required: false
-                    hint: "Empty: the Hungarian text is shown."
-              - name: type
-                label: Type
-                widget: select
-                options:
-                  - label: Short text
-                    value: text
-                  - label: Long text
-                    value: textarea
-                  - label: Single choice
-                    value: single_choice
-                  - label: Multiple choice
-                    value: multiple_choice
-                  - label: Checkbox (yes/no)
-                    value: checkbox
-              - name: options
-                label: Options (for choice types)
-                widget: list
-                required: false
-                summary: "{{hu}}"
-                fields:
-                  - name: hu
-                    label: Magyar
-                    widget: string
-                  - name: en
-                    label: English
-                    widget: string
-                    required: false
-                  - name: value
-                    label: Stored value
-                    widget: string
-                    required: false
-                    pattern:
-                      - ^[a-z0-9_]*$
-                      - Lowercase letters, digits and _ only
-                    hint: "Optional. Keeps answers stable if you later rename the option. Empty: made from the Hungarian text."
-              - name: required
-                label: Required
-                widget: boolean
-                default: false
-              - name: id
-                label: Column key
-                widget: string
-                required: false
-                pattern:
-                  - ^[a-z0-9_]*$
-                  - Lowercase letters, digits and _ only
-                hint: "Optional. Keeps the sheet column stable if you later change the question. Empty: made from the Hungarian question."
-            summary: "{{label.hu}}"
-            hint: Name, email, studies and consent are always asked.
-      - name: reminder
-        label: Reminder email
-        widget: object
-        collapsed: true
+        collapsed: false
         required: false
+        hint: "Shown on the event page until the event starts. In Google Forms: Send → link icon → copy the long link (do not shorten it)."
         fields:
-          - name: enabled
-            label: Send this email
-            widget: boolean
-            default: false
-          - name: subject
-            label: Subject
-            widget: object
-            collapsed: false
-            required: false
-            fields:
-              - name: hu
-                label: Magyar
-                widget: string
-                required: false
-              - name: en
-                label: English
-                widget: string
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-          - name: body
-            label: Text
-            widget: object
-            collapsed: false
-            required: false
-            fields:
-              - name: hu
-                label: Magyar
-                widget: text
-                required: false
-              - name: en
-                label: English
-                widget: text
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-            hint: "Placeholders: {name}, {event_title}, {date}, {place}, {event_url}"
-          - name: test_to
-            label: Send a test copy to
+          - name: hu
+            label: Magyar
             widget: string
             required: false
-            hint: Optional. A test copy goes to this address whenever the text changes.
-          - name: hours_before
-            label: Hours before the start
-            widget: number
-            value_type: int
-            default: 24
-            min: 1
-      - name: confirmation
-        label: Registration confirmation email
-        widget: object
-        collapsed: true
-        required: false
-        fields:
-          - name: enabled
-            label: Send this email
-            widget: boolean
-            default: false
-          - name: subject
-            label: Subject
-            widget: object
-            collapsed: false
-            required: false
-            fields:
-              - name: hu
-                label: Magyar
-                widget: string
-                required: false
-              - name: en
-                label: English
-                widget: string
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-          - name: body
-            label: Text
-            widget: object
-            collapsed: false
-            required: false
-            fields:
-              - name: hu
-                label: Magyar
-                widget: text
-                required: false
-              - name: en
-                label: English
-                widget: text
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-            hint: "Placeholders: {name}, {event_title}, {date}, {place}, {event_url}"
-          - name: test_to
-            label: Send a test copy to
+            pattern: &a1
+              - ^https://docs.google.com/forms/d/e/[A-Za-z0-9_-]+/viewform
+              - Paste the full Google Forms link (…/forms/d/e/…/viewform), not a forms.gle short link
+          - name: en
+            label: English
             widget: string
             required: false
-            hint: Optional. A test copy goes to this address whenever the text changes.
+            pattern: *a1
+            hint: "Empty: the English page shows the Hungarian form."
   - name: members
     label: Members
     label_singular: Member
@@ -1003,23 +813,6 @@ collections:
                 widget: number
                 value_type: int
                 min: 1
-          - name: forms
-            label: Forms
-            widget: object
-            collapsed: true
-            fields:
-              - name: source
-                label: Site name in the form service
-                widget: string
-                hint: Set by the infra lead; matches the service configuration.
-              - name: api_url
-                label: Form service address
-                widget: string
-                required: false
-                hint: 'Set by the infra lead: the address of the form service, ending in /api/forms. Empty: forms show "coming soon".'
-                pattern:
-                  - ^https?://[^ ]+$
-                  - Enter a full address starting with https://
           - name: analytics
             label: Analytics
             widget: object
@@ -1076,7 +869,7 @@ collections:
     label: Forms
     files:
       - name: event-registration
-        label: Event registration (all events)
+        label: Event registration (texts for all events; each event has its own form link)
         file: src/content/forms/event-registration.yaml
         fields:
           - name: title
@@ -1144,48 +937,6 @@ collections:
                 widget: text
                 required: false
                 hint: "Empty: the Hungarian text is shown."
-          - name: duplicates
-            label: Same email address again
-            widget: select
-            options:
-              - label: Reject it
-                value: reject
-              - label: Update the earlier answers
-                value: update
-              - label: Allow it
-                value: allow
-          - name: retention_policy
-            label: Retention (for the form service)
-            widget: object
-            collapsed: true
-            hint: Must match the text above.
-            fields:
-              - name: anchor
-                label: Counted from
-                widget: select
-                options:
-                  - label: Submission
-                    value: submitted
-                  - label: End of the event
-                    value: event_end
-                  - label: Close of the recruitment season
-                    value: season_close
-                  - label: Close of the next recruitment season
-                    value: next_season_close
-                  - label: Last contact
-                    value: last_contact
-              - name: days
-                label: Days
-                widget: number
-                value_type: int
-                min: 0
-                default: 0
-              - name: min_days
-                label: At least this many days after submission
-                widget: number
-                value_type: int
-                min: 0
-                required: false
           - name: withdraw
             label: How to withdraw
             widget: object
@@ -1201,41 +952,6 @@ collections:
                 widget: markdown
                 required: false
                 hint: "Empty: the Hungarian text is shown."
-          - name: consent
-            label: Consent checkbox
-            widget: object
-            collapsed: false
-            required: false
-            fields:
-              - name: hu
-                label: Magyar
-                widget: text
-                required: false
-              - name: en
-                label: English
-                widget: text
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-            hint: "Empty: no consent checkbox"
-          - name: success
-            label: Message after sending
-            widget: object
-            collapsed: false
-            required: true
-            fields:
-              - name: hu
-                label: Magyar
-                widget: text
-                required: true
-              - name: en
-                label: English
-                widget: text
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-          - name: notify
-            label: Notify these addresses of each submission
-            widget: list
-            required: false
       - name: interest
         label: Interest (join us, closed)
         file: src/content/forms/interest.yaml
@@ -1305,54 +1021,6 @@ collections:
                 widget: text
                 required: false
                 hint: "Empty: the Hungarian text is shown."
-          - name: duplicates
-            label: Same email address again
-            widget: select
-            options:
-              - label: Reject it
-                value: reject
-              - label: Update the earlier answers
-                value: update
-              - label: Allow it
-                value: allow
-          - name: double_opt_in_days
-            label: Days to confirm the signup
-            widget: number
-            value_type: int
-            min: 1
-            hint: Unconfirmed signups are deleted after this.
-          - name: retention_policy
-            label: Retention (for the form service)
-            widget: object
-            collapsed: true
-            hint: Must match the text above.
-            fields:
-              - name: anchor
-                label: Counted from
-                widget: select
-                options:
-                  - label: Submission
-                    value: submitted
-                  - label: End of the event
-                    value: event_end
-                  - label: Close of the recruitment season
-                    value: season_close
-                  - label: Close of the next recruitment season
-                    value: next_season_close
-                  - label: Last contact
-                    value: last_contact
-              - name: days
-                label: Days
-                widget: number
-                value_type: int
-                min: 0
-                default: 0
-              - name: min_days
-                label: At least this many days after submission
-                widget: number
-                value_type: int
-                min: 0
-                required: false
           - name: withdraw
             label: How to withdraw
             widget: object
@@ -1368,41 +1036,26 @@ collections:
                 widget: markdown
                 required: false
                 hint: "Empty: the Hungarian text is shown."
-          - name: consent
-            label: Consent checkbox
+          - name: form
+            label: Google Form
             widget: object
             collapsed: false
             required: false
+            hint: "In Google Forms: Send → link icon → copy the long link (do not shorten it)."
             fields:
               - name: hu
                 label: Magyar
-                widget: text
+                widget: string
                 required: false
+                pattern: &a2
+                  - ^https://docs.google.com/forms/d/e/[A-Za-z0-9_-]+/viewform
+                  - Paste the full Google Forms link (…/forms/d/e/…/viewform), not a forms.gle short link
               - name: en
                 label: English
-                widget: text
+                widget: string
                 required: false
-                hint: "Empty: the Hungarian text is shown."
-            hint: "Empty: no consent checkbox"
-          - name: success
-            label: Message after sending
-            widget: object
-            collapsed: false
-            required: true
-            fields:
-              - name: hu
-                label: Magyar
-                widget: text
-                required: true
-              - name: en
-                label: English
-                widget: text
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-          - name: notify
-            label: Notify these addresses of each submission
-            widget: list
-            required: false
+                pattern: *a2
+                hint: "Empty: the English page shows the Hungarian form."
       - name: application
         label: Application (join us, open)
         file: src/content/forms/application.yaml
@@ -1472,48 +1125,6 @@ collections:
                 widget: text
                 required: false
                 hint: "Empty: the Hungarian text is shown."
-          - name: duplicates
-            label: Same email address again
-            widget: select
-            options:
-              - label: Reject it
-                value: reject
-              - label: Update the earlier answers
-                value: update
-              - label: Allow it
-                value: allow
-          - name: retention_policy
-            label: Retention (for the form service)
-            widget: object
-            collapsed: true
-            hint: Must match the text above.
-            fields:
-              - name: anchor
-                label: Counted from
-                widget: select
-                options:
-                  - label: Submission
-                    value: submitted
-                  - label: End of the event
-                    value: event_end
-                  - label: Close of the recruitment season
-                    value: season_close
-                  - label: Close of the next recruitment season
-                    value: next_season_close
-                  - label: Last contact
-                    value: last_contact
-              - name: days
-                label: Days
-                widget: number
-                value_type: int
-                min: 0
-                default: 0
-              - name: min_days
-                label: At least this many days after submission
-                widget: number
-                value_type: int
-                min: 0
-                required: false
           - name: withdraw
             label: How to withdraw
             widget: object
@@ -1529,41 +1140,26 @@ collections:
                 widget: markdown
                 required: false
                 hint: "Empty: the Hungarian text is shown."
-          - name: consent
-            label: Consent checkbox
+          - name: form
+            label: Google Form
             widget: object
             collapsed: false
             required: false
+            hint: "In Google Forms: Send → link icon → copy the long link (do not shorten it)."
             fields:
               - name: hu
                 label: Magyar
-                widget: text
+                widget: string
                 required: false
+                pattern: &a3
+                  - ^https://docs.google.com/forms/d/e/[A-Za-z0-9_-]+/viewform
+                  - Paste the full Google Forms link (…/forms/d/e/…/viewform), not a forms.gle short link
               - name: en
                 label: English
-                widget: text
+                widget: string
                 required: false
-                hint: "Empty: the Hungarian text is shown."
-            hint: "Empty: no consent checkbox"
-          - name: success
-            label: Message after sending
-            widget: object
-            collapsed: false
-            required: true
-            fields:
-              - name: hu
-                label: Magyar
-                widget: text
-                required: true
-              - name: en
-                label: English
-                widget: text
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-          - name: notify
-            label: Notify these addresses of each submission
-            widget: list
-            required: false
+                pattern: *a3
+                hint: "Empty: the English page shows the Hungarian form."
       - name: partner-contact
         label: Partner contact
         file: src/content/forms/partner-contact.yaml
@@ -1633,48 +1229,6 @@ collections:
                 widget: text
                 required: false
                 hint: "Empty: the Hungarian text is shown."
-          - name: duplicates
-            label: Same email address again
-            widget: select
-            options:
-              - label: Reject it
-                value: reject
-              - label: Update the earlier answers
-                value: update
-              - label: Allow it
-                value: allow
-          - name: retention_policy
-            label: Retention (for the form service)
-            widget: object
-            collapsed: true
-            hint: Must match the text above.
-            fields:
-              - name: anchor
-                label: Counted from
-                widget: select
-                options:
-                  - label: Submission
-                    value: submitted
-                  - label: End of the event
-                    value: event_end
-                  - label: Close of the recruitment season
-                    value: season_close
-                  - label: Close of the next recruitment season
-                    value: next_season_close
-                  - label: Last contact
-                    value: last_contact
-              - name: days
-                label: Days
-                widget: number
-                value_type: int
-                min: 0
-                default: 0
-              - name: min_days
-                label: At least this many days after submission
-                widget: number
-                value_type: int
-                min: 0
-                required: false
           - name: withdraw
             label: How to withdraw
             widget: object
@@ -1690,663 +1244,24 @@ collections:
                 widget: markdown
                 required: false
                 hint: "Empty: the Hungarian text is shown."
-          - name: consent
-            label: Consent checkbox
+          - name: form
+            label: Google Form
             widget: object
             collapsed: false
             required: false
-            fields:
-              - name: hu
-                label: Magyar
-                widget: text
-                required: false
-              - name: en
-                label: English
-                widget: text
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-            hint: "Empty: no consent checkbox"
-          - name: success
-            label: Message after sending
-            widget: object
-            collapsed: false
-            required: true
-            fields:
-              - name: hu
-                label: Magyar
-                widget: text
-                required: true
-              - name: en
-                label: English
-                widget: text
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-          - name: notify
-            label: Notify these addresses of each submission
-            widget: list
-            required: false
-          - name: options
-            label: Options
-            widget: object
-            fields:
-              - name: topic
-                label: Topics
-                widget: list
-                summary: "{{hu}}"
-                fields:
-                  - name: hu
-                    label: Magyar
-                    widget: string
-                  - name: en
-                    label: English
-                    widget: string
-                    required: false
-                  - name: value
-                    label: Stored value
-                    widget: string
-                    required: false
-                    pattern:
-                      - ^[a-z0-9_]*$
-                      - Lowercase letters, digits and _ only
-                    hint: "Optional. Keeps answers stable if you later rename the option. Empty: made from the Hungarian text."
-      - name: delete-request
-        label: Delete my data
-        file: src/content/forms/delete-request.yaml
-        fields:
-          - name: title
-            label: Title
-            widget: object
-            collapsed: false
-            required: true
+            hint: "In Google Forms: Send → link icon → copy the long link (do not shorten it)."
             fields:
               - name: hu
                 label: Magyar
                 widget: string
-                required: true
+                required: false
+                pattern: &a4
+                  - ^https://docs.google.com/forms/d/e/[A-Za-z0-9_-]+/viewform
+                  - Paste the full Google Forms link (…/forms/d/e/…/viewform), not a forms.gle short link
               - name: en
                 label: English
                 widget: string
                 required: false
-                hint: "Empty: the Hungarian text is shown."
-          - name: order
-            label: Order on the privacy page
-            widget: number
-            value_type: int
-            default: 100
-          - name: purpose
-            label: Purpose
-            widget: object
-            collapsed: false
-            required: true
-            fields:
-              - name: hu
-                label: Magyar
-                widget: markdown
-                required: true
-              - name: en
-                label: English
-                widget: markdown
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-          - name: collected
-            label: What is collected
-            widget: object
-            collapsed: false
-            required: false
-            fields:
-              - name: hu
-                label: Magyar
-                widget: markdown
-                required: false
-              - name: en
-                label: English
-                widget: markdown
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-          - name: retention
-            label: Retention (in words)
-            widget: object
-            collapsed: false
-            required: true
-            fields:
-              - name: hu
-                label: Magyar
-                widget: text
-                required: true
-              - name: en
-                label: English
-                widget: text
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-          - name: withdraw
-            label: How to withdraw
-            widget: object
-            collapsed: false
-            required: false
-            fields:
-              - name: hu
-                label: Magyar
-                widget: markdown
-                required: false
-              - name: en
-                label: English
-                widget: markdown
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-          - name: consent
-            label: Consent checkbox
-            widget: object
-            collapsed: false
-            required: false
-            fields:
-              - name: hu
-                label: Magyar
-                widget: text
-                required: false
-              - name: en
-                label: English
-                widget: text
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-            hint: "Empty: no consent checkbox"
-          - name: success
-            label: Message after sending
-            widget: object
-            collapsed: false
-            required: true
-            fields:
-              - name: hu
-                label: Magyar
-                widget: text
-                required: true
-              - name: en
-                label: English
-                widget: text
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-          - name: notify
-            label: Notify these addresses of each submission
-            widget: list
-            required: false
-  - name: questions
-    label: Quick questions
-    label_singular: Question
-    folder: src/content/questions
-    extension: yaml
-    format: yaml
-    create: true
-    slug: "{{fields.label.hu}}"
-    identifier_field: label.hu
-    summary: "{{label.hu}}"
-    sortable_fields:
-      - order
-    description: Optional choice questions on the interest and application forms.
-    fields:
-      - name: active
-        label: Asked
-        widget: boolean
-        default: true
-      - name: label
-        label: Question
-        widget: object
-        collapsed: false
-        required: true
-        fields:
-          - name: hu
-            label: Magyar
-            widget: string
-            required: true
-          - name: en
-            label: English
-            widget: string
-            required: false
-            hint: "Empty: the Hungarian text is shown."
-      - name: help
-        label: Help text
-        widget: object
-        collapsed: false
-        required: false
-        fields:
-          - name: hu
-            label: Magyar
-            widget: string
-            required: false
-          - name: en
-            label: English
-            widget: string
-            required: false
-            hint: "Empty: the Hungarian text is shown."
-      - name: type
-        label: Type
-        widget: select
-        options:
-          - label: Single choice
-            value: single_choice
-          - label: Multiple choice
-            value: multiple_choice
-      - name: options
-        label: Options
-        widget: list
-        summary: "{{hu}}"
-        fields:
-          - name: hu
-            label: Magyar
-            widget: string
-          - name: en
-            label: English
-            widget: string
-            required: false
-          - name: value
-            label: Stored value
-            widget: string
-            required: false
-            pattern:
-              - ^[a-z0-9_]*$
-              - Lowercase letters, digits and _ only
-            hint: "Optional. Keeps answers stable if you later rename the option. Empty: made from the Hungarian text."
-      - name: forms
-        label: Ask on
-        widget: select
-        multiple: true
-        options:
-          - label: Interest form
-            value: interest
-          - label: Application form
-            value: application
-      - name: required
-        label: Required
-        widget: boolean
-        default: false
-      - name: order
-        label: Order
-        widget: number
-        value_type: int
-        default: 100
-  - name: emails
-    label: Emails
-    description: Emails sent by the form service. Event emails are set on each event.
-    files:
-      - name: interest-confirmation
-        label: Confirm your interest
-        file: src/content/emails/interest-confirmation.yaml
-        fields:
-          - name: note
-            label: When it is sent
-            widget: text
-            required: false
-          - name: enabled
-            label: Send this email
-            widget: boolean
-            default: true
-          - name: subject
-            label: Subject
-            widget: object
-            collapsed: false
-            required: true
-            fields:
-              - name: hu
-                label: Magyar
-                widget: string
-                required: true
-              - name: en
-                label: English
-                widget: string
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-          - name: body
-            label: Text
-            widget: object
-            collapsed: false
-            required: true
-            fields:
-              - name: hu
-                label: Magyar
-                widget: text
-                required: true
-              - name: en
-                label: English
-                widget: text
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-            hint: "Placeholders: {name}, {link} (confirmation link)"
-          - name: test_to
-            label: Send a test copy to
-            widget: string
-            required: false
-            hint: Optional. A test copy goes to this address whenever the text changes.
-      - name: recruitment-open
-        label: Recruitment is open
-        file: src/content/emails/recruitment-open.yaml
-        fields:
-          - name: note
-            label: When it is sent
-            widget: text
-            required: false
-          - name: enabled
-            label: Send this email
-            widget: boolean
-            default: true
-          - name: subject
-            label: Subject
-            widget: object
-            collapsed: false
-            required: true
-            fields:
-              - name: hu
-                label: Magyar
-                widget: string
-                required: true
-              - name: en
-                label: English
-                widget: string
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-          - name: body
-            label: Text
-            widget: object
-            collapsed: false
-            required: true
-            fields:
-              - name: hu
-                label: Magyar
-                widget: text
-                required: true
-              - name: en
-                label: English
-                widget: text
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-            hint: "Placeholders: {name}, {date} (season closes), {link} (pre-filled application)"
-          - name: send_at
-            label: "Send on (empty: when the season opens)"
-            widget: datetime
-            format: YYYY-MM-DDTHH:mm
-            hint: Budapest time
-            required: false
-          - name: test_to
-            label: Send a test copy to
-            widget: string
-            required: false
-            hint: Optional. A test copy goes to this address whenever the text changes.
-      - name: delete-confirmation
-        label: Confirm deletion
-        file: src/content/emails/delete-confirmation.yaml
-        fields:
-          - name: note
-            label: When it is sent
-            widget: text
-            required: false
-          - name: enabled
-            label: Send this email
-            widget: boolean
-            default: true
-          - name: subject
-            label: Subject
-            widget: object
-            collapsed: false
-            required: true
-            fields:
-              - name: hu
-                label: Magyar
-                widget: string
-                required: true
-              - name: en
-                label: English
-                widget: string
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-          - name: body
-            label: Text
-            widget: object
-            collapsed: false
-            required: true
-            fields:
-              - name: hu
-                label: Magyar
-                widget: text
-                required: true
-              - name: en
-                label: English
-                widget: text
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-            hint: "Placeholders: {link} (deletes the data)"
-          - name: test_to
-            label: Send a test copy to
-            widget: string
-            required: false
-            hint: Optional. A test copy goes to this address whenever the text changes.
-      - name: list-footer
-        label: Interest list footer
-        file: src/content/emails/list-footer.yaml
-        fields:
-          - name: note
-            label: When it is sent
-            widget: text
-            required: false
-          - name: enabled
-            label: Send this email
-            widget: boolean
-            default: true
-          - name: body
-            label: Text
-            widget: object
-            collapsed: false
-            required: true
-            fields:
-              - name: hu
-                label: Magyar
-                widget: text
-                required: true
-              - name: en
-                label: English
-                widget: text
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-            hint: Added to every email to the interest list. Must contain {unsubscribe_link}.
-          - name: test_to
-            label: Send a test copy to
-            widget: string
-            required: false
-            hint: Optional. A test copy goes to this address whenever the text changes.
-  - name: actions
-    label: Email link pages
-    description: Pages that confirm, unsubscribe and delete links open. Nothing happens until the visitor clicks the button.
-    files:
-      - name: confirm
-        label: Confirm interest
-        file: src/content/actions/confirm.yaml
-        fields:
-          - name: title
-            label: Title
-            widget: object
-            collapsed: false
-            required: true
-            fields:
-              - name: hu
-                label: Magyar
-                widget: string
-                required: true
-              - name: en
-                label: English
-                widget: string
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-          - name: body
-            label: Text
-            widget: object
-            collapsed: false
-            required: false
-            fields:
-              - name: hu
-                label: Magyar
-                widget: markdown
-                required: false
-              - name: en
-                label: English
-                widget: markdown
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-          - name: button
-            label: Button
-            widget: object
-            collapsed: false
-            required: true
-            fields:
-              - name: hu
-                label: Magyar
-                widget: string
-                required: true
-              - name: en
-                label: English
-                widget: string
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-          - name: result
-            label: Result page shown after success
-            widget: hidden
-      - name: unsubscribe
-        label: Unsubscribe
-        file: src/content/actions/unsubscribe.yaml
-        fields:
-          - name: title
-            label: Title
-            widget: object
-            collapsed: false
-            required: true
-            fields:
-              - name: hu
-                label: Magyar
-                widget: string
-                required: true
-              - name: en
-                label: English
-                widget: string
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-          - name: body
-            label: Text
-            widget: object
-            collapsed: false
-            required: false
-            fields:
-              - name: hu
-                label: Magyar
-                widget: markdown
-                required: false
-              - name: en
-                label: English
-                widget: markdown
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-          - name: button
-            label: Button
-            widget: object
-            collapsed: false
-            required: true
-            fields:
-              - name: hu
-                label: Magyar
-                widget: string
-                required: true
-              - name: en
-                label: English
-                widget: string
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-          - name: result
-            label: Result page shown after success
-            widget: hidden
-      - name: delete
-        label: Delete data
-        file: src/content/actions/delete.yaml
-        fields:
-          - name: title
-            label: Title
-            widget: object
-            collapsed: false
-            required: true
-            fields:
-              - name: hu
-                label: Magyar
-                widget: string
-                required: true
-              - name: en
-                label: English
-                widget: string
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-          - name: body
-            label: Text
-            widget: object
-            collapsed: false
-            required: false
-            fields:
-              - name: hu
-                label: Magyar
-                widget: markdown
-                required: false
-              - name: en
-                label: English
-                widget: markdown
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-          - name: button
-            label: Button
-            widget: object
-            collapsed: false
-            required: true
-            fields:
-              - name: hu
-                label: Magyar
-                widget: string
-                required: true
-              - name: en
-                label: English
-                widget: string
-                required: false
-                hint: "Empty: the Hungarian text is shown."
-          - name: result
-            label: Result page shown after success
-            widget: hidden
-  - name: notices
-    label: Result pages
-    label_singular: Result page
-    folder: src/content/notices
-    extension: yaml
-    format: yaml
-    create: false
-    delete: false
-    identifier_field: title.hu
-    description: Pages people reach from email links (confirm, unsubscribe, delete).
-    fields:
-      - name: title
-        label: Title
-        widget: object
-        collapsed: false
-        required: true
-        fields:
-          - name: hu
-            label: Magyar
-            widget: string
-            required: true
-          - name: en
-            label: English
-            widget: string
-            required: false
-            hint: "Empty: the Hungarian text is shown."
-      - name: body
-        label: Text
-        widget: object
-        collapsed: false
-        required: false
-        fields:
-          - name: hu
-            label: Magyar
-            widget: markdown
-            required: false
-          - name: en
-            label: English
-            widget: markdown
-            required: false
-            hint: "Empty: the Hungarian text is shown."
+                pattern: *a4
+                hint: "Empty: the English page shows the Hungarian form."
+    description: Texts shown with each form and on the Privacy page, and the link of its Google Form.

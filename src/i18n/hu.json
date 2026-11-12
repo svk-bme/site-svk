@@ -47,15 +47,7 @@
     "subscribe": "Feliratkozás az eseménynaptárra",
     "back": "Vissza az eseményekhez",
     "registration": "Jelentkezés",
-    "draft": "Piszkozat",
-    "state": {
-      "upcoming": "A jelentkezés {date}-kor nyílik.",
-      "open": "A jelentkezés nyitva.",
-      "openUntil": "Jelentkezni {date}-ig lehet.",
-      "full": "Az esemény betelt.",
-      "closed": "A jelentkezés lezárult.",
-      "past": "Az esemény már lezajlott."
-    }
+    "draft": "Piszkozat"
   },
   "join": {
     "closed": "Jelenleg nincs toborzás",
@@ -71,52 +63,21 @@
     "collected": "Milyen adatokat kérünk",
     "retention": "Meddig őrizzük",
     "withdraw": "Visszavonás és törlés",
-    "contact": "Kérdésed van? Írj nekünk: {email}"
+    "contact": "Kérdésed van? Írj nekünk: {email}",
+    "deleteTitle": "Adataid törlése",
+    "deleteText": "Ha szeretnéd, hogy töröljük az adataidat, írj nekünk a {email} címre arról az e-mail-címről, amelyet az űrlapon megadtál. Minden űrlapunkból töröljük, amit hozzá tárolunk, és visszajelzünk."
   },
   "forms": {
-    "comingSoon": "Az online űrlap hamarosan elérhető. Addig írj nekünk: {email}",
-    "submit": "Küldés",
-    "sending": "Küldés…",
-    "required": "kötelező",
-    "optional": "nem kötelező",
-    "choose": "Válassz…",
-    "chooseOne": "Válassz legalább egyet.",
+    "show": "Űrlap megjelenítése",
+    "openNewTab": "Megnyitás új lapon",
+    "googleNotice": "Az űrlapot a Google Forms szolgáltatja. Csak a gombra kattintva töltődik be; ekkor a Google sütiket helyezhet el.",
+    "unavailable": "Az űrlap jelenleg nem elérhető. Addig írj nekünk: {email}",
     "retention": "Adatmegőrzés:",
-    "privacyLink": "Részletek az adatkezelési tájékoztatóban",
-    "errorGeneric": "Nem sikerült elküldeni. Próbáld újra később, vagy írj nekünk: {email}",
-    "errorNetwork": "Nem sikerült kapcsolódni. Ellenőrizd az internetkapcsolatot, és próbáld újra.",
-    "errorFields": "Kérjük, javítsd a megjelölt mezőket.",
-    "prefillFailed": "Nem sikerült betölteni a korábbi adataidat; töltsd ki az űrlapot kézzel.",
-    "honeypot": "Ezt a mezőt hagyd üresen",
-    "fileHelp": "Megengedett: {types}, legfeljebb {size} MB.",
-    "fields": {
-      "name": "Név",
-      "email": "E-mail-cím",
-      "studies": "Tanulmányok",
-      "studiesBme": "BME VIK",
-      "studiesOther": "Egyéb",
-      "studiesOtherText": "Hol tanulsz?",
-      "semestersLeft": "Hátralévő aktív félévek száma",
-      "semestersLeftHelp": "Körülbelül, az MSc-t is beleértve.",
-      "company": "Cég",
-      "phone": "Telefonszám",
-      "topic": "Téma",
-      "message": "Üzenet",
-      "motivation": "Motivációs levél",
-      "motivationFile": "Motivációs levél PDF-ben",
-      "motivationFileHelp": "A szöveges mező helyett feltöltheted PDF-ben is.",
-      "presentation": "Bemutatkozó prezentáció"
-    }
+    "privacyLink": "Részletek az adatkezelési tájékoztatóban"
   },
   "notFound": {
     "title": "Az oldal nem található",
     "body": "Ez az oldal nem létezik, vagy elköltözött.",
-    "home": "Vissza a kezdőlapra"
-  },
-  "actions": {
-    "needsJs": "Ehhez az oldalhoz JavaScript kell. Kapcsold be, vagy írj nekünk."
-  },
-  "status": {
     "home": "Vissza a kezdőlapra"
   }
 }

@@ -10,5 +10,3 @@ description:
   hu: Magyarország legnagyobb egyetemi hallgatók által szervezett éves technológiai konferenciája. https://konferencia.simonyi.bme.hu/
 image: ./23-simonyi-konferencia.png
 draft: false
-registration:
-  enabled: false

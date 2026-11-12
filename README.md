@@ -6,16 +6,20 @@ The website of Schönherz Vállalati Kapcsolatok (SVK): a static Astro site in H
 Its public address is `site_url` in `src/content/settings/site.yaml`; nothing else in the code assumes an address or a root path.
 
 Part of SVK's web infrastructure. Conventions: [svk/infra › CONVENTIONS.md](https://git.sch.bme.hu/svk/infra/-/blob/main/CONVENTIONS.md).
-Specification: [SPEC.md](SPEC.md). How the site feeds `service-forms`: [FORMS.md](FORMS.md).
+Specification: [SPEC.md](SPEC.md) (written for an own form service; the site now uses Google Forms instead, see below).
 
 ## What it does
 
 Shows who SVK is, its events (with calendar files and registration), members and partners, the partner contact form,
 and the Join page, which switches between an interest form and the application form with the recruitment season.
 All content lives in this repo as files and is edited through the browser (see [EDITING.md](EDITING.md)).
-The build output is plain static files, so the site runs on any static host. Everything visitors submit goes to
-`service-forms`, which reads the site's `/forms.json`; until its address is set, forms show "coming soon".
-Links in emails open `/confirm`, `/unsubscribe` and `/delete`, which act only when the visitor clicks the button.
+The build output is plain static files, so the site runs on any static host.
+
+**Forms are Google Forms** in SVK's Google account; the site has no backend. Editors paste each form's link into the CMS
+(Hungarian and optional English). `src/components/GoogleForm.astro` shows the form's purpose, retention and privacy link,
+and loads Google's iframe only when the visitor clicks **Show form**, so the site sets no cookies and loads nothing from
+Google until then. Creating forms, closing them, sending the recruitment email and deleting data on time are done by
+the team in Google; see [EDITING.md](EDITING.md#forms-google-forms).
 
 ## Run it locally
 
@@ -32,7 +36,6 @@ Requires Node 24 LTS (`.nvmrc`). Build-time environment variables, all optional:
 | Variable | Effect |
 | --- | --- |
 | `SHOW_DRAFTS=true` | Include draft events (preview site) |
-| `FORMS_API_URL` | Overrides the form service address from the settings |
 | `SITE_URL` | Overrides the site address from the settings (e.g. for a preview site) |
 | `BASE_PATH` | Serves the site below a path such as `/<repo>` (default: the root) |
 
@@ -44,16 +47,14 @@ root-relative links that editors write in Markdown get the base path too.
 ```
 src/
   content/              all content, edited through the CMS (one YAML file per entry, images next to it)
-    events/ members/ partners/ questions/   collections editors add to
-    pages/ forms/ emails/                   fixed texts: pages, form texts, email templates
-    actions/ notices/                       email link pages (/confirm, ...) and the result pages after them
-    settings/site.yaml                      recruitment season, contact, social links, form service address
+    events/ members/ partners/              collections editors add to
+    pages/ forms/                           fixed texts: pages; each form's texts and Google Forms link
+    settings/site.yaml                      recruitment season, contact, social links
   content.config.ts     schemas of every content type (the build fails with a clear message on invalid content)
   i18n/                 interface texts (hu.json, en.json) and language helpers
-  lib/                  events, forms (definitions → pages; forms-json.ts → /forms.json), time zones, calendar files
+  lib/                  events, settings, time zones, calendar files
   views/                page bodies shared by both languages; pages/ only maps URLs to them
-  components/           header, footer, event card, generic form renderer, registration block
-  scripts/forms.ts      browser side of the forms
+  components/           header, footer, event card, GoogleForm (click-to-load Google Form)
   styles/               tokens.css (colours, type, spacing), base.css, components.css
 src/cms/config.yml      Sveltia CMS configuration (mirrors content.config.ts); src/pages/admin/ serves the editor page and config
 integrations/           sveltia-cms.mjs: serves the editor from this site (no CDN)

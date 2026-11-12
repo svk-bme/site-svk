@@ -11,32 +11,9 @@ collected:
 retention:
   hu: Az utolsó kapcsolatfelvételt követő 2 évig őrizzük.
   en: Kept for 2 years after our last contact.
-retention_policy:
-  anchor: last_contact
-  days: 730
-duplicates: allow
 withdraw:
-  hu: Az adataid törléséhez használd a lap alján található törlési kérelmet, vagy írj nekünk.
-  en: To have your data deleted, use the deletion request at the bottom of this page or write to us.
-consent:
-  hu: Hozzájárulok, hogy az SVK a fenti adataimat a megkeresésem megválaszolásához kezelje.
-  en: I agree that SVK processes the data above to answer my message.
-success:
-  hu: Köszönjük az üzenetet! Hamarosan válaszolunk.
-  en: Thank you for your message! We will reply soon.
-notify:
-  - kapcsolat@svk.bme.hu
-options:
-  topic:
-    - value: partnership
-      hu: Partnerség
-      en: Partnership
-    - value: event
-      hu: Esemény
-      en: Event
-    - value: sponsorship
-      hu: Szponzoráció
-      en: Sponsorship
-    - value: other
-      hu: Egyéb
-      en: Other
+  hu: Az adataid törléséhez írj nekünk a lap alján megadott címre.
+  en: To have your data deleted, write to us at the address at the bottom of this page.
+form:
+  hu: ''
+  en: ''

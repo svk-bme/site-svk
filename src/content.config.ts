@@ -5,7 +5,7 @@ import { z } from 'astro/zod'
 import YAML from 'yaml'
 import { parseContentDate } from '~/lib/time'
 
-// Schemas of every content type. The CMS config (public/admin/config.yml) mirrors these;
+// Schemas of every content type. The CMS config (src/cms/config.yml) mirrors these;
 // change both together. Each entry is one YAML file; the file name is its id (and URL slug).
 //
 // Bilingual fields are objects: { hu: "...", en: "..." }. Hungarian is required where the
@@ -35,9 +35,6 @@ const optional = <T extends z.ZodType>(schema: T) =>
 const optionalDate = optional(date)
 const optionalUrl = optional(z.url({ protocol: /^https?$/, error: 'Expected a full address starting with https://' }))
 
-/** Who receives a test copy of an email whenever its text changes (empty: nobody). */
-const testTo = optional(z.email())
-
 /** Required text in both languages (English optional, falls back to Hungarian). */
 const text = z.object({
   hu: z.string().min(1),
@@ -52,50 +49,21 @@ const optionalText = z
   })
   .nullish()
 
-/** An email that editors write: subject and body with {placeholders}. */
-const emailTemplate = z.object({
-  enabled: z.boolean().default(false),
-  subject: optionalText,
-  body: optionalText,
-  test_to: testTo,
-})
+/**
+ * A Google Forms link: the form's "Send → link" address, https://docs.google.com/forms/d/e/…/viewform
+ * (not a forms.gle short link, which cannot be shown inside the page).
+ */
+const googleFormUrl = optional(
+  z
+    .string()
+    .regex(
+      /^https:\/\/docs\.google\.com\/forms\/d\/e\/[\w-]+\/viewform(\?.*)?$/,
+      'Paste the full Google Forms link (https://docs.google.com/forms/d/e/…/viewform), not a forms.gle short link',
+    ),
+)
 
-const requireTextWhenEnabled = (
-  email: { enabled: boolean; subject?: unknown; body?: unknown } | undefined,
-  ctx: z.RefinementCtx,
-  path: string,
-) => {
-  if (!email?.enabled) return
-  for (const key of ['subject', 'body'] as const) {
-    const value = email[key] as { hu?: string | null } | null | undefined
-    if (!value?.hu) ctx.addIssue({ code: 'custom', path: [path, key], message: `Required when ${path} is enabled` })
-  }
-}
-
-const choiceTypes = ['single_choice', 'multiple_choice']
-
-/** Stable key: lowercase letters, digits and _ */
-const key = z.string().regex(/^[a-z0-9_]+$/, 'Use lowercase letters, digits and _ only')
-
-/** A choice option. `value` is what is stored; derived from the Hungarian label if empty. */
-const option = text.extend({ value: key.nullish() })
-
-/** A form field added by editors (event extra fields, quick questions). */
-const customField = z
-  .object({
-    // Stable key in the submitted data and the sheet column. Derived from the Hungarian label if empty.
-    id: key.nullish(),
-    label: text,
-    help: optionalText,
-    type: z.enum(['text', 'textarea', 'single_choice', 'multiple_choice', 'checkbox']),
-    options: z.array(option).nullish(),
-    required: z.boolean().default(false),
-  })
-  .superRefine((field, ctx) => {
-    if (choiceTypes.includes(field.type) && !field.options?.length) {
-      ctx.addIssue({ code: 'custom', path: ['options'], message: 'Choice fields need at least one option' })
-    }
-  })
+/** A Google Form in both languages; the English page shows the Hungarian form if the English link is empty. */
+const googleForm = z.object({ hu: googleFormUrl, en: googleFormUrl }).nullish()
 
 const events = defineCollection({
   loader: glob({ pattern: '*.yaml', base: './src/content/events' }),
@@ -117,29 +85,13 @@ const events = defineCollection({
         album_link: optionalUrl,
         // Drafts are only built on the preview site (SHOW_DRAFTS=true).
         draft: z.boolean().default(false),
-        registration: z
-          .object({
-            enabled: z.boolean().default(false),
-            capacity: z.number().int().positive().nullish(),
-            opens: optionalDate,
-            closes: optionalDate,
-            extra_fields: z.array(customField).nullish(),
-          })
-          .default({ enabled: false }),
-        reminder: emailTemplate
-          .extend({
-            // How long before the start the reminder goes out
-            hours_before: z.number().positive().default(24),
-          })
-          .nullish(),
-        confirmation: emailTemplate.nullish(),
+        // Registration form (Google Forms), shown on the event page until the event starts
+        registration_form: googleForm,
       })
       .superRefine((event, ctx) => {
         if (event.end && event.end < event.start) {
           ctx.addIssue({ code: 'custom', path: ['end'], message: 'End is before start' })
         }
-        requireTextWhenEnabled(event.reminder ?? undefined, ctx, 'reminder')
-        requireTextWhenEnabled(event.confirmation ?? undefined, ctx, 'confirmation')
       }),
 })
 
@@ -199,33 +151,10 @@ const pages = defineCollection({
     }),
 })
 
-/** Result pages reached from email links: /status/<id>. */
-const notices = defineCollection({
-  loader: glob({ pattern: '*.yaml', base: './src/content/notices' }),
-  schema: z.object({
-    title: text,
-    // Markdown
-    body: optionalText,
-  }),
-})
-
 /**
- * Pages that email links open (/confirm, /unsubscribe, /delete). They explain what will happen and
- * POST the token to the form service when the visitor clicks the button, then show a result page.
+ * Each form's texts, shown with the form and on the privacy page, and its Google Forms link.
+ * Event registration texts apply to every event; each event has its own form link.
  */
-const actions = defineCollection({
-  loader: glob({ pattern: '*.yaml', base: './src/content/actions' }),
-  schema: z.object({
-    title: text,
-    // Markdown
-    body: optionalText,
-    button: text,
-    // Result page (notices/<id>) shown after success
-    result: z.string(),
-  }),
-})
-
-/** Texts and rules of each form: purpose, retention, consent, success message. */
 const forms = defineCollection({
   loader: glob({ pattern: '*.yaml', base: './src/content/forms' }),
   schema: z.object({
@@ -238,61 +167,10 @@ const forms = defineCollection({
     collected: optionalText,
     // Retention in words, shown with the form and on the privacy page
     retention: text,
-    // Retention for the form service: keep until `anchor` + `days`, but at least `min_days` after submitting.
-    // Not needed for the delete request, which the service handles itself.
-    retention_policy: z
-      .object({
-        anchor: z.enum(['submitted', 'event_end', 'season_close', 'next_season_close', 'last_contact']),
-        days: z.number().int().nonnegative().default(0),
-        min_days: z.number().int().nonnegative().nullish(),
-      })
-      .nullish(),
-    // The same email address again: reject it, update the earlier answers, or allow it
-    duplicates: z.enum(['reject', 'update', 'allow']).default('reject'),
-    // Double opt-in: days an unconfirmed entry waits for the confirmation link (interest form)
-    double_opt_in_days: z.number().int().positive().nullish(),
     // How to withdraw consent or have the data deleted (Markdown)
     withdraw: optionalText,
-    // Label of the consent checkbox; no checkbox if empty
-    consent: optionalText,
-    // Shown after a successful submission
-    success: text,
-    // Addresses notified of each submission (nobody if empty)
-    notify: z.array(z.email()).nullish(),
-    // Options of choice fields that are part of the form itself (e.g. partner contact topic)
-    options: z.record(z.string(), z.array(option)).nullish(),
-  }),
-})
-
-/** Email templates that are not tied to an event. */
-const emails = defineCollection({
-  loader: glob({ pattern: '*.yaml', base: './src/content/emails' }),
-  schema: z.object({
-    // Editor note: when this email is sent
-    note: z.string().nullish(),
-    enabled: z.boolean().default(true),
-    // Not used by the list footer
-    subject: optionalText,
-    // Plain text with {placeholders}
-    body: text,
-    // "Recruitment is open": send when the season opens, or on this date if set
-    send_at: optionalDate,
-    test_to: testTo,
-  }),
-})
-
-/** Optional quick questions on the interest and application forms. */
-const questions = defineCollection({
-  loader: glob({ pattern: '*.yaml', base: './src/content/questions' }),
-  schema: z.object({
-    label: text,
-    help: optionalText,
-    type: z.enum(['single_choice', 'multiple_choice']),
-    options: z.array(option).min(1),
-    forms: z.array(z.enum(['interest', 'application'])).min(1),
-    required: z.boolean().default(false),
-    order: z.number().default(100),
-    active: z.boolean().default(true),
+    // The Google Form (not used for event registration, which is set on each event)
+    form: googleForm,
   }),
 })
 
@@ -328,12 +206,6 @@ const settings = defineCollection({
       // Shown while open (Markdown)
       intro: text,
     }),
-    forms: z.object({
-      // Base URL of service-forms, ending in /api/forms. Empty: forms show "coming soon".
-      api_url: optionalUrl,
-      // Name of this site in the form service's configuration ([[sources]] name)
-      source: key,
-    }),
     events: z.object({
       // Used for the calendar file when an event has no end
       default_duration_minutes: z.number().int().positive(),
@@ -349,4 +221,4 @@ const settings = defineCollection({
   }),
 })
 
-export const collections = { events, members, partners, pages, notices, actions, forms, emails, questions, settings }
+export const collections = { events, members, partners, pages, forms, settings }

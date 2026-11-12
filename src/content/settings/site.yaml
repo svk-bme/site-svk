@@ -42,11 +42,6 @@ recruitment:
       Recruitment is open! We are looking for students who are interested in building connections between companies and students.
 
       **The process:** apply with a motivation letter and a short introduction presentation, followed by a personal interview.
-forms:
-  # Empty until service-forms runs; the forms then show "coming soon".
-  api_url: ''
-  # Name of this site in the form service's configuration ([[sources]] name)
-  source: svk
 events:
   default_duration_minutes: 120
   home_count: 3

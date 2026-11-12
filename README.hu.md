@@ -8,7 +8,7 @@ A Schönherz Vállalati Kapcsolatok (SVK) weboldala: statikus Astro-oldal magyar
 A nyilvános címe az `src/content/settings/site.yaml` `site_url` mezője; a kód sehol máshol nem feltételez címet vagy gyökérútvonalat.
 
 Az SVK webes infrastruktúrájának része. Konvenciók: [svk/infra › CONVENTIONS.hu.md](https://git.sch.bme.hu/svk/infra/-/blob/main/CONVENTIONS.hu.md).
-Specifikáció: [SPEC.md](SPEC.md). Hogyan kapja meg a `service-forms` az oldal űrlapjait: [FORMS.md](FORMS.md).
+Specifikáció: [SPEC.md](SPEC.md) (saját űrlapszolgáltatással számolt; az oldal ehelyett Google Formsot használ, lásd lent).
 
 ## Mire való
 
@@ -16,9 +16,13 @@ Bemutatja, kik vagyunk, az SVK eseményeit (naptárfájllal és jelentkezéssel)
 cégeknek szóló kapcsolatfelvételi űrlapot, és a Csatlakozz oldalt, amely a toborzási időszaktól függően érdeklődési
 vagy jelentkezési űrlapot mutat. Minden tartalom fájlként ebben a repóban van, és böngészőből szerkeszthető
 (lásd: [EDITING.hu.md](EDITING.hu.md)). Az elkészült oldal egyszerű statikus fájlokból áll, így bármilyen statikus
-tárhelyen fut. Minden, amit a látogatók beküldenek, a `service-forms`-hoz kerül, amely az oldal `/forms.json` fájljából dolgozik; amíg
-ennek a címe nincs beállítva, az űrlapok helyén „hamarosan” felirat áll. A levelekben lévő linkek a `/confirm`,
-`/unsubscribe` és `/delete` oldalra vezetnek, amelyek csak akkor lépnek, ha a látogató megnyomja a gombot.
+tárhelyen fut.
+
+**Az űrlapok Google-űrlapok** az SVK Google-fiókjában; az oldalnak nincs backendje. A szerkesztők az űrlapok linkjét a CMS-be
+illesztik (magyarul és opcionálisan angolul). A `src/components/GoogleForm.astro` kiírja az űrlap célját, az adatmegőrzést és az
+adatkezelési linket, a Google iframe-jét pedig csak akkor tölti be, ha a látogató az **Űrlap megjelenítése** gombra kattint, így addig
+az oldal nem tesz sütit és semmit nem tölt be a Google-tól. Az űrlapok elkészítése, lezárása, a toborzási levél kiküldése és az adatok
+időben történő törlése a csapat feladata a Google-ben; lásd [EDITING.hu.md](EDITING.hu.md#űrlapok-google-forms).
 
 ## Helyi futtatás
 
@@ -35,7 +39,6 @@ Node 24 LTS kell hozzá (`.nvmrc`). Opcionális környezeti változók a buildhe
 | Változó | Hatása |
 | --- | --- |
 | `SHOW_DRAFTS=true` | A piszkozat események is megjelennek (előnézeti oldal) |
-| `FORMS_API_URL` | Felülírja a beállításokban megadott űrlapszolgáltatás-címet |
 | `SITE_URL` | Felülírja a beállításokban megadott oldalcímet (pl. előnézeti oldalhoz) |
 | `BASE_PATH` | Az oldal egy útvonal alatt fut, pl. `/<repo>` (alapértelmezés: a gyökér) |
 
@@ -47,16 +50,14 @@ használják; a szerkesztők által Markdownban írt, `/`-rel kezdődő linkek i
 ```
 src/
   content/              minden tartalom, a CMS-ben szerkeszthető (bejegyzésenként egy YAML-fájl, mellette a képek)
-    events/ members/ partners/ questions/   gyűjtemények, amelyekhez a szerkesztők új elemet adnak
-    pages/ forms/ emails/                   állandó szövegek: oldalak, űrlapszövegek, levélsablonok
-    actions/ notices/                       a levelek linkjeinek oldalai (/confirm, ...) és az utánuk következő eredményoldalak
-    settings/site.yaml                      toborzási időszak, kapcsolat, közösségi linkek, űrlapszolgáltatás címe
+    events/ members/ partners/              gyűjtemények, amelyekhez a szerkesztők új elemet adnak
+    pages/ forms/                           állandó szövegek: oldalak; az űrlapok szövegei és Google Forms-linkjei
+    settings/site.yaml                      toborzási időszak, kapcsolat, közösségi linkek
   content.config.ts     minden tartalomtípus sémája (hibás tartalomnál a build érthető hibával leáll)
   i18n/                 felületi szövegek (hu.json, en.json) és nyelvi segédfüggvények
-  lib/                  események, űrlapok (definíciók → oldalak; forms-json.ts → /forms.json), időzónák, naptárfájlok
+  lib/                  események, beállítások, időzónák, naptárfájlok
   views/                a két nyelv közös oldaltörzsei; a pages/ csak az URL-eket köti hozzájuk
-  components/           fejléc, lábléc, eseménykártya, általános űrlap, jelentkezési blokk
-  scripts/forms.ts      az űrlapok böngészőoldali része
+  components/           fejléc, lábléc, eseménykártya, GoogleForm (kattintásra betöltődő Google-űrlap)
   styles/               tokens.css (színek, betűk, térközök), base.css, components.css
 src/cms/config.yml      Sveltia CMS-beállítás (a content.config.ts tükre); az src/pages/admin/ adja a szerkesztő oldalát és beállítását
 integrations/           sveltia-cms.mjs: a szerkesztőt az oldal maga szolgálja ki (CDN nélkül)

@@ -1,13 +1,12 @@
 ---
-import Form from '~/components/Form.astro'
+import GoogleForm from '~/components/GoogleForm.astro'
 import { formatDate, md, t, tr, type Locale } from '~/i18n'
 import BaseLayout from '~/layouts/BaseLayout.astro'
-import { applicationForm, interestForm } from '~/lib/forms'
 import { buildTime, getPage, recruitmentState, settings } from '~/lib/site'
 
 // The recruitment season switch: the application form while recruitment is open,
-// otherwise the expected-season text and the interest form. Rebuilt daily, so the
-// `opens` and `closes` dates take effect on their own.
+// otherwise the expected-season text and the interest form (both Google Forms, set in Forms).
+// Rebuilt daily, so the `opens` and `closes` dates take effect on their own.
 
 interface Props {
   locale: Locale
@@ -20,7 +19,6 @@ const { recruitment } = settings
 const date = (d: Date) => formatDate(locale, d, settings.timezone, { time: false })
 const dateTime = (d: Date) => formatDate(locale, d, settings.timezone)
 const upcoming = !season.open && season.opens && season.opens > buildTime ? season.opens : undefined
-const form = season.open ? await applicationForm() : await interestForm()
 ---
 
 <BaseLayout locale={locale} title={tr(locale, page.title)} description={tr(locale, page.description) || undefined}>
@@ -39,7 +37,7 @@ const form = season.open ? await applicationForm() : await interestForm()
           )}
           <section class="section" aria-labelledby="form-title">
             <h2 id="form-title">{t(locale, 'join.application')}</h2>
-            <Form locale={locale} form={form} />
+            <GoogleForm locale={locale} kind="application" />
           </section>
         </>
       ) : (
@@ -54,7 +52,7 @@ const form = season.open ? await applicationForm() : await interestForm()
           )}
           <section class="section" aria-labelledby="form-title">
             <h2 id="form-title">{t(locale, 'join.interest')}</h2>
-            <Form locale={locale} form={form} />
+            <GoogleForm locale={locale} kind="interest" />
           </section>
         </>
       )

@@ -50,23 +50,3 @@ export function eventHref(locale: Locale, event: Event): string {
 export function calendarPath(locale: Locale, event: Event): string {
   return localePath(locale, `/events/${event.id}.ics`)
 }
-
-export type RegistrationState = 'upcoming' | 'open' | 'closed' | 'past'
-
-/**
- * Registration state at build time. The page re-checks it in the browser (dates) and with
- * service-forms (capacity, "full"), so it stays right between daily builds.
- */
-export function registrationState(event: Event, now = buildTime): RegistrationState | undefined {
-  const { registration, start } = event.data
-  if (!registration.enabled) return undefined
-  if (start <= now) return 'past'
-  if (registration.opens && now < registration.opens) return 'upcoming'
-  if (now >= registrationCloses(event)) return 'closed'
-  return 'open'
-}
-
-/** Registration closes at `closes`, or when the event starts. */
-export function registrationCloses(event: Event): Date {
-  return event.data.registration.closes ?? event.data.start
-}
