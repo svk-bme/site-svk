@@ -37,7 +37,7 @@ Dates and times are Budapest time; summer and winter time are handled automatica
 
 - **Draft** on: the event is not published. (A separate preview site is planned.)
 - **Start / End:** End is optional; calendar files then use the default length from Settings.
-- **External link:** event tiles link there instead of the event page (e.g. the MeetUp site).
+- **Event website:** a button on the event page leads there (e.g. the MeetUp site). Event tiles always open the event page.
 - **Registration form:** the link of the event's Google Form (see below). It shows on the event page until the event starts.
 - Events move from "upcoming" to "past events" by themselves the morning after they end. Past events are listed by year.
 - Every event page has an **Add to calendar** link; the whole programme can be subscribed to at `/events.ics`.

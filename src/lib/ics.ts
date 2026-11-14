@@ -29,7 +29,7 @@ function fold(line: string): string {
 
 function vevent(locale: Locale, event: Event): string[] {
   const host = new URL(siteUrl).host
-  const url = new URL(event.data.external_link ?? localePath(locale, `/events/${event.id}`), siteUrl).href
+  const url = new URL(localePath(locale, `/events/${event.id}`), siteUrl).href
   const description = [tr(locale, event.data.speaker), tr(locale, event.data.description), url]
     .filter(Boolean)
     .join('\n\n')

@@ -131,7 +131,7 @@ collections:
             required: false
             hint: "Empty: the Hungarian text is shown."
       - name: external_link
-        label: External link (tiles link here instead of the event page)
+        label: Event website (a button on the event page, e.g. the MeetUp site)
         widget: string
         required: false
         pattern:

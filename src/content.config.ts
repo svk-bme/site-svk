@@ -82,7 +82,7 @@ const events = defineCollection({
         description: optionalText,
         image: optional(image()),
         image_alt: optionalText,
-        // If set, event tiles link here instead of the event page (e.g. the MeetUp site).
+        // The event's own website (e.g. the MeetUp site), as a button on the event page
         external_link: optionalUrl,
         // Photo album after the event
         album_link: optionalUrl,

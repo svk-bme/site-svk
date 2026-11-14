@@ -58,14 +58,19 @@ const registration = event.data.registration_form?.hu && event.data.start > buil
           )}
         </dl>
         <p class="links">
-          <a class="button button--secondary" href={calendarPath(locale, event)} download={`${event.id}.ics`}>
-            {t(locale, 'events.addToCalendar')}
-          </a>
+          {registration && (
+            <a class="button" href="#registration">
+              {t(locale, 'events.registration')}
+            </a>
+          )}
           {external_link && (
             <a class="button button--secondary" href={external_link} rel="noopener">
               {t(locale, 'events.external')} ↗
             </a>
           )}
+          <a class="button button--secondary" href={calendarPath(locale, event)} download={`${event.id}.ics`}>
+            {t(locale, 'events.addToCalendar')}
+          </a>
           {album_link && (
             <a class="button button--secondary" href={album_link} rel="noopener">
               {t(locale, 'events.album')} ↗

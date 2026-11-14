@@ -42,11 +42,6 @@ export function eventPath(locale: Locale, event: Event): string {
   return localePath(locale, `/events/${event.id}`)
 }
 
-/** Where an event tile links to: its external link if set, otherwise its own page. */
-export function eventHref(locale: Locale, event: Event): string {
-  return event.data.external_link ?? eventPath(locale, event)
-}
-
 export function calendarPath(locale: Locale, event: Event): string {
   return localePath(locale, `/events/${event.id}.ics`)
 }
