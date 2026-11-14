@@ -1,0 +1,18 @@
+title:
+  hu: 2. Schönherz MeetUp – Információbiztonság
+  en: 2. Schönherz MeetUp – Information security
+start: 2014-10-29T19:00
+place:
+  hu: Schönherz Zoltán Kollégium
+speaker:
+  hu: Dr. Krasznay Csaba, Golda Bence, Otti Csaba, Fehér András, Frész Ferenc
+  en: Dr. Csaba Krasznay, Bence Golda, Csaba Otti, András Fehér, Ferenc Frész
+description:
+  hu: Előadások a kiberhadviselés valóságáról, a biztonságos webes adattovábbításról, a CCTV-rendszerekről és az arcfelismerésről, valamint arról, mi köze a mérnököknek a hackerekhez. A blokkok között Litkai Gergely stand-upolt.
+  en: Talks on the reality of cyber warfare, secure data transfer on the web, CCTV systems and face recognition, and what engineers have to do with hackers. Stand-up comedy by Gergely Litkai between the blocks.
+image: ./2-schoenherz-meetup.jpg
+image_alt:
+  hu: "Fotó: 2. Schönherz MeetUp (SPOT)"
+  en: "Photo: 2. Schönherz MeetUp (SPOT)"
+album_link: https://spot.sch.bme.hu/photo/2014/20141029_sch_meetup/
+draft: false
