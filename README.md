@@ -58,6 +58,8 @@ src/
   styles/               tokens.css (colours, type, spacing), base.css, components.css
 src/cms/config.yml      Sveltia CMS configuration (mirrors content.config.ts); src/pages/admin/ serves the editor page and config
 integrations/           sveltia-cms.mjs: serves the editor from this site (no CDN)
+public/                 favicon, app icons and the link preview image, made by scripts/make-icons.mjs from SVK's logo files
+tools/event-checkin/    Apps Script for event registration emails and QR check-in
 ```
 
 Styles use only the variables in `tokens.css` and the classes in `components.css`, so a design system can replace them
