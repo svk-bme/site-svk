@@ -1,0 +1,32 @@
+title:
+  hu: Egy roller, három AI-ágens és egy hiba – PTC szakmai est
+  en: One scooter, three AI agents and one bug – PTC professional evening
+start: 2026-11-18T18:00
+end: 2026-11-18T20:00
+place:
+  hu: Schönherz Kollégium, 102-es terem
+  en: Schönherz Kollégium, room 102
+speaker:
+  hu: Várady Balázs (PTC)
+  en: Balázs Várady (PTC)
+description:
+  hu: |-
+    Mi történik, ha egy elektromos roller fékrendszerének fejlesztését három AI-ágensre bízzuk? Az egyik elemzi a változtatásokat, a másik teszteket ír, a harmadik ellenőrzi a többiek munkáját. És mi történik, ha az AI teljes magabiztossággal hibázik? Egy hobbiprojektben ez legfeljebb kellemetlen, egy fékrendszernél viszont komoly következményei lehetnek.
+
+    Várady Balázs, a PTC előadója bemutatja, hogyan használhatók az AI-ágensek biztonságkritikus mérnöki környezetben. Szó lesz az MCP-ről, a többágenses rendszerek együttműködéséről, és arról is, ki viseli a felelősséget, ha az AI hibázik.
+
+    Az előadás után enni- és innivalóval várunk, és kötetlenül beszélgethettek az előadóval.
+  en: |-
+    What happens if the development of an electric scooter's braking system is left to three AI agents? One analyses the changes, another writes tests, the third checks the others' work. And what happens when the AI makes a mistake with full confidence? In a hobby project that is an annoyance; in a braking system it can have serious consequences.
+
+    Balázs Várady of PTC shows how AI agents can be used in safety-critical engineering. Topics include MCP, how multi-agent systems work together, and who is responsible when the AI gets it wrong.
+
+    After the talk there is food and drink, and time to chat with the speaker.
+image: ./ptc-ai-agensek-2026.jpg
+image_alt:
+  hu: Az SVK és a PTC logója
+  en: SVK and PTC logos
+registration_form:
+  hu: https://docs.google.com/forms/d/e/1FAIpQLSecz9DgkjOjpk03UvZU55UAigs71AKcPdyEqvdO9gZIBHBP-Q/viewform
+  en: ''
+draft: false

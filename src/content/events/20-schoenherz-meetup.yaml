@@ -1,15 +1,21 @@
-draft: false
 title:
-  hu: 20. Schönherz MeetUp
-  en: ''
-start: 2026-11-03T17:00
+  hu: 20. Schönherz MeetUp – A kreatív mérnöki gondolkodás ereje
+  en: 20. Schönherz MeetUp – The power of creative engineering thinking
+start: 2026-11-03T17:30
 end: 2026-11-03T22:00
 place:
   hu: Schönherz Zoltán Kollégium FNT
-  en: ''
-speaker: null
-description: null
-image: ''
-image_alt: null
+  en: Schönherz Zoltán Kollégium, ground floor hall (FNT)
+speaker:
+  hu: Gulyás Máté (Datapao), Dr. Forstner Bertalan (BME AUT), Nepp Levente (EURO ONE – HPE), Gulyás András (BME TMIT)
+  en: Máté Gulyás (Datapao), Dr. Bertalan Forstner (BME AUT), Levente Nepp (EURO ONE – HPE), András Gulyás (BME TMIT)
+description:
+  hu: A jubileumi, 20. Schönherz MeetUp a kreatív mérnöki gondolkodásról szólt a mesterséges intelligencia korában. Négy előadó, négy nézőpont, utána borkóstoló, kötetlen beszélgetés és nyereményjáték. Vendégünk volt Bicskei László államtitkár és Prof. Dr. Imre Sándor, a BME VIK dékánja.
+  en: The 20th, jubilee Schönherz MeetUp was about creative engineering thinking in the age of artificial intelligence. Four speakers, four points of view, followed by wine tasting, informal talks and a prize draw. Our guests included state secretary László Bicskei and Prof. Dr. Sándor Imre, dean of BME VIK.
+image: ./20-schoenherz-meetup.png
+image_alt:
+  hu: A 20. Schönherz MeetUp plakátja
+  en: Poster of the 20th Schönherz MeetUp
 external_link: https://meetup.svk.bme.hu/
 album_link: ''
+draft: false

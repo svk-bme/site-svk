@@ -8,8 +8,9 @@ speaker:
   hu: 20+
 description:
   hu: Magyarország legnagyobb egyetemi hallgatók által szervezett éves technológiai konferenciája.
-image: ./22-simonyi-konferencia.png
+image: ./22-simonyi-konferencia.jpg
 image_alt:
-  hu: Konferencia
+  hu: "Fotó: 22. Simonyi Konferencia (SPOT)"
+  en: "Photo: 22. Simonyi Conference (SPOT)"
 album_link: https://spot.sch.bme.hu/photo/2025/20250318_simonyi_konferencia/
 draft: false
