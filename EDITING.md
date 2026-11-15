@@ -95,6 +95,39 @@ The application form's text tells applicants this.
 **Closing a form:** Responses tab → switch off **Accepting responses**. Google Forms has no capacity limit or closing date
 of its own: for events with limited places, watch the response count and close the form when it is full.
 
+## Event registration: confirmation email, QR code, check-in
+
+For events with registration, a script in the response spreadsheet emails each registrant a QR code, sends a
+reminder before the event, and lets the team check people in at the door by scanning the codes with a phone.
+Set it up for each event, after creating its form (above). Work in **SVK's Google account**: the emails go out from it.
+
+1. In the form, ask for the name and the email address (a short answer question with "Név" / "E-mail-cím" in its
+   title, or Settings → Responses → **Collect email addresses: Responder input**).
+2. Open the form's response spreadsheet → **Extensions → Apps Script**. Copy the files of
+   [tools/event-checkin](tools/event-checkin) into the project: `Code.gs` and `QrCode.gs` (+ → Script, same names),
+   and `appsscript.json` (Project settings → tick **Show "appsscript.json"**, then paste it over the existing one). Save.
+3. Reload the spreadsheet. In the new **SVK beléptetés** menu, run **Beállítás**. Google asks for permission:
+   choose SVK's account, then *Advanced → Go to … (unsafe)*. The warning appears because the script is our own, not
+   one reviewed by Google.
+4. In Apps Script: **Deploy → New deployment → Web app**, *Execute as: Me*, *Who has access: Anyone*. Copy the
+   web app URL into the **checkin_url** row of the new **Beállítások** sheet.
+5. Fill in the other rows of **Beállítások**: event title, start (`2026-11-20 18:00`), place, the event page link,
+   and the reply address (the contact email). The email texts have defaults; write your own there if you like.
+6. **SVK beléptetés → Teszt e-mail** sends a sample to your address. Check it, then publish the form link on the site.
+
+From then on every registration gets one email with its QR code, and a reminder goes out the number of hours before
+the event set in **reminder_hours**. Someone registering again with the same address gets no second email (the row is
+marked *Ismételt jelentkezés*), so nobody can use the form to send repeated emails to someone else.
+
+**At the door:** each person checking people in opens the **checkin_url** on their phone once, and enters the
+**checkin_pin** from **Beállítások** and their own name. After that they scan the QR codes with the phone camera:
+green means checked in, yellow means the code was already used (with the time), red means the code is not for this
+event. Without the PIN the page does nothing, so attendees scanning their own code cannot check in. If a code does not
+scan, find the person in the sheet and type the time in the **Megjelent** column.
+
+A free Google account can send about 100 emails a day (a Workspace account 1,500). For bigger events, open the form
+early, or ask the infra lead.
+
 ## Privacy: keeping the promises
 
 The site promises what the **Retention** texts say; nobody deletes automatically, so the team does it:

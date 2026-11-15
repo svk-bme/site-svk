@@ -98,6 +98,40 @@ szól erről a jelentkezőknek.
 **Űrlap lezárása:** Válaszok fül → **Válaszok elfogadása** kikapcsolása. A Google Forms nem tud létszámkorlátot vagy
 zárási dátumot: korlátozott létszámú eseménynél figyeld a válaszok számát, és zárd le az űrlapot, amikor betelt.
 
+## Eseményre jelentkezés: visszaigazolás, QR-kód, beléptetés
+
+A jelentkezéses eseményeknél a választáblázatban futó szkript minden jelentkezőnek e-mailben küld egy QR-kódot,
+az esemény előtt emlékeztetőt küld, a bejáratnál pedig a csapat telefonnal beolvassa a kódokat. Eseményenként kell
+beállítani, az űrlap elkészítése után (lásd fent). Az **SVK Google-fiókjában** dolgozz: az e-mailek arról mennek ki.
+
+1. Az űrlapon kérd a nevet és az e-mail-címet (rövid válaszos kérdés „Név” és „E-mail-cím” címmel, vagy
+   Beállítások → Válaszok → **E-mail-címek gyűjtése: A válaszadó adja meg**).
+2. Nyisd meg az űrlap választábláját → **Bővítmények → Apps Script**. Másold be a
+   [tools/event-checkin](tools/event-checkin) fájljait: a `Code.gs`-t és a `QrCode.gs`-t (+ → Szkript, ugyanezzel a
+   névvel), valamint az `appsscript.json`-t (Projektbeállítások → **„appsscript.json” megjelenítése**, és írd felül a
+   meglévőt). Ments.
+3. Töltsd újra a táblázatot. Az új **SVK beléptetés** menüben futtasd a **Beállítás**-t. A Google engedélyt kér:
+   válaszd az SVK fiókját, majd *Speciális → Ugrás ide: … (nem biztonságos)*. A figyelmeztetés azért jelenik meg,
+   mert a szkript a sajátunk, nem a Google ellenőrizte.
+4. Az Apps Scriptben: **Telepítés → Új telepítés → Webalkalmazás**, *Végrehajtás: Én*, *Hozzáférés: Bárki*.
+   A webalkalmazás linkjét másold az új **Beállítások** lap **checkin_url** sorába.
+5. Töltsd ki a **Beállítások** többi sorát: az esemény neve, kezdése (`2026-11-20 18:00`), helyszíne, az eseményoldal
+   linkje és a válaszcím (a kapcsolattartási cím). Az e-mailek szövegének van alapértelmezése; ott át is írhatod.
+6. Az **SVK beléptetés → Teszt e-mail** mintát küld a címedre. Nézd át, utána tedd ki az űrlap linkjét az oldalra.
+
+Ettől kezdve minden jelentkező egy e-mailt kap a QR-kódjával, és a **reminder_hours** sorban megadott órával az
+esemény előtt emlékeztető megy ki. Aki ugyanazzal a címmel újra jelentkezik, nem kap újabb e-mailt (a sora
+*Ismételt jelentkezés* jelölést kap), így az űrlappal senki nem tud ismételt leveleket küldetni másnak.
+
+**A bejáratnál:** aki beléptet, egyszer nyissa meg a telefonján a **checkin_url**-t, és adja meg a **Beállítások**
+lapon lévő **checkin_pin**-t és a saját nevét. Utána a telefon kamerájával olvassa be a QR-kódokat: zöld: beléptetve,
+sárga: a kódot már használták (az időponttal), piros: a kód nem ehhez az eseményhez tartozik. Jelszó nélkül az oldal
+semmit nem csinál, így a résztvevők a saját kódjukkal nem tudják magukat beléptetni. Ha egy kód nem olvasható, keresd
+meg a jelentkezőt a táblázatban, és írd be az időpontot a **Megjelent** oszlopba.
+
+Ingyenes Google-fiókból naponta kb. 100 e-mail küldhető (Workspace-fiókból 1500). Nagyobb eseménynél nyisd meg korán
+a jelentkezést, vagy szólj az infrastruktúra-felelősnek.
+
 ## Adatkezelés: amit megígérünk
 
 Az oldal azt ígéri, amit a **Retention** szövegek mondanak; automatikusan semmi nem törlődik, ezt a csapat végzi:

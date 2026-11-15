@@ -7,7 +7,7 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "test": "node --test \"src/**/*.test.ts\""
+    "test": "node --test \"src/**/*.test.ts\" \"tools/**/*.test.mjs\""
   },
   "dependencies": {
     "@fontsource-variable/material-symbols-outlined": "5.3.9",
