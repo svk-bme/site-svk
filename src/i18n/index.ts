@@ -16,7 +16,15 @@ const escapeHtml = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;')
 // An allowlist of how a link may start, so entity tricks like javascript&#58; do not pass either
 const allowedUrl = (href: string) => /^(?:https?:|mailto:|tel:|[/#?.]|[\w-]+(?:[/#?.]|$))/i.test(href)
 marked.use({
-  renderer: { html: ({ text }) => escapeHtml(text) },
+  renderer: {
+    html: ({ text }) => escapeHtml(text),
+    // Links to other sites open in a new tab, like every external link on the site
+    link({ href, title, tokens }) {
+      const attr = (s: string) => escapeHtml(s).replace(/"/g, '&quot;')
+      const external = /^https?:\/\//i.test(href) ? ' target="_blank" rel="noopener"' : ''
+      return `<a href="${attr(href)}"${title ? ` title="${attr(title)}"` : ''}${external}>${this.parser.parseInline(tokens)}</a>`
+    },
+  },
   walkTokens(token) {
     if ((token.type === 'link' || token.type === 'image') && !allowedUrl(token.href)) token.href = '#'
   },

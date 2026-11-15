@@ -3,6 +3,7 @@ import { defineCollection } from 'astro:content'
 import { glob } from 'astro/loaders'
 import { z } from 'astro/zod'
 import YAML from 'yaml'
+import { GOOGLE_FORM_URL } from '~/lib/google-forms'
 import { parseContentDate } from '~/lib/time'
 
 // Schemas of every content type. The CMS config (src/cms/config.yml) mirrors these;
@@ -57,7 +58,7 @@ const googleFormUrl = optional(
   z
     .string()
     .regex(
-      /^https:\/\/docs\.google\.com\/forms\/d\/e\/[\w-]+\/viewform(\?.*)?$/,
+      GOOGLE_FORM_URL,
       'Paste the full Google Forms link (https://docs.google.com/forms/d/e/…/viewform), not a forms.gle short link',
     ),
 )

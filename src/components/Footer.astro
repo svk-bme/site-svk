@@ -50,7 +50,7 @@ const footerLinks = [...navigation, { key: 'privacy', href: '/privacy' }]
               const Icon = icons[s.icon]
               return (
                 <li>
-                  <a href={s.url} rel="noopener" aria-label={s.label}>
+                  <a href={s.url} target="_blank" rel="noopener" aria-label={s.label}>
                     {Icon ? <Icon aria-hidden="true" /> : s.label}
                   </a>
                 </li>

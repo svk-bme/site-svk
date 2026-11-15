@@ -3,7 +3,7 @@ import { Image } from 'astro:assets'
 import GoogleForm from '~/components/GoogleForm.astro'
 import { formatDate, localePath, md, t, tr, type Locale } from '~/i18n'
 import BaseLayout from '~/layouts/BaseLayout.astro'
-import { calendarPath, eventEnd, type Event } from '~/lib/events'
+import { calendarPath, eventEnd, eventWebsite, registrationForm, type Event } from '~/lib/events'
 import { buildTime, settings } from '~/lib/site'
 
 interface Props {
@@ -12,7 +12,9 @@ interface Props {
 }
 
 const { locale, event } = Astro.props
-const { image, image_alt, start, end, place, speaker, external_link, album_link } = event.data
+const { image, image_alt, start, end, place, speaker, album_link } = event.data
+const website = eventWebsite(event)
+const form = registrationForm(event)
 const title = tr(locale, event.data.title)
 const description = md(locale, event.data.description)
 const tz = settings.timezone
@@ -23,7 +25,7 @@ const endText = end
     : formatDate(locale, end, tz)
   : undefined
 // Registration is shown until the event starts (Google Forms' "Accepting responses" closes it earlier)
-const registration = event.data.registration_form?.hu && event.data.start > buildTime
+const registration = form && start > buildTime
 ---
 
 <BaseLayout
@@ -63,8 +65,8 @@ const registration = event.data.registration_form?.hu && event.data.start > buil
               {t(locale, 'events.registration')}
             </a>
           )}
-          {external_link && (
-            <a class="button button--secondary" href={external_link} rel="noopener">
+          {website && (
+            <a class="button button--secondary" href={website} target="_blank" rel="noopener">
               {t(locale, 'events.external')} ↗
             </a>
           )}
@@ -72,7 +74,7 @@ const registration = event.data.registration_form?.hu && event.data.start > buil
             {t(locale, 'events.addToCalendar')}
           </a>
           {album_link && (
-            <a class="button button--secondary" href={album_link} rel="noopener">
+            <a class="button button--secondary" href={album_link} target="_blank" rel="noopener">
               {t(locale, 'events.album')} ↗
             </a>
           )}
@@ -96,7 +98,7 @@ const registration = event.data.registration_form?.hu && event.data.start > buil
       registration && (
         <section class="section" id="registration" aria-labelledby="registration-title">
           <h2 id="registration-title">{t(locale, 'events.registration')}</h2>
-          <GoogleForm locale={locale} kind="event-registration" url={event.data.registration_form} title={`${t(locale, 'events.registration')}: ${title}`} />
+          <GoogleForm locale={locale} kind="event-registration" url={form} title={`${t(locale, 'events.registration')}: ${title}`} />
         </section>
       )
     }

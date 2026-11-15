@@ -1,11 +1,28 @@
 import { getCollection, type CollectionEntry } from 'astro:content'
-import { localePath, yearOf, type Locale } from '~/i18n'
+import { localePath, yearOf, type Locale, type Localized } from '~/i18n'
+import { isGoogleForm } from '~/lib/google-forms'
 import { buildTime, settings, showDrafts } from '~/lib/site'
 
 export type Event = CollectionEntry<'events'>
 
 export async function getAllEvents(): Promise<Event[]> {
   return getCollection('events', (e) => showDrafts || !e.data.draft)
+}
+
+/**
+ * The event's registration form: its own field, or a Google Forms link entered as the event website,
+ * so a form is always shown inside the page instead of linked.
+ */
+export function registrationForm(event: Event): Localized {
+  const { registration_form, external_link } = event.data
+  if (registration_form?.hu) return registration_form
+  return isGoogleForm(external_link) ? { hu: external_link } : undefined
+}
+
+/** The event's own website, unless that link is really its registration form. */
+export function eventWebsite(event: Event): string | undefined {
+  const link = event.data.external_link
+  return isGoogleForm(link) ? undefined : link
 }
 
 /** End of the event: its `end`, or the start plus the default duration from the settings. */

@@ -62,7 +62,7 @@ const members = await getMembers()
                   {member.data.description && <div set:html={md(locale, member.data.description)} />}
                   {member.data.linkedin && (
                     <p class="card__actions">
-                      <a href={member.data.linkedin} rel="noopener">
+                      <a href={member.data.linkedin} target="_blank" rel="noopener">
                         LinkedIn<span class="sr-only"> – {t(locale, 'about.linkedin', { name })}</span>
                       </a>
                     </p>

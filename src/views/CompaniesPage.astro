@@ -28,7 +28,7 @@ const partners = await getPartners()
         <ul class="partners">
           {partners.map((partner) => {
             const logo = <Image src={partner.data.logo} alt={partner.data.name} height={64} densities={[1, 2]} />
-            return <li>{partner.data.link ? <a href={partner.data.link} rel="noopener">{logo}</a> : logo}</li>
+            return <li>{partner.data.link ? <a href={partner.data.link} target="_blank" rel="noopener">{logo}</a> : logo}</li>
           })}
         </ul>
       </section>
