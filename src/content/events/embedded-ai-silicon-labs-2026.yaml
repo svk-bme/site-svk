@@ -11,7 +11,9 @@ speaker:
 description:
   hu: A Silicon Labs szakemberei gyakorlati példákon mutatták be, hogyan fut a mesterséges intelligencia kisméretű, energiatakarékos eszközökön, és mit ad a gépi tanulás az intelligens IoT-rendszereknek. Az előadás után pizza.
   en: Silicon Labs engineers showed with practical examples how artificial intelligence runs on small, low-power devices, and what machine learning adds to smart IoT systems. Pizza after the talk.
-image: ""
-image_alt: null
+image: ./embedded-ai-silicon-labs-2026.jpg
+image_alt:
+  hu: "Silicon Labs: Embedded AI – Amikor az eszközöd gondolkodik"
+  en: "Silicon Labs: Embedded AI – When your device thinks"
 album_link: ""
 draft: false

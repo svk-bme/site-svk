@@ -26,6 +26,8 @@ const endText = end
   : undefined
 // Registration is shown until the event starts (Google Forms' "Accepting responses" closes it earlier)
 const registration = form && start > buildTime
+// "Add to calendar" only until the event ends
+const upcoming = eventEnd(event) > buildTime
 ---
 
 <BaseLayout
@@ -70,9 +72,11 @@ const registration = form && start > buildTime
               {t(locale, 'events.external')} ↗
             </a>
           )}
-          <a class="button button--secondary" href={calendarPath(locale, event)} download={`${event.id}.ics`}>
-            {t(locale, 'events.addToCalendar')}
-          </a>
+          {upcoming && (
+            <a class="button button--secondary" href={calendarPath(locale, event)} download={`${event.id}.ics`}>
+              {t(locale, 'events.addToCalendar')}
+            </a>
+          )}
           {album_link && (
             <a class="button button--secondary" href={album_link} target="_blank" rel="noopener">
               {t(locale, 'events.album')} ↗

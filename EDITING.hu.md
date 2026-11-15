@@ -43,7 +43,7 @@ A dátumok és időpontok budapesti idő szerint értendők; a nyári és téli 
 - **Event website** (az esemény weboldala): az eseményoldalon egy gomb vezet ide (pl. a MeetUp oldalára). Az eseménykártyák mindig az eseményoldalt nyitják meg.
 - **Registration form** (jelentkezési űrlap): az esemény Google-űrlapjának linkje (lásd lent). Az esemény kezdetéig látszik az eseményoldalon.
 - Az események a befejezésük utáni reggelre maguktól átkerülnek a „Korábbi események” közé, évenként csoportosítva.
-- Minden eseményoldalon van **Hozzáadás a naptárhoz** link; a teljes program a `/events.ics` címen iratkozható fel.
+- A közelgő események oldalán van **Hozzáadás a naptárhoz** link; a teljes program a `/events.ics` címen iratkozható fel.
 
 ## Toborzási időszak
 

@@ -40,7 +40,7 @@ Dates and times are Budapest time; summer and winter time are handled automatica
 - **Event website:** a button on the event page leads there (e.g. the MeetUp site). Event tiles always open the event page.
 - **Registration form:** the link of the event's Google Form (see below). It shows on the event page until the event starts.
 - Events move from "upcoming" to "past events" by themselves the morning after they end. Past events are listed by year.
-- Every event page has an **Add to calendar** link; the whole programme can be subscribed to at `/events.ics`.
+- Upcoming events have an **Add to calendar** link on their page; the whole programme can be subscribed to at `/events.ics`.
 
 ## Recruitment season
 
