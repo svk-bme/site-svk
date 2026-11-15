@@ -1,0 +1,23 @@
+title:
+  hu: Morgan Stanley előadás, Low latency C-plus-plus
+start: 2019-04-24T18:30
+end: 2019-04-24T19:30
+place:
+  hu: Schönherz Kollégium, 102-es terem
+speaker: null
+description:
+  hu: |-
+    Technikák low-latency C++ környezetben
+
+    Érdekel, hogyan fejlesztünk többszálú környezetben microservice-
+    eket? Kíváncsi vagy néhány napjainkban használt C++fogásra? Ha
+    a válaszod igen, akkor gyere el előadásunkra, ahol C++
+    technikákkal találkozhatsz többszálú környezetben, illetve
+    megtudhatod mi a titka a válaszidők alacsonyan tartásának.
+
+    A részvétel ingyenes!
+image: ./morgan-stanley-eloadas-low-latency-c-plus-plus-2019.jpg
+image_alt:
+  hu: Morgan Stanley előadás, Low latency C-plus-plus – borítókép
+album_link: ""
+draft: false

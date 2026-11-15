@@ -5,7 +5,23 @@ start: 2017-10-24T19:00
 place:
   hu: Schönherz Zoltán Kollégium
 speaker: null
-description: null
+description:
+  hu: |-
+    VIII. SCHÖNHERZ MEETUP
+    IT Security, Deep web
+
+    A Schönherz Vállalati Kapcsolatok immáron 8. alkalommal rendezi meg a Schönherz Meetup néven ismert egész estés rendezvényt, amely lehetőséget nyújt a hallgatóknak bepillantani egy izgalmas témába négy előadáson keresztül. A szakmai előadók mellett Tóth Edu humorista felel majd a hangulatért, majd rendezvényünk egy kellemes borkóstolóval zárul.
+
+    http://meetup.sch.bme.hu/
+
+    LIVE STREAM:
+    http://bss.sch.bme.hu/meetup
+
+    PARTNEREINK:
+    Schönherz Kollégium
+    Simonyi Károly Szakkollégium
+    Dumaszínház
+    Bor Baráti Kör
 image: ./8-schoenherz-meetup.jpg
 image_alt:
   hu: "Fotó: 8. Schönherz MeetUp (SPOT)"

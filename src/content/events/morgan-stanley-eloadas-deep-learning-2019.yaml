@@ -1,0 +1,14 @@
+title:
+  hu: Morgan Stanley előadás - Deep learning
+start: 2019-09-18T19:00
+end: 2019-09-18T20:00
+place:
+  hu: Schönherz Kollégium, 102-es terem
+speaker: null
+description:
+  hu: Érdekel az adatfeldolgozás, hogy hogyan lehet egy adatsorból hasznos információt kinyerni? Kíváncsi vagy milyen technológia áll a beszédfelismerés, fordítóprogramok, gépi zeneírás mögött,  valamint, hogy pénzügyben ezt mire lehet felhasználni? Ha a válaszod igen, akkor gyere el előadásunkra, ahol megismerheted hogyan működnek a neurális hálók, azon belül is a long short-term memory network, és a gated recurrent unit.
+image: ./morgan-stanley-eloadas-deep-learning-2019.jpg
+image_alt:
+  hu: Morgan Stanley előadás - Deep learning – borítókép
+album_link: ""
+draft: false

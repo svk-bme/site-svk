@@ -1,11 +1,45 @@
 title:
-  hu: 11. Schönherz MeetUp – Játékfejlesztés
-  en: 11. Schönherz MeetUp – Game development
+  hu: 11. Schönherz MeetUp – Videójáték-fejlesztés
+  en: 11. Schönherz MeetUp – Video game development
 start: 2019-03-27T19:00
 place:
   hu: Schönherz Zoltán Kollégium
 speaker: null
-description: null
+description:
+  hu: |-
+    XI. SCHÖNHERZ MEETUP
+    Videójáték Fejlesztés
+
+    A Schönherz Vállalati Kapcsolatok immáron tizenegyedik alkalommal rendezi meg a Schönherz Meetup néven ismert egész estés rendezvényét, amely lehetőséget nyújt a hallgatóknak bepillantani egy izgalmas témába négy előadáson keresztül.
+
+    A prezentációk ezúttal a videójáték fejlesztés témakörét ölelik fel,különböző aspektusait mutatják be.
+    Az est hangulatáért Csenki Attila humorista felel, majd rendezvényünk egy kellemes borkóstolóval zárul.
+
+    Kapunyitás 18:30-kor.
+
+    Az este előadásai:
+
+    Tanulságok az indie játékfejlesztésben
+    Gulyás Gergely, Lead Programmer at Zadbox Entertainment
+
+    A konzolos játékfejlesztés sajátosságai, kihívásai
+    Szalóki Gábor, Technical Programmer at Kite Games
+
+    A pálya- és küldetéstervezés alapjai
+    Bartha Imre, Level Designer and Mission Scripter at Kite Games
+
+    Miben különbözik egy virtuális valóság játék fejlesztése a klasszikus játékfejlesztéstől?
+    Mészáros Kornél, Lead VR Developer at Xreal Games
+
+    Belépőjegy: Az előadások és a borkóstoló is ingyenes.
+
+    LIVE STREAM:
+    http://bss.sch.bme.hu/meetup
+
+    PARTNEREINK:
+    Schönherz Kollégium
+    Simonyi Károly Szakkollégium - Simonyi Károly Szakkollégium
+    Bor Baráti Kör - Bor Baráti Kör
 image: ./11-schoenherz-meetup.jpg
 image_alt:
   hu: "Fotó: 11. Schönherz MeetUp (SPOT)"

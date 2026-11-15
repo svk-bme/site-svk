@@ -1,11 +1,42 @@
 title:
   hu: 10. Schönherz MeetUp – Deep learning
   en: 10. Schönherz MeetUp – Deep learning
-start: 2018-10-24T19:00
+start: 2018-10-24T18:30
 place:
   hu: Schönherz Zoltán Kollégium
 speaker: null
-description: null
+description:
+  hu: |-
+    X. SCHÖNHERZ MEETUP
+    Deep learning
+
+    A Schönherz Vállalati Kapcsolatok immáron tizedik alkalommal rendezi meg a Schönherz Meetup néven ismert egész estés rendezvényét, amely lehetőséget nyújt a hallgatóknak bepillantani egy izgalmas témába négy előadáson keresztül.
+
+    A prezentációk ezúttal a deep learning témakörét ölelik fel, pontosan mi is az, és milyen szakmai felhasználása létezik napjainkban. Az est hangulatáért Beliczai Balázs humorista felel, majd rendezvényünk egy kellemes borkóstolóval zárul.
+
+    Az este előadásai:
+
+    Deep Learning - Mitől mély a tanulás?
+    -Nagy Péter Egyetemi docens, BME-TMIT
+
+    Generatív Mély Neuronhálók
+    -Dr.Csapó Tamás Gábor egyetemi docens, BME-TMIT
+
+    Mesterséges intelligencia és szimulált sejtek a rákkutatásban
+    -Szalay Kristóf Turbine ltd.
+
+    Miért Levi-Civita avagy gradiens alapú tanulás?
+    -Daróczy Bálint egyetemi docens, BME-SZIT
+
+    http://meetup.sch.bme.hu/
+
+    LIVE STREAM:
+    http://bss.sch.bme.hu/meetup
+
+    PARTNEREINK:
+    Schönherz Kollégium
+    Simonyi Károly Szakkollégium
+    Bor Baráti Kör
 image: ./10-schoenherz-meetup.jpg
 image_alt:
   hu: "Fotó: 10. Schönherz MeetUp (SPOT)"

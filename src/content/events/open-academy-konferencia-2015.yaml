@@ -1,0 +1,17 @@
+title:
+  hu: Open Academy Konferencia
+start: 2015-11-05T17:00
+end: 2015-11-05T21:00
+place:
+  hu: BME - Q épület
+speaker: null
+description:
+  hu: "G\byere el a BME Q épületébe november 5-én, csütörtökön 17:00-kor és frissítsd a tudásod! Természetesen ingyen és sallangok nélkül. Az Open Academy egy non-profit közösségi rendezvény, melynek célja a hazai informatikai kultúra és oktatás fejlesztése.
+
+
+    Az előadók között köszönthetjük az Alphasonic, a Balabit, a BME CrySyS Lab, a Cloudera, a Hortonworks és a Nextent Informatika szakembereit. Ami pedig az előadásokat illeti, a hagyományokhoz híven most ősszel is az üzemeltetés kerül fókuszba. A teljesség igénye nélkül hallhatsz a DevOps szemlélet mindennapi előnyeiről, annak eszközeiről PaaS környezetben (Packer, Terraform, OpenStack), biztonságos IT üzemeltetésről, továbbá modern biztonságtechnikai video rendszerekkel és a Hadooppal is találkozhatsz, több aspektusból.\b\b\b"
+image: ./open-academy-konferencia-2015.jpg
+image_alt:
+  hu: Open Academy Konferencia – borítókép
+album_link: ""
+draft: false

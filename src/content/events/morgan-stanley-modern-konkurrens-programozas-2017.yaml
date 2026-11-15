@@ -1,0 +1,18 @@
+title:
+  hu: Morgan Stanley - Modern konkurrens programozás
+start: 2017-10-12T18:30
+end: 2017-10-12T19:30
+place:
+  hu: Schönherz Kollégium, 102-es terem
+speaker: null
+description:
+  hu: |-
+    Egy olyan világban, ahol a párhuzamos programozás egyre nagyobb szerepet kap, rengeteg kérdés merülhet fel :
+    Tudsz-e mindent a szálakrol és a kölcsönös kizárásról?  Hogyan terveznél meg egy hatékony konkurrens adatszerkezetet?  Hasznos-e ismerni a C++ memória-modellt?  Tartsuk-e távol magunkat az std::atomic<>-tól?  Mit jelent az, hogy egy algoritmus lock-free?  Mire jó a tranzakcionális memória?
+
+    Ezekre a kérdésekre kaphatsz választ a csütörtöki előadáson, amely az egyik leghatékonyabb nyelven, C++-ban lesz.
+image: ./morgan-stanley-modern-konkurrens-programozas-2017.jpg
+image_alt:
+  hu: Morgan Stanley - Modern konkurrens programozás – borítókép
+album_link: ""
+draft: false

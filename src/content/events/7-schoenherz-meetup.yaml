@@ -5,7 +5,22 @@ start: 2017-03-14T19:00
 place:
   hu: Schönherz Zoltán Kollégium
 speaker: null
-description: null
+description:
+  hu: |-
+    VII. SCHÖNHERZ MEETUP
+    A startupok témakörében.
+
+    A Schönherz Vállalati Kapcsolatok immáron hetedik alkalommal rendezi meg a Schönherz Meetup néven ismert egész estés rendezvényét, amely lehetőséget nyújt a hallgatóknak bepillantani egy izgalmas témába négy előadáson keresztül.
+
+    A prezentációk ezúttal a startupok témakörét ölelik fel, és a kérdéskör szakmai, megvalósítási és társadalmi aspektusait állítják középpontba. Az est hangulatáért Csenki Attila humorista felel, majd rendezvényünk egy kellemes borkóstolóval zárul Sándor Zsolt borásszal. Részletek a honlapon.
+
+    http://meetup.sch.bme.hu/
+
+    PARTNEREINK:
+    Schönherz Zoltán Kollégium
+    Simonyi Károly Szakkollégium
+    Bor Baráti Kör
+    Dumaszínház
 image: ./7-schoenherz-meetup.jpg
 image_alt:
   hu: "Fotó: 7. Schönherz MeetUp (SPOT)"

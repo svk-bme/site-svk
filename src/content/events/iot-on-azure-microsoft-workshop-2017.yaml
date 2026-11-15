@@ -1,0 +1,31 @@
+title:
+  hu: IoT on Azure Microsoft Workshop
+start: 2017-03-02T18:00
+end: 2017-03-02T19:30
+place:
+  hu: Schönherz Zoltán Kollégium
+speaker: null
+description:
+  hu: |-
+    IoT on Azure Workshop presented by Microsoft
+
+    The workshop is going to be held on Thursday, 2 March 2017 at 18:00 in Schönherz Zoltán Dormitory, Hall 102
+
+    The seats for this event are limited to 15!
+
+    The workshop would focus on Microsoft IoT offerings in Azure and how these services could be connected to each other. During the workshop we will build a complex solution from the ground up in the cloud and connect that to a pre-built mobile application made with Xamarin. The application would collect data and push it up to the cloud, where we would do some analytics on the data, then push back the results to the application.
+
+    Participants would get the chance to learn about our graduate and intern program.
+
+    Requirements for the workshop:
+
+    - Basic knowledge of C# or Java
+    -  Laptop with up-to- date Windows 10 and Visual Studio 2015 installed
+    -  Valid email address to register for free Azure subscription
+
+    For more information, please contact:
+image: ./iot-on-azure-microsoft-workshop-2017.jpg
+image_alt:
+  hu: IoT on Azure Microsoft Workshop – borítókép
+album_link: ""
+draft: false

@@ -1,0 +1,19 @@
+title:
+  hu: "Morgan Stanley Előadás: Innovatív UI technológiák"
+start: 2017-09-14T18:30
+end: 2017-09-14T19:30
+place:
+  hu: Schönherz Zoltán Kollégium
+speaker: null
+description:
+  hu: |-
+    Morgan Stanley: Innovatív UI technológiák a bankvilág szolgálatában
+
+    A pénzpiacon, ahol akár tíz másodpercenként is változhatnak a piaci árak, egy ilyen meghatározó vállalat esetén dollármilliók állnak vagy buknak azon, hogy hosszútávon mennyi időt töltenek a felhasználók az egyes funkciók UI-on való megtalálásával.
+
+    Az előadás többek között a következő témákba nyújt betekintést: Milyen a Morgan Stanley-nél gyakornokként dolgozni? Hogyan lehet olyan UI keretrendszert fejleszteni, ami New Yorktól Hong Kongig minden megrendelői igénynek meg tud felelni? Milyen metrikákat kell figyelembe venni, hogy az elkészült funkciókat biztosan megtalálják a UI-on a felhasználók?
+image: ./morgan-stanley-eloadas-innovativ-ui-technologiak-2017.jpg
+image_alt:
+  hu: "Morgan Stanley Előadás: Innovatív UI technológiák – borítókép"
+album_link: ""
+draft: false

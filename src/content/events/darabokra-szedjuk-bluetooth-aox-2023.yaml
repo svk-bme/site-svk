@@ -1,0 +1,13 @@
+title:
+  hu: Darabokra Szedjük - Bluetooth Aox
+start: 2023-09-21T18:00
+end: ""
+place: null
+speaker: null
+description:
+  hu: Én azt mondom Bluetooth, Te azt mondod fejhallgató. De valójában a Bluetooth szabvány hatalmas változásokon ment át az utóbbi pár évben, és rengeteg helyen alkalmazzák, úgy mint fitness trackerekben, keréknyomásmérőkben, vezetéknélküli szenzorokban, vagy akár a Mekiben, hogy megtalálják melyik asztalhoz ültél le. Az előadásban összefoglaljuk, hogy pontosan mit is tud egy mai modern Bluetooth stack, mik a trendek és a legújabb fejlemények, hiszen ez egy élő szabvány, amit a mai napig fejlesztenek. A gyakorlati részben áttekintjük, hogyan épül fel egy korszerű, beltéri helymeghatározást végző beágyazott alkalmazás, és hogyan működik a hozzá kapcsolódó antenna mátrix.
+image: ./darabokra-szedjuk-bluetooth-aox-2023.jpg
+image_alt:
+  hu: Darabokra Szedjük - Bluetooth Aox – borítókép
+album_link: ""
+draft: false

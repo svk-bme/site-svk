@@ -1,0 +1,26 @@
+title:
+  hu: Silicon Labs szakmai est
+start: 2024-10-10T18:00
+end: ""
+place:
+  hu: Schönherz Zoltán Kollégium
+speaker: null
+description:
+  hu: |-
+    Érdekel az loT és az okos eszközök világa? Szeretnéd tudni, mi hajtja? Szívesen kísérleteznél egy olyan egyszerű platformon, mint az Arduino?
+
+    Gyere el a Arduino Matter Solution by Silicon Labs előadására
+
+    Megmutatjuk, hogyan lehet egy RGB LED szalagot vezérelni hangparanccsal, telefonról, és emellett szenzoradatokat Google Nest Hub-on keresztül Apple 4K TV-n megjeleníteni. Mindezt egy Arduino környezet és Matter library, valamint egy Silicon Labs fejlesztőkit felhasználásával.
+
+    Demó és beszélgetés a Silicon Labs fejlesztőmérnökeivel, élőben.
+
+    Október 10. (csütörtök) 18:00
+    Schönherz ENT
+
+    Az előadás végén pizzával várjuk az érdeklődőket!
+image: ./silicon-labs-szakmai-est-2024.jpg
+image_alt:
+  hu: Silicon Labs szakmai est – borítókép
+album_link: ""
+draft: false

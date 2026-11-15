@@ -1,0 +1,23 @@
+title:
+  hu: Miért pont C++? - Morgan Stanley Szakmai Előadás
+start: 2015-03-09T18:30
+end: ""
+place:
+  hu: Schönherz Kollégium, 102-es terem
+speaker: null
+description:
+  hu: |-
+    A Morgan Stanley Pricing and Risk csapat feladata az államkötvények és származtatott termékeknek a valósidejű árazása. Ebben a környezetben különösen fontos, hogy nagy mennyiségben, rövid válaszidővel számoljunk.
+    A következő szakmai előadásunkon a következő témákat fogjuk érinteni:
+    - Miért pont C++?
+    - C++ alacsony késleltetésű környezetben,
+    - Memóriakezelés,
+    - Többszálúság.
+
+    További lehetőségek diákoknak: Gyakornoki és frissdiplomás lehetőségeinket keresd itt:
+    www.morganstanley.com/careers/budapestcampus
+image: ./miert-pont-cpp-morgan-stanley-szakmai-eloadas-2015.jpg
+image_alt:
+  hu: Miért pont C++? - Morgan Stanley Szakmai Előadás – borítókép
+album_link: ""
+draft: false

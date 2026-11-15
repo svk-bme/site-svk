@@ -1,0 +1,26 @@
+title:
+  hu: Nokia szakmai est
+start: 2024-04-11T18:00
+end: 2024-04-11T20:00
+place:
+  hu: Schönherz Zoltán Kollégium
+speaker: null
+description:
+  hu: |-
+    Sziasztok!
+
+    A Nokia idén is egy érdekes előadással várja az érdeklődőket 2024. április 11-én 18 órától a Schönherz Kollégium 102-es termében. Ha érdekel a hálózatfejlesztés és a legújabb kulisszatitkok, akkor ne hagyjátok ki ezt a remek alkalmat!
+
+    Előadás címe: Modern technológiák a modern hálózatokban
+
+    Program:
+    - Rövid áttekintés: Áttekintjük a hálózatok történetét és fejlődését, hogy megértsük, honnan indultunk és merre tartunk.
+    - Programozható hálózatok: Felfedezzük az 5G hálózatok által nyújtott lehetőségeket és szerepüket a digitális forradalomban.
+    - Öngyógyító hálózatok: Megismerjük az "intent" alapú automatizáció által nyújtott újításokat és azokat a lehetőségeket, amiket kínálnak a hálózatok stabil működéséhez.
+    - Önvezérlő hálózatok: Elmerülünk a gépi tanulás és a mesterséges intelligencia világában, és megnézzük, hogyan változtatják meg a hálózatok működését és hatékonyságát.
+    - Mit várhatunk a 6G-től?: Tekintsünk a jövő lehetőségeibe, amiket a 6G technológia hozhat magával.
+image: ./nokia-szakmai-est-2024.jpg
+image_alt:
+  hu: Nokia szakmai est – borítókép
+album_link: ""
+draft: false

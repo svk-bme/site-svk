@@ -1,0 +1,40 @@
+title:
+  hu: Qualysoft - Spamszűrés, 5G, Geoadatok feldolgozása
+start: 2017-02-16T18:00
+end: 2017-02-16T20:00
+place: null
+speaker: null
+description:
+  hu: |-
+    Szakmai előadássorozatunk a Qualysoft előadásaival folytatódik, akik három érdekes témakörből készültek előadásokkal.
+
+    1. Az erő sötét és jó oldala, avagy hogyan spammelünk és hogyan szűrünk? (Bodnár Balázs és Szentgyörgyi Balázs)
+
+    A spamszűrés igazi örökzöld téma. Milliárdos károkozás és milliárdos üzlet. Egyszerre mutatjuk be mindkét oldalát: hogyan védekezünk ellene hatékonyan és hogyan tudjuk könnyedén kijátszani a spamszűrőket? Egyszerre leszünk Éjjeli őrség a falnál és a Mások a túloldalon és ezt a tudathasadt állapotot a mostani viszonyok aktuális kihívásaira reflektálva mutatjuk be, ennél több filmet – lehetőség szerint - nem belekeverve az előadásba.
+
+    Szentgyörgyi Balázs és Bodnár Balázs 2008 óta dolgozunk együtt kisebb kihagyásokkal, mindenféle permutációban. A spamszűrő alapjait Balázs fektette le, majd hosszú ideig nem tudta fejleszteni, nem úgy mint Balázs aki az egészet új, modern alapokra fektette és saját cégében hírlevélküldő aka spamküldő rendszert fejlesztett. Mindkét Balázs jelenleg a Qualysoft opensource- és hálózati architect-je, Balázs emellett csoportvezető, míg Balázs webshopok és egyéb SMB rendszerek fejlesztésével és üzemeltetésével is foglalkozik.
+
+    2. Mit fog tudni az 5G? (Tanos Áron)
+
+    Minek még egy "G"? Nyilván senki nem akar másodpercenként letölteni egy komplett DVD-t, ami az 5G hálózatokon elméletileg lehetséges volna. Amit videokonferenciázásban, szöveges üzenetkezelésben, képek küldözgetésében tudni lehet, azt meg már tudja a kedvenc social app-od is, ami tökéletesen működik 4G-n. Mégis vannak az 5G-nek olyan képességei, amik befolyásolni fogják a mindennapjainkat, és most nem a csapból is folyó IoT-re gondolunk, hanem hétköznapi ember számára hasznos szolgáltatásokról, amikről többet is megtudhatsz előadásunkból.
+
+    Áron több, mint három éve dolgozik a Qualysoft berkein belül, az Ericsson ötödik generációs mobilhálózattal kapcsolatos fejlesztésein. Mindennapos scrum master-i tevékenysége mellett részt vesz a fejlesztőközösség innovációs életében is, mások és saját ötleteinek végig vitelével. Rendszeresen ad elő konferenciákon, általában a top 3 legjobb előadó közé választják.
+
+    3. Geoadatok feldolgozása (Virágh Barnabás)
+
+    Egy vasúti project térképészeti nehézségei … avagy minden az adatokon múlik? Ami ideális világban egyszerű feladat, az a való életben érdekes kihívások elé állít. Egy project története, meglepetései, megoldásai.
+
+    Barnabás 2003 óta foglalkozik Microsoft .NET alapú programozással, 2010 óta Microsoft software architectként és csapatvezetőként. A bemutatott projecten is ebben a két szerepkörben működött, 7 fejlesztő napi munkáját optimalizálva, irányt mutatva a bizonytalan megrendelői, beszállítói, technológiai talajon.
+
+    Amennyiben bármelyik témakör iránt érdeklődsz, érdemes eljönni.
+
+    Időpont, helyszín:
+    2017 február 16., 18.00
+    Schönherz Zoltán Kollégium, 102-es terem
+
+    Az előadáson résztvevők között páros mozijegyet sorsolunk ki!
+image: ./qualysoft-spamszures-5g-geoadatok-feldolgozasa-2017.jpg
+image_alt:
+  hu: Qualysoft - Spamszűrés, 5G, Geoadatok feldolgozása – borítókép
+album_link: ""
+draft: false

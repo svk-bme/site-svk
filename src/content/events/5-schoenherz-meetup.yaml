@@ -1,11 +1,26 @@
 title:
-  hu: 5. Schönherz MeetUp
-  en: 5. Schönherz MeetUp
+  hu: 5. Schönherz MeetUp – Mesterséges intelligencia
+  en: 5. Schönherz MeetUp – Artificial intelligence
 start: 2016-03-08T19:00
 place:
   hu: Schönherz Zoltán Kollégium
 speaker: null
-description: null
+description:
+  hu: |-
+    V. SCHÖNHERZ MEETUP
+    A mesterséges intelligencia témakörében.
+
+    A Schönherz Vállalati Kapcsolatok immáron ötödik alkalommal rendezi meg a Schönherz Meetup néven ismert egész estés rendezvényét, amely lehetőséget nyújt a hallgatóknak bepillantani egy izgalmas témába négy előadáson keresztül.
+
+    A prezentációk ezúttal a mesterséges intelligencia témakörét ölelik fel, és a kérdéskör szakmai, kutatási, etikai és pszichológiai aspektusait állítják középpontba. Az est hangulatáért Mogács Dániel humorista felel, majd rendezvényünk egy kellemes borkóstolóval zárul.
+
+    http://meetup.sch.bme.hu/
+
+    PARTNEREINK:
+    Schönherz Zoltán Kollégium
+    Simonyi Károly Szakkollégium
+    Dumaszínház
+    Bor Baráti Kör
 image: ./5-schoenherz-meetup.jpg
 image_alt:
   hu: "Fotó: 5. Schönherz MeetUp (SPOT)"

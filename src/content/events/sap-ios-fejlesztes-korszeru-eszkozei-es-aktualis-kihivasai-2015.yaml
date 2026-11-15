@@ -1,0 +1,24 @@
+title:
+  hu: SAP - iOS fejlesztés korszerű eszközei és aktuális kihívásai
+start: 2015-11-30T18:30
+end: ""
+place:
+  hu: Schönherz Kollégium, 102-es terem
+speaker: null
+description:
+  hu: |-
+    iOS fejlesztés korszerű eszközei és aktuális kihívásai Objective-C és Swift programozási környezetben, egy SAP szoftverfejlesztő szemszögéből
+
+    A Swift és az Objective-C együttélése - egy SAP szoftverfejlesztő tapasztalatai
+
+    "Bizonyos programozási nyelvek jól megférnek egymás melett. Ennek gyakorlati és evolúciós okai vannak.
+    Az Apple által nemrég kifejlesztett Swift és a megbízható, jól bejáratott, de régi terheket magával cipelő Objective-C nászának is oka van. Ez az előadás az Objective-C és a Swift együttéléséről, annak szépségeiről és árnyoldalairól szól.”
+    “Objective-C is not going away, both Swift and Objective-C are first class citizens for doing Cocoa and Cocoa Touch development.” - Apple
+
+    Tovább a cég oldalára:
+    www.sap.hu
+image: ./sap-ios-fejlesztes-korszeru-eszkozei-es-aktualis-kihivasai-2015.jpg
+image_alt:
+  hu: SAP - iOS fejlesztés korszerű eszközei és aktuális kihívásai – borítókép
+album_link: ""
+draft: false

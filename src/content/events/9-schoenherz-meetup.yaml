@@ -1,11 +1,42 @@
 title:
-  hu: 9. Schönherz MeetUp – Blockchain
-  en: 9. Schönherz MeetUp – Blockchain
-start: 2018-03-27T19:00
+  hu: 9. Schönherz MeetUp – Blockchain-technológiák
+  en: 9. Schönherz MeetUp – Blockchain technologies
+start: 2018-03-27T18:30
 place:
   hu: Schönherz Zoltán Kollégium
 speaker: null
-description: null
+description:
+  hu: |-
+    IX. SCHÖNHERZ MEETUP
+    Blockchain technológiák
+
+    A Schönherz Vállalati Kapcsolatok immáron 9. alkalommal rendezi meg a Schönherz Meetup néven ismert egész estés rendezvényét, amely lehetőséget nyújt a hallgatóknak bepillantani egy izgalmas témába négy előadáson keresztül. A szakmai előadók mellett Mogács Dániel humorista felel majd a hangulatért, majd rendezvényünk a Posta borház kellemes borkóstolójával zárul.
+
+    Az előadások 19:00 - 21:00-ig tartanak, utána kötetlen beszélgetés a borkóstolóval egybekötve. Kapunyitás 18:30-kor lesz.
+
+    Az este előadásai:
+
+    Blockchain - alapfogalmak és rövid körkép
+    -  Kocsis Imre, BME MIT tanársegéd
+
+    Bitcoin scalibility: a végtelenbe és tovább?
+    -  József Dániel, Blockchain Competence Center
+
+    Kriptovaluták születése  és halála: criptovaluták és ICO-k a gyakorlatban
+    - Pataki Gábor, a CoinBroker.hu alapítója
+
+    Segwit, hard- és soft-forkok avagy a Bitcoin blocksize körüli melodráma
+    -  Seres István, Blockchain Competence Center
+
+    http://meetup.sch.bme.hu/
+
+    LIVE STREAM:
+    http://bss.sch.bme.hu/meetup
+
+    PARTNEREINK:
+    Schönherz Kollégium
+    Simonyi Károly Szakkollégium
+    Bor Baráti Kör
 image: ./9-schoenherz-meetup.jpg
 image_alt:
   hu: "Fotó: 9. Schönherz MeetUp (SPOT)"

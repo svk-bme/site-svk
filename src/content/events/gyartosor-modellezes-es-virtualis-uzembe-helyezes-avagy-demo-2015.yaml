@@ -1,0 +1,29 @@
+title:
+  hu: Gyártósor modellezés és virtuális üzembe helyezés - avagy demóterem látogatás az Accenture-nél
+start: 2015-04-28T16:00
+end: ""
+place:
+  hu: Budapest, Hauszmann Alajos utca 2.
+speaker: null
+description:
+  hu: |-
+    Az alábbi programmal, sok-sok érdekességgel és állófogadással várunk benneteket az Accenture és a Schönherz Vállalati Kapcsolatok által rendezett nyílt napra!
+
+    Program:
+
+    - A center alapjául szolgáló gyártósor modell bemutatása – SCADA rendszerrel
+    - Androidos tablet applikáció bemutatása - OPC szerver interfész egyszerű robotkar vezérléséhez, képfeldolgozó funkcióval
+    - Virtuális üzembe helyezés ismertetése, előnyei
+    - A rendszer fejlesztési lehetőségeinek ismertetése:
+    - PLC és SCADA programozás
+    - MES integráció
+    - Virtuális üzembe helyezés
+    - PLC generáló tool: szoftverfejlesztés
+    - 3D modellezés
+    - Mobil és desktop applikációk fejlesztése – QR kód, NFC
+    - Gyakornoki programunk keretén belül keresünk tehetséges, elhivatott kollégákat, akik a fejlesztési munkálatokba be tudnának kapcsolódni
+image: ./gyartosor-modellezes-es-virtualis-uzembe-helyezes-avagy-demo-2015.jpg
+image_alt:
+  hu: Gyártósor modellezés és virtuális üzembe helyezés - avagy demóterem látogatás az Accenture-nél – borítókép
+album_link: ""
+draft: false

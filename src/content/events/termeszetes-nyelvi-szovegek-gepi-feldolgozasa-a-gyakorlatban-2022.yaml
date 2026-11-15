@@ -1,0 +1,30 @@
+title:
+  hu: Természetes nyelvi szövegek gépi feldolgozása a gyakorlatban – BlackRock
+start: 2022-10-13T18:00
+end: ""
+place:
+  hu: Schönherz Kollégium, 102-es terem
+speaker: null
+description:
+  hu: |-
+    Elgondolkoztál valaha, miből találja ki a telefonod, milyen szót próbálsz éppen begépelni? Vagy honnan tudja a Google vagy a Bing, mire keresel? Mi alapján állítja össze az idővonaladat a Facebook? Hogyan érti meg Siri vagy Alexa, mit kérsz tőlük?
+
+    Mindezt az adattudomány (Data Science), a természetes nyelvek feldolgozása (NLP) és temérdek adat teszi lehetővé.
+
+    Előadásunkban rövid betekintést nyújtunk az adattudományokba és beszélünk a természetes nyelvek feldolgozásának alapjairól.
+    Bemutatjuk, munkánk során hogyan ismerünk fel e-mailes csalási kísérleteket automatikusan, vagy hogy azonosítjuk szöveges dokumentumok témáit és kulcsmondatait az adattudományok segítségével.
+
+    Az előadás után étel és ital mellett kötetlenül beszélgethetsz erről vagy más szakmai kérdésekről a BlackRock fejlesztőivel.
+
+    Előadók:
+
+    Frits Erika Rita
+    Data Scientist
+
+    Balogh Kitti
+    Data Scientist
+image: ./termeszetes-nyelvi-szovegek-gepi-feldolgozasa-a-gyakorlatban-2022.jpg
+image_alt:
+  hu: Természetes nyelvi szövegek gépi feldolgozása a gyakorlatban – borítókép
+album_link: ""
+draft: false

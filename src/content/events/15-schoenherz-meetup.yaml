@@ -1,13 +1,31 @@
 title:
   hu: 15. Schönherz MeetUp – Vállalkozók az informatika világában
   en: 15. Schönherz MeetUp – Entrepreneurs in IT
-start: 2021-11-17T19:00
+start: 2021-11-17T18:30
 place:
   hu: Schönherz Zoltán Kollégium
 speaker:
   hu: Borbély Viktor, Bánkuti Gábor, Colibri Charity
   en: Viktor Borbély, Gábor Bánkuti, Colibri Charity
-description: null
+description:
+  hu: |-
+    XV. SCHÖNHERZ MEETUP - "Vállalkozók az informatika világában"
+
+    A Schönherz Vállalati Kapcsolatok immáron tizenötödik alkalommal rendezi meg a Schönherz Meetup néven ismert egész estés rendezvényét, amely lehetőséget nyújt a hallgatóknak bepillantani egy izgalmas témába három előadáson keresztül.
+
+    ELŐADÓINK:
+
+    -> Bánkuti Gábor // freelancer
+
+    Tanulságok az 5 évvel ezelőtti önmagamnak. Egy nem szokványos mérnöki út története.
+
+    -> Borbély Viktor //  piackutató, előadó
+
+    Üzleti ötlet, koncepció és tervezés. Hogyan indíts el egy vállalkozást!
+
+    -> Adler John David // startupper, egyetemista // Colibri Charity
+
+    Vállalkozás indítása még egyetem alatt. Ha van egy ötleted ne habozz, csak valósítsd meg azt.
 image: ./15-schoenherz-meetup.jpg
 image_alt:
   hu: "Fotó: 15. Schönherz MeetUp (SPOT)"

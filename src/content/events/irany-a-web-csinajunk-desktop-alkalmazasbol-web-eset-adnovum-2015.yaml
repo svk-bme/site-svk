@@ -1,0 +1,30 @@
+title:
+  hu: Irány a Web! Csinájunk Desktop alkalmazásból Web-eset - AdNovum
+start: 2015-03-11T18:30
+end: ""
+place:
+  hu: Schönherz Kollégium, 102-es terem
+speaker: null
+description:
+  hu: |-
+    Tudd meg Te is hogyan készítenek Svájc egyik vezető szoftverfejlesztő cégénél Desktop alkalmazásokból Web-eseket.
+
+    1. Előadás:
+
+    Hibrid mobil alkalmazások nagyvállalati környezetben
+
+    A nagyvállalati versenyszférában piaci előnyre tehet szert az a cég, amelyik egy bizonyos terméket gyorsabban és szerteágazóbban képes elkészíteni a versenytársakhoz képest. A mobil platformra készülő applikációk esetén ezt a helyzeti előnyt úgynevezett Hibrid Mobil Appok elkészítésével képesek a cégek elérni. Előadásomban rövid betekintést nyújtok, ebben a szegmensbe ahol személyes tapasztalataimat osztom meg a hallgatósággal.
+
+    2. Előadás:
+
+    Irány a Web! Csináljunk Desktop alkalmazásból Web-eset
+
+    Manapság alapvető elvárás egy szoftvertől, hogy elérhető legyen mindenhol mindennel (pc, laptop, okostelefon stb.). Ezt egy hagyományos desktop alkalmazás nem tudja megvalósítani. Ugyanakkor egy meglévőnek a Web-es átírása komoly kihívást is jelenthet, különösen, ha az ügyfél ragaszkodik bizonyos dolgokhoz, mint például: gyors billentyűk. Az előadás célja egy ilyen projekt bemutatása, ahol egy VB6-ban megírt windows desktop alkalmazás lett átmozgatva a Web-re.
+
+    Tovább a cég oldalára:
+    www.adnovum.hu
+image: ./irany-a-web-csinajunk-desktop-alkalmazasbol-web-eset-adnovum-2015.jpg
+image_alt:
+  hu: Irány a Web! Csinájunk Desktop alkalmazásból Web-eset - AdNovum – borítókép
+album_link: ""
+draft: false
