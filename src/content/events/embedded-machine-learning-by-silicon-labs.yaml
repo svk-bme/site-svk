@@ -4,5 +4,8 @@ start: 2025-11-04T18:00
 place:
   hu: Schönherz Kollégium, 102-es terem
 image: ./embedded-machine-learning-by-silicon-labs.png
+image_alt:
+  hu: "Silicon Labs: Embedded Machine Learning – Az AI, ami nem a felhőben él"
+  en: "Silicon Labs: Embedded Machine Learning – AI that does not live in the cloud"
 external_link: https://docs.google.com/forms/d/e/1FAIpQLSfBzgLDK13HI6vtJoF_pYNcUUvjXS8GV7BGZ-Kgs81FLZLyVg/viewform
 draft: false
