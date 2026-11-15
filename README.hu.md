@@ -61,7 +61,7 @@ src/
   styles/               tokens.css (színek, betűk, térközök), base.css, components.css
 src/cms/config.yml      Sveltia CMS-beállítás (a content.config.ts tükre); az src/pages/admin/ adja a szerkesztő oldalát és beállítását
 integrations/           sveltia-cms.mjs: a szerkesztőt az oldal maga szolgálja ki (CDN nélkül)
-public/                 favicon, alkalmazásikonok és a linkelőnézeti kép; a scripts/make-icons.mjs készíti az SVK logófájljaiból
+public/                 favicon és alkalmazásikonok (a scripts/make-icons.mjs készíti az SVK logójából), og-image.jpg linkelőnézet
 tools/event-checkin/    Apps Script az eseményjelentkezési e-mailekhez és a QR-kódos beléptetéshez
 ```
 

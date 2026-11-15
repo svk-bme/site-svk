@@ -29,7 +29,7 @@ const pageTitle = title ? `${title} | ${settings.short_name}` : `${settings.shor
 const path = pathWithoutLocale(Astro.url.pathname)
 const alternates = locales.map((l) => ({ locale: l, href: new URL(localePath(l, path), Astro.site).href }))
 // Pages without their own image share the SVK link preview image (scripts/make-icons.mjs)
-const ogImage = new URL(image ?? withBase('/og-image.png'), Astro.site).href
+const ogImage = new URL(image ?? withBase('/og-image.jpg'), Astro.site).href
 const goatcounter = settings.analytics?.goatcounter || undefined
 ---
 
