@@ -6,25 +6,24 @@ The new SVK website, rebuilt from scratch: who we are, our events, registrations
 and year-round recruitment interest that turns into applications when recruitment opens.
 
 Previous version is in https://github.com/svk-bme/svk-web.
-
-Plan the implementation yourself after reading this, `service-forms/SPEC.md` and
-`svk/infra › ARCHITECTURE.md` / `CONVENTIONS.md`. Ask before deviating from a requirement.
-Items marked **Decision** are proposals the team can still change.
+Items marked **Decision** are choices the team made or can still change.
 
 ## Principles
 
-- **Static site** (Astro, static output). Everything visitors submit goes to `service-forms`
-  through one documented HTTP API; the site never talks to Google directly.
-- **Editors control everything seasonal and textual from the CMS:** whether recruitment is open,
-  which events take registrations, extra registration fields, email texts and when they are sent.
+- **Static site** (Astro, static output). No server code; the site runs from `dist/` alone.
+- **Forms are Google Forms** (**Decision**, on KSZK's advice, replacing the planned `service-forms`). The site shows
+  each form inside the page, but loads it from Google only when the visitor clicks "Show form", so nothing is sent to
+  Google before that. Answers go to a response sheet in SVK's Google account.
+- **Editors control everything seasonal and textual from the CMS** (Sveltia CMS at `/admin`, served from the site):
+  whether recruitment is open, page texts, events and their registration form links, form and privacy texts.
   No code change for any of these.
 - **Bilingual:** Hungarian default at `/`, English under `/en/`. Every content field and every
   interface text exists in both; an empty English field falls back to Hungarian.
-- **Features first, design second.** Use the current site's look in its simplest form. Structure the
-  styles so a design system (tokens for colours, type, spacing; a small component set) can be added later
-  without touching page logic.
-- **Privacy built in:** every form states its purpose and retention, links to the privacy page,
-  and asks for explicit consent where needed.
+- **Nothing hardcoded:** the site address and base path come from settings and the build environment.
+- **Features first, design second.** Use the current site's look in its simplest form. Styles use design tokens,
+  so a design system can replace them without touching page logic.
+- **Privacy built in:** every form states its purpose and retention and links to the privacy page, which lists every
+  form, the legal basis, where the data is stored, and the visitor's rights.
 
 ## Pages
 
@@ -33,11 +32,13 @@ Items marked **Decision** are proposals the team can still change.
 | Home | Who we are in short, upcoming events, call to action for students (join) and companies (contact) |
 | About | SVK, what we do, our team (members with roles and photos) |
 | For companies | What we offer partners, current partners (logos), contact form |
-| Events | Upcoming events first; past events as an archive (by year) |
-| Event detail | Description, date, place, speaker; "add to calendar" (.ics); registration form when enabled |
+| Events | Upcoming events first; past events as an archive by year (MeetUps, Simonyi Konferencias, Qpa supporter days since 2014) |
+| Event detail | Description, date, place, speaker, photo album link; "add to calendar" (.ics); buttons for registration and the event's own website |
 | Join us | Changes with the recruitment season (see below) |
-| Privacy | One page listing every form: what is collected, why, how long, how to withdraw |
-| Withdrawal result pages | "You have been removed", "Confirm your interest", etc., reached from email links |
+| Privacy | Every form: what is collected, why, how long, how to withdraw; legal basis, Google's role, the visitor's rights |
+
+Sections have fixed, language-independent anchors for sharing (`/join#interest`, `/join#apply`, `/companies#contact`,
+…; list in EDITING). Event tiles and calendar entries always lead to the site's own event page.
 
 ## Recruitment seasons
 
@@ -47,104 +48,76 @@ A single **site setting** (edited in the CMS) controls the Join page:
 | --- | --- |
 | `status` | `closed` or `open` |
 | `opens`, `closes` | Dates of the current or next season |
-| `expected_text` (hu/en) | Shown when closed, e.g. "Recruitment usually starts at the beginning of the year, around March." |
+| `expected_text` (hu/en) | Shown when closed, e.g. "Recruitment opens soon, in November!" |
 | `intro` (hu/en) | Shown when open: what we look for, the process, deadlines |
 
-- **Closed:** the Join page shows the expected-season text and the **interest form**.
-  After submitting: "We have saved your interest and will contact you when recruitment starts."
-- **Open:** the Join page shows the **application form** until `closes`. The interest form is hidden.
-- **When a season opens,** everyone on the interest list gets an email (see Emails) with a personal link
-  that opens the application form pre-filled with their earlier answers.
+- **Closed** (or open but outside the dates): the expected-season text and the **interest form**.
+- **Open**, between the dates: the **application form**.
+- `#interest` and `#apply` both lead to the form shown, so shared links survive the switch.
+- **When a season opens,** the team emails the interest list from the response sheet (**Decision:** manual, e.g.
+  a Gmail mail merge), with a way to be removed.
 - The site rebuilds daily, so date-based switches take effect without a manual change.
 
 ## Forms
 
-All forms are defined in content and handled by `service-forms`. Common fields are shared definitions,
-so they look and validate the same everywhere.
+Each form is a Google Form in SVK's Google account, with its response sheet in SVK's Drive. Its texts (purpose,
+what is collected, retention, withdrawal) and link are content (CMS → Forms; events have their own link).
+Setup rules for editors are in EDITING: required consent checkbox, "Anyone with the link", long `viewform` link.
 
-**Event registration** (per event, when the event's `registration.enabled` is on)
-
-- Default fields: name, email, studies (see below), consent checkbox.
-- **Extra fields per event,** added by editors in the CMS: label (hu/en), type (text, long text,
-  single choice, multiple choice, checkbox), options, required.
-- Optional `capacity`, `opens`, `closes`. States shown on the page: not yet open, open, full, closed, past.
-- No confirmation email at launch (**Decision**); the system must allow adding one later per event.
-
-**Interest (join us, when recruitment is closed)**
-
-- Name, email, studies, approximate active semesters left (including MSc), and a few optional quick
-  questions that help planning (editors can add choice questions in the CMS).
-- **Studies field:** single choice "BME VIK" or "Other", with a free-text answer when "Other".
-- **Decision: double opt-in.** After submitting, the person gets an email with a confirmation link;
-  only confirmed entries are kept and contacted. Unconfirmed entries are deleted after 7 days.
-  Why: we keep and email this list for a year or more, so we need proof the address is real and the person agreed.
-- **Retention:** until the end of the next recruitment season, but at least 12 months from signup.
-
-**Application (when recruitment is open)**
-
-- Name, email, studies, active semesters left, the quick questions, consent.
-- **Motivation letter:** text area (and optionally a PDF instead; **Decision:** text area plus optional PDF).
-- **Introduction presentation:** file upload, PPTX, PPT or PDF, up to 20 MB.
-- Pre-filled when opened from the personal link in the "recruitment is open" email.
-- **Retention (Decision, team to confirm):** until 3 months after the season closes; data of accepted
-  members moves to SVK's internal records.
-
-**Partner contact (For companies page, all year)**
-
-- Name, company, email, phone (optional), topic (partnership, event, sponsorship, other), message, consent.
-- Each submission is emailed to SVK's address and added to a sheet.
-- **Retention (Decision):** 2 years after the last contact.
-
-## Emails
-
-Sent by `service-forms` from SVK's Google Workspace. **All texts and timings are content edited in the CMS**,
-in both languages, with placeholders (`{name}`, `{event_title}`, `{date}`, `{link}`).
-
-| Email | Trigger | Editor controls |
+| Form | Where | Retention (**Decision**) |
 | --- | --- | --- |
-| Confirm your interest | Interest form submitted | Text |
-| Recruitment is open | Season status changes to open, or a date set by the editor | Text, send date, on/off; preview and a test send to a chosen address |
-| Event reminder | Set per event | On/off, how long before the event, text |
-| Event registration confirmation | Later, per event | On/off, text |
+| Event registration | Per event (Events → Registration form); shown until the event starts | 90 days after the event |
+| Interest | Join page while recruitment is closed | Until the end of the next season, at least 12 months from signup |
+| Application, with motivation letter and presentation upload | Join page while recruitment is open; uploads need a Google sign-in | 3 months after the season closes; accepted members move to SVK's internal records |
+| Partner contact | For companies; a team member gets Google's new-response email | 2 years after the last contact |
 
-Every email to the interest list contains a **one-click unsubscribe link** (no login, no extra confirmation).
-A separate "delete my data" link on the privacy page sends a confirmation email first, so nobody can remove someone else.
+Closing a form, capacity limits and deletion are done in Google Forms and the response sheet (EDITING explains
+how). Deletion requests go to the contact email; the team deletes from every response sheet.
+
+## Event registration emails and check-in
+
+`tools/event-checkin` is a Google Apps Script added to an event's response spreadsheet (setup in EDITING):
+
+- **Confirmation** on registration, with a random entry code (122 bits) as a QR code drawn in the script.
+  One email per address: a repeated registration gets none, so the form cannot flood someone's inbox.
+- **Reminder** a set number of hours before the event.
+- **Check-in page:** staff scan the QR with a phone camera; the page checks the person in only with the event's
+  staff PIN and records the time and who checked them in.
+- All texts and times are in the spreadsheet's `Beállítások` sheet, in Hungarian or English.
 
 ## Content model (CMS collections)
 
 | Collection | Main fields |
 | --- | --- |
-| `events` | title, slug, date/time, end, place, speaker, description, image, draft; `registration` {enabled, capacity, opens, closes, extra_fields[]}; `reminder` {enabled, before, subject, body}; `confirmation` {enabled, subject, body} |
+| `events` | title, start, end, place, speaker, description, image, album link, event website, registration form (hu/en link), draft |
 | `members` | name, role, order, photo, description, LinkedIn, active |
 | `partners` | name, logo, link, order, active |
-| `pages` | About, For companies, Privacy texts |
-| `settings` | recruitment season (above), contact email, social links |
-| `emails` | the interest and recruitment email templates |
-| `questions` | the optional quick questions for interest and application forms |
+| `pages` | Home, About, For companies, Events, Join us, Privacy texts |
+| `forms` | per form: title, purpose, what is collected, retention, withdrawal, Google Form link (hu/en) |
+| `settings` | recruitment season (above), contact email, address, social links, analytics |
 
-All text fields have Hungarian and English variants. The build emits a machine-readable file
-(for example `/forms.json`) describing every active form, its fields and email settings; `service-forms`
-reads it, so editors never touch the service.
+All text fields have Hungarian and English variants. Content is validated at build time (dates, links, Google Forms
+links), so a mistake fails the build instead of reaching the site.
 
 ## Phases
 
-| Phase | Scope | Needs |
+| Phase | Scope | State |
 | --- | --- | --- |
-| 1 | All pages, events with archive and .ics, Join page with the season switch (forms shown as "coming soon"), privacy page, both languages, content model | Static hosting only (GitHub Pages now, VM later) |
-| 2 | Event registration, partner contact, interest form with double opt-in, unsubscribe | `service-forms` running |
-| 3 | Applications with uploads, "recruitment is open" mailing with pre-filled links, event reminders | `service-forms` with email |
-| 4 | Design system: tokens and components, applied across the site | Features stable |
+| 1 | All pages, events with archive and .ics, Join page with the season switch, privacy page, both languages, CMS | Done |
+| 2 | Google Forms for every form, loaded on click; privacy page complete | Done; the application and partner contact forms still need creating in Google Forms |
+| 3 | Registration confirmation, reminder and QR check-in (Apps Script); automatic Facebook/Instagram posts for events | Check-in done; posts waiting for Meta API access |
+| 4 | Design system: tokens and components, applied across the site | Not started |
 
 ## Done when (per phase)
 
 - Every page works in both languages, on mobile, with keyboard only, and passes an accessibility check.
-- `npm run build` gives static output with no server code; the site runs from `dist/` alone.
-- Every form shows its purpose, retention and a privacy link; every list email has a working unsubscribe link.
-- README (EN + HU) and EDITING (EN + HU) cover the new content types and seasonal switches.
+- `npm run build` gives static output with no server code; `npm test` passes.
+- Every form shows its purpose, retention and a privacy link.
+- README (EN + HU) and EDITING (EN + HU) cover the content types, forms and seasonal switches.
 
 ## Open questions
 
-- Who receives partner-contact emails and application notifications (one address or several)?
-- Retention for applications and partner contacts: confirm the proposals above.
-- Which quick questions to start with?
-- Who reviews applications, and should they read them in Sheets/Drive or through a protected export?
+- Is SVK's Google account a Google Workspace account (then Google can be named as processor, and the daily email
+  limit is 1,500 instead of about 100)?
+- Infra: `service-forms` is no longer used by this site. Does `site-meetup` need it, or can infra stop deploying it?
+- Facebook events cannot be created through Meta's API; posts can. Who presses "post" for an event?

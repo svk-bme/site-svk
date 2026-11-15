@@ -8,7 +8,7 @@ A Schönherz Vállalati Kapcsolatok (SVK) weboldala: statikus Astro-oldal magyar
 A nyilvános címe az `src/content/settings/site.yaml` `site_url` mezője; a kód sehol máshol nem feltételez címet vagy gyökérútvonalat.
 
 Az SVK webes infrastruktúrájának része. Konvenciók: [svk/infra › CONVENTIONS.hu.md](https://git.sch.bme.hu/svk/infra/-/blob/main/CONVENTIONS.hu.md).
-Specifikáció: [SPEC.md](SPEC.md) (saját űrlapszolgáltatással számolt; az oldal ehelyett Google Formsot használ, lásd lent).
+Specifikáció: [SPEC.md](SPEC.md). Beléptető szkript az eseményekhez: [tools/event-checkin](tools/event-checkin).
 
 ## Mire való
 

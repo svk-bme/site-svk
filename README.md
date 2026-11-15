@@ -6,7 +6,7 @@ The website of Schönherz Vállalati Kapcsolatok (SVK): a static Astro site in H
 Its public address is `site_url` in `src/content/settings/site.yaml`; nothing else in the code assumes an address or a root path.
 
 Part of SVK's web infrastructure. Conventions: [svk/infra › CONVENTIONS.md](https://git.sch.bme.hu/svk/infra/-/blob/main/CONVENTIONS.md).
-Specification: [SPEC.md](SPEC.md) (written for an own form service; the site now uses Google Forms instead, see below).
+Specification: [SPEC.md](SPEC.md). Event check-in script: [tools/event-checkin](tools/event-checkin).
 
 ## What it does
 
