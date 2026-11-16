@@ -454,16 +454,6 @@
 
 /* ---------------------------------------------------------------- forms (Google Forms) */
 
-.form__about {
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-  max-width: var(--prose-width);
-}
-
-.form__about > * {
-  margin-bottom: var(--space-2);
-}
-
 .field__help {
   font-size: var(--text-sm);
   color: var(--color-text-muted);

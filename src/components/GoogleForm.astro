@@ -1,9 +1,10 @@
 ---
-import { localePath, md, mdInline, t, tr, type Locale, type Localized } from '~/i18n'
+import { localePath, t, tr, type Locale, type Localized } from '~/i18n'
 import { getFormTexts, settings } from '~/lib/site'
 
-// A Google Form with its purpose, retention and a privacy link. Nothing from Google loads until the
-// visitor clicks the button (Google may set cookies then); without JavaScript there is a plain link.
+// A Google Form with one line on how it loads and a link to its section on the privacy page, which holds
+// the purpose, retention and everything else. Nothing from Google loads until the visitor clicks the button;
+// without JavaScript there is a plain link.
 
 interface Props {
   locale: Locale
@@ -20,6 +21,7 @@ const content = await getFormTexts(kind)
 const link = tr(locale, url ?? content.form)
 const email = settings.contact.email
 const emailLink = `<a href="mailto:${email}">${email}</a>`
+const privacy = localePath(locale, `/privacy#${kind}`)
 
 /** The embeddable form: same address with embedded=true. */
 function embedUrl(viewUrl: string): string {
@@ -31,18 +33,12 @@ function embedUrl(viewUrl: string): string {
 ---
 
 <div class="stack">
-  <div class="form__about">
-    <Fragment set:html={md(locale, content.purpose)} />
-    <p>
-      <strong>{t(locale, 'forms.retention')}</strong>{' '}
-      <Fragment set:html={mdInline(locale, content.retention)} />{' '}
-      <a href={localePath(locale, '/privacy')}>{t(locale, 'forms.privacyLink')}</a>
-    </p>
-  </div>
   {
     link ? (
       <div class="google-form" data-google-form={embedUrl(link)} data-title={title ?? tr(locale, content.title)}>
-        <p class="field__help" data-google-notice>{t(locale, 'forms.googleNotice')}</p>
+        <p class="field__help">
+          {t(locale, 'forms.notice')} <a href={privacy}>{t(locale, 'forms.privacyLink')}</a>
+        </p>
         <p class="links">
           <button class="button" type="button">
             {t(locale, 'forms.show')}
@@ -66,7 +62,6 @@ function embedUrl(viewUrl: string): string {
       frame.src = box.dataset.googleForm!
       frame.title = box.dataset.title!
       frame.className = 'google-form__frame'
-      box.querySelector('[data-google-notice]')?.remove()
       button.remove()
       box.prepend(frame)
       // Fill the view with the form, below the sticky header (scroll-padding-top on html)

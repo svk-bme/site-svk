@@ -71,10 +71,9 @@
   "forms": {
     "show": "Show form",
     "openNewTab": "Open in a new tab",
-    "googleNotice": "This form is provided by Google Forms and loads only when you click the button. Google then receives your IP address and may set cookies.",
+    "notice": "The form loads from Google Forms only when you click the button.",
     "unavailable": "This form is not available right now. Until then, write to us: {email}",
-    "retention": "Retention:",
-    "privacyLink": "Details in our privacy notice"
+    "privacyLink": "How we handle your data"
   },
   "notFound": {
     "title": "Page not found",

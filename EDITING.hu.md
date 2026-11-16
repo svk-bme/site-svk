@@ -63,8 +63,9 @@ kérhetik a listáról való törlésüket, és töröld, aki kéri.
 
 ## Űrlapok (Google Forms)
 
-Az űrlapok Google-űrlapok. Az oldal mindegyik mellett kiírja a célját, az adatmegőrzést és egy linket az Adatkezelés
-oldalra; maga az űrlap csak akkor töltődik be, ha a látogató az **Űrlap megjelenítése** gombra kattint.
+Az űrlapok Google-űrlapok. Az oldal mindegyik mellett csak egy sort és egy linket mutat az Adatkezelés oldal adott
+űrlapról szóló részére; ott szerepel a célja, a kért adatok, az adatmegőrzés és a visszavonás módja (a **Forms** szövegeiből).
+Maga az űrlap csak akkor töltődik be, ha a látogató az **Űrlap megjelenítése** gombra kattint.
 
 | Űrlap | Hová kerül a linkje |
 | --- | --- |

@@ -16,7 +16,7 @@ All content lives in this repo as files and is edited through the browser (see [
 The build output is plain static files, so the site runs on any static host.
 
 **Forms are Google Forms** in SVK's Google account; the site has no backend. Editors paste each form's link into the CMS
-(Hungarian and optional English). `src/components/GoogleForm.astro` shows the form's purpose, retention and privacy link,
+(Hungarian and optional English). `src/components/GoogleForm.astro` shows one line linking to the form's section on the privacy page,
 and loads Google's iframe only when the visitor clicks **Show form**, so the site sets no cookies and loads nothing from
 Google until then. Creating forms, closing them, sending the recruitment email and deleting data on time are done by
 the team in Google; see [EDITING.md](EDITING.md#forms-google-forms).

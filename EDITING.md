@@ -60,8 +60,9 @@ be removed from the list, and remove anyone who asks.
 
 ## Forms (Google Forms)
 
-The forms are Google Forms. The site shows each one with its purpose, retention and a link to the Privacy page;
-the form itself loads only when the visitor clicks **Show form**.
+The forms are Google Forms. Next to each form the site shows only one line and a link to that form's section on the
+Privacy page, where its purpose, what it collects, retention and withdrawal are listed (from the **Forms** texts).
+The form itself loads only when the visitor clicks **Show form**.
 
 | Form | Where its link goes |
 | --- | --- |

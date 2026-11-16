@@ -71,10 +71,9 @@
   "forms": {
     "show": "Űrlap megjelenítése",
     "openNewTab": "Megnyitás új lapon",
-    "googleNotice": "Az űrlapot a Google Forms szolgáltatja, és csak a gombra kattintva töltődik be. Ekkor a Google megkapja az IP-címedet, és sütiket helyezhet el.",
+    "notice": "Az űrlap csak akkor töltődik be a Google Formsból, ha a gombra kattintasz.",
     "unavailable": "Az űrlap jelenleg nem elérhető. Addig írj nekünk: {email}",
-    "retention": "Adatmegőrzés:",
-    "privacyLink": "Részletek az adatkezelési tájékoztatóban"
+    "privacyLink": "Hogyan kezeljük az adataidat"
   },
   "notFound": {
     "title": "Az oldal nem található",

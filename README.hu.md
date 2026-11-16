@@ -19,8 +19,8 @@ vagy jelentkezési űrlapot mutat. Minden tartalom fájlként ebben a repóban v
 tárhelyen fut.
 
 **Az űrlapok Google-űrlapok** az SVK Google-fiókjában; az oldalnak nincs backendje. A szerkesztők az űrlapok linkjét a CMS-be
-illesztik (magyarul és opcionálisan angolul). A `src/components/GoogleForm.astro` kiírja az űrlap célját, az adatmegőrzést és az
-adatkezelési linket, a Google iframe-jét pedig csak akkor tölti be, ha a látogató az **Űrlap megjelenítése** gombra kattint, így addig
+illesztik (magyarul és opcionálisan angolul). A `src/components/GoogleForm.astro` egy sort és egy linket mutat az Adatkezelés
+oldal adott űrlapról szóló részére, a Google iframe-jét pedig csak akkor tölti be, ha a látogató az **Űrlap megjelenítése** gombra kattint, így addig
 az oldal nem tesz sütit és semmit nem tölt be a Google-tól. Az űrlapok elkészítése, lezárása, a toborzási levél kiküldése és az adatok
 időben történő törlése a csapat feladata a Google-ben; lásd [EDITING.hu.md](EDITING.hu.md#űrlapok-google-forms).
 

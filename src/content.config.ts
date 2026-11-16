@@ -156,7 +156,7 @@ const pages = defineCollection({
 })
 
 /**
- * Each form's texts, shown with the form and on the privacy page, and its Google Forms link.
+ * Each form's texts for the privacy page (the form itself links to its section there), and its Google Forms link.
  * Event registration texts apply to every event; each event has its own form link.
  */
 const forms = defineCollection({
@@ -165,11 +165,11 @@ const forms = defineCollection({
     title: text,
     // Position on the privacy page; lower comes first
     order: z.number().default(100),
-    // Shown above the form and on the privacy page (Markdown)
+    // Privacy page (Markdown)
     purpose: text,
     // What is collected, for the privacy page (Markdown)
     collected: optionalText,
-    // Retention in words, shown with the form and on the privacy page
+    // Retention in words, for the privacy page
     retention: text,
     // How to withdraw consent or have the data deleted (Markdown)
     withdraw: optionalText,

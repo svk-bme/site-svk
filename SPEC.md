@@ -22,8 +22,9 @@ Items marked **Decision** are choices the team made or can still change.
 - **Nothing hardcoded:** the site address and base path come from settings and the build environment.
 - **Features first, design second.** Use the current site's look in its simplest form. Styles use design tokens,
   so a design system can replace them without touching page logic.
-- **Privacy built in:** every form states its purpose and retention and links to the privacy page, which lists every
-  form, the legal basis, where the data is stored, and the visitor's rights.
+- **Privacy built in, in one place:** each form has one line and a link to its section on the privacy page, which
+  lists every form (purpose, what is collected, retention, withdrawal), the legal basis, where the data is stored,
+  what Google receives, and the visitor's rights.
 
 ## Pages
 
@@ -112,7 +113,7 @@ links), so a mistake fails the build instead of reaching the site.
 
 - Every page works in both languages, on mobile, with keyboard only, and passes an accessibility check.
 - `npm run build` gives static output with no server code; `npm test` passes.
-- Every form shows its purpose, retention and a privacy link.
+- Every form links to its section on the privacy page.
 - README (EN + HU) and EDITING (EN + HU) cover the content types, forms and seasonal switches.
 
 ## Open questions
