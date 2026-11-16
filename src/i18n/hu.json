@@ -71,7 +71,7 @@
   "forms": {
     "show": "Űrlap megjelenítése",
     "openNewTab": "Megnyitás új lapon",
-    "notice": "Az űrlap csak akkor töltődik be a Google Formsból, ha a gombra kattintasz.",
+    "notice": "A Google Űrlap csak akkor töltődik be, ha a gombra kattintasz.",
     "unavailable": "Az űrlap jelenleg nem elérhető. Addig írj nekünk: {email}",
     "privacyLink": "Hogyan kezeljük az adataidat"
   },

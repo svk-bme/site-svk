@@ -31,8 +31,8 @@ recruitment:
   opens: ''
   closes: ''
   expected_text:
-    hu: Hamarosan, novemberben indul a toborzás! Hagyd meg az elérhetőséged, és szólunk, amint jelentkezhetsz.
-    en: Recruitment opens soon, in November! Leave your details and we will let you know as soon as you can apply.
+    hu: Hamarosan, novemberben indul a toborzás! Érdeklődésedet az alábbi űrlapon tudod jelezni, és szólunk, amint jelentkezhetsz.
+    en: Recruitment opens soon, in November! You can let us know you are interested with the form below, and we will tell you as soon as you can apply.
   intro:
     hu: |-
       Elindult a toborzás! Olyan hallgatókat keresünk, akiket érdekel a cégek és a hallgatók közötti kapcsolat építése.

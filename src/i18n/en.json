@@ -71,7 +71,7 @@
   "forms": {
     "show": "Show form",
     "openNewTab": "Open in a new tab",
-    "notice": "The form loads from Google Forms only when you click the button.",
+    "notice": "The Google Form loads only when you click the button.",
     "unavailable": "This form is not available right now. Until then, write to us: {email}",
     "privacyLink": "How we handle your data"
   },

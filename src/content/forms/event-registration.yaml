@@ -3,11 +3,11 @@ title:
   en: Event registration
 order: 1
 purpose:
-  hu: Az adataidat az esemény megszervezéséhez, a résztvevők nyilvántartásához és a belépéshez használjuk. A jelentkezés után e-mailben küldünk egy QR-kódot, amelyet a bejáratnál beolvasunk, és az esemény előtt egy emlékeztetőt.
-  en: We use your data to organize the event, keep track of attendees and check you in. After you register, we email you a QR code that we scan at the entrance, and a reminder before the event.
+  hu: Az adataidat az esemény megszervezéséhez, a résztvevők nyilvántartásához és a jelentkezéssel kapcsolatos e-mailekhez (például visszaigazolás, emlékeztető, belépési kód) használjuk.
+  en: We use your data to organize the event, keep track of attendees, and send emails about your registration (for example a confirmation, a reminder or an entry code).
 collected:
-  hu: Név, e-mail-cím, tanulmányok, az adott eseménynél feltett további kérdésekre adott válaszok, a belépési kódod, valamint hogy megérkeztél-e és mikor.
-  en: Name, email address, studies, your answers to any extra questions asked for the event, your entry code, and whether and when you arrived.
+  hu: Név, e-mail-cím, tanulmányok és az adott eseménynél feltett további kérdésekre adott válaszok. Egyes eseményeknél a megjelenésedet is rögzítjük.
+  en: Name, email address, studies, and your answers to any extra questions asked for the event. At some events we also record that you attended.
 retention:
   hu: Az esemény után 90 napig őrizzük, utána töröljük.
   en: Kept for 90 days after the event, then deleted.
